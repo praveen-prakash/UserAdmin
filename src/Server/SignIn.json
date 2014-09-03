@@ -2,5 +2,5 @@
 	"$":{"Namespace":"UserAdminApp.Server"},
 	"Uri" : "",
 	"Html" : "",
-	"RedirectUrl" : "/signinuser"
+	"RedirectUrl" : "/launcher/workspace/signinapp/signinuser"
 }
