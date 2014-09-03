@@ -58,7 +58,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>third_party\Concepts.Ring4.dll</HintPath>
     </Reference>
-    <Reference Include="SignInApp">
+    <Reference Include="SignInApp, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SignInApp\src\bin\Debug\SignInApp.exe</HintPath>
     </Reference>
     <Reference Include="System" />

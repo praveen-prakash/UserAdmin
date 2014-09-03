@@ -44,7 +44,7 @@
             <template repeat="{{item in Items}}">
                 <tr>
                     <td>
-                        <a href="/launcher/workspace/admin/systemuser/{{item.Username}}"> {{item.Username}}</a>
+                        <a href="/launcher/workspace/admin/systemusers/{{item.Username}}"> {{item.Username}}</a>
                     </td>
                     <td>{{item.Password}}</td>
                     <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>

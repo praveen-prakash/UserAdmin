@@ -52,7 +52,10 @@ namespace UserAdminApp.Server {
                 if (!Admin.IsAuthorized()) {
                     var signinPage = new SignIn()
                     {
-                        Html = "/useradmin-signin.html"
+                        // TODO: encode the query value to base64 
+
+                        Html = "/useradmin-signin.html",
+                        RedirectUrl = "/launcher/workspace/signinapp/signinuser?"+"originurl"+"="+"/launcher/workspace/admin/systemusers"
                     };
                     return signinPage;
                     // Response response = new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.Redirect };
@@ -67,12 +70,18 @@ namespace UserAdminApp.Server {
                 return page;
             });
 
-            Starcounter.Handle.GET("/admin/systemuser/{?}", (Request request, string userid) => {
+            Starcounter.Handle.GET("/admin/systemusers/{?}", (Request request, string userid) => {
 
                 if (!Admin.IsAuthorized()) {
-                    Response response = new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.Redirect };
-                    response["Location"] = "/";
-                    return response;
+                    var signinPage = new SignIn() {
+                        Html = "/useradmin-signin.html",
+                        RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + "originurl" + "=" + "/launcher/workspace/admin/systemusers/"+ userid
+                    };
+                    return signinPage;
+
+                    //Response response = new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.Redirect };
+                    //response["Location"] = "/";
+                    //return response;
                 }
 
                 Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM SystemUser o WHERE Username=?", userid).First;
