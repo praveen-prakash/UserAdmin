@@ -1,20 +1,9 @@
-
-<template bind="{{UserAdministrationApp}}">
-
-
+<template bind="{{UserAdminApp}}">
    <li>
-
        <template if="{{IsSignedIn}}">
             <a href="/launcher/workspace/admin/systemusers">
                 <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Users</span></div>					
             </a>
        </template>
-
- <!--      <template if="{{!IsSignedIn}}">
-           <h3>NOT SIGNED IN</h3>
-       </template>-->
-
     </li>
-
-
 </template>

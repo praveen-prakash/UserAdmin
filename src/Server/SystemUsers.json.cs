@@ -3,7 +3,7 @@ using Concepts.Ring3;
 using Starcounter;
 using System.Collections;
 
-namespace UserAdministrationApp.Server {
+namespace UserAdminApp.Server {
 
     [SystemUsers_json]
     partial class SystemUsers : Json {

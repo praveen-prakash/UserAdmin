@@ -1,6 +1,6 @@
 using Starcounter;
 
-namespace UserAdministrationApp.Server {
+namespace UserAdminApp.Server {
 
     [SystemUserMenu_json]
     partial class SystemUserMenu : Json {

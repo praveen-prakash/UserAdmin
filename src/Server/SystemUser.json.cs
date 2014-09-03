@@ -1,6 +1,6 @@
 using Starcounter;
 
-namespace UserAdministrationApp.Server {
+namespace UserAdminApp.Server {
     partial class SystemUser : Json {
 
         void Handle(Input.Delete action) {

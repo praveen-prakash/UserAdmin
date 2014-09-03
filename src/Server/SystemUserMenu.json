@@ -1,5 +1,5 @@
 {
-	"$":{"Namespace":"UserAdministrationApp.Server"},
+	"$":{"Namespace":"UserAdminApp.Server"},
 	"Uri" : "",
 	"Html" : "",
 	"IsSignedIn" : false

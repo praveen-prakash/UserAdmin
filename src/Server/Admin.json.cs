@@ -1,8 +1,7 @@
 using Concepts.Ring3;
-using SignInApp.Database;
 using Starcounter;
 
-namespace UserAdministrationApp.Server {
+namespace UserAdminApp.Server {
 
     [Admin_json]
     partial class Admin : Json {
@@ -92,12 +91,8 @@ namespace UserAdministrationApp.Server {
 
         static private bool IsAuthorized() {
 
-
-            SystemUserSession userSession = Db.SQL<SystemUserSession>("SELECT o FROM SystemUserSession o WHERE o.SessionIdString=?", Session.Current.SessionIdString).First;
-
+            SignInApp.Database.SystemUserSession userSession = Db.SQL<SignInApp.Database.SystemUserSession>("SELECT o FROM SignInApp.Database.SystemUserSession o WHERE o.SessionIdString=?", Session.Current.SessionIdString).First;
             return userSession != null;
-
-            //return SignedInUserSession.GetSignedInUserSession(Session.Current.SessionIdString) != null;
         }
 
         #region Base
