@@ -1,0 +1,15 @@
+{
+	"$":{"Namespace":"UserAdministrationApp.Server"},
+	"Uri" : "",
+	"Html" : "",
+	"$Items" : { "Bind":"Users" },
+	"Items": [{
+		"Username":"", 
+		"Password": "",
+		"Delete$":null
+	}],
+
+	"Username$" : "",
+	"Password$": "",
+	"AddSystemUser$" : null
+}

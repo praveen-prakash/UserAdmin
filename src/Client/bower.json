@@ -1,0 +1,17 @@
+{
+  "name": "UserAdminApp",
+  "version": "0.0.0",
+  "authors": [
+    "andwah <anders.wahlgren@societyobjects.com>"
+  ],
+  "description": "User Administration Application",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ]
+}

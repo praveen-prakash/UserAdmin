@@ -1,0 +1,69 @@
+<template bind="{{UserAdministrationApp}}">
+
+    <Style>
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size: 11px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 0px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+    </Style>
+
+
+    <H1>SYSTEM USERS</H1>
+
+    <table class="gridtable" >
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <template repeat="{{item in Items}}">
+                <tr>
+                    <td>
+                        <a href="/launcher/workspace/admin/systemuser/{{item.Username}}"> {{item.Username}}</a>
+                    </td>
+                    <td>{{item.Password}}</td>
+                    <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>
+                </tr>
+            </template>
+
+        </tbody>
+
+    </table>
+    
+    <div class="launcher-labeled-input">
+        <input id="Username$" type='text' value='{{ Username$ }}' placeholder='<Username>'>
+        <label for="Username$">Username</label>
+    </div>
+    <div class="launcher-labeled-input">
+        <input id="Password$" type='text' value='{{ Password$ }}' placeholder='<Password>'>
+        <label for="Password$">Password</label>
+    </div>
+
+    <button  class="launcher-button" style="background-color:#11653B" onclick="getModel(this).AddSystemUser$ = null">Add</button>
+
+</template>

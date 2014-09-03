@@ -1,0 +1,9 @@
+{
+	"$":{"Namespace":"UserAdministrationApp.Server"},
+	"Uri" : "",
+	"Html" : "",
+	"Username$":"", 
+	"Password$": "",
+	"Delete$":null,
+	"Save$":null
+}

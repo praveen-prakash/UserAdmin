@@ -1,0 +1,17 @@
+<template bind="{{UserAdministrationApp}}">
+
+    <H1>{{FullName}}</H1>
+
+    <div class="launcher-labeled-input">
+        <input id="Username$" type='text' value='{{ Username$ }}' placeholder='<Username>'>
+        <label for="Username$">Username</label>
+    </div>
+    <div class="launcher-labeled-input">
+        <input id="Password$" type='text' value='{{ Password$ }}' placeholder='<Password>'>
+        <label for="Password$">Password</label>
+    </div>
+
+    <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Delete$ = null">Delete</button>
+
+</template>
