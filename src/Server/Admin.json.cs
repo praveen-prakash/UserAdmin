@@ -50,9 +50,14 @@ namespace UserAdminApp.Server {
             Starcounter.Handle.GET("/admin/systemusers", () => {
 
                 if (!Admin.IsAuthorized()) {
-                    Response response = new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.Redirect };
-                    response["Location"] = "/";
-                    return response;
+                    var signinPage = new SignIn()
+                    {
+                        Html = "/useradmin-signin.html"
+                    };
+                    return signinPage;
+                    // Response response = new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.Redirect };
+                    // response["Location"] = "/";
+                    // return response;
                 }
 
                 SystemUsers page = new SystemUsers() {
