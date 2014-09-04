@@ -1,5 +1,6 @@
 using Concepts.Ring3;
 using Starcounter;
+using System.Web;
 
 namespace UserAdminApp.Server {
 
@@ -10,9 +11,11 @@ namespace UserAdminApp.Server {
 
             HandlerOptions opt = new HandlerOptions() { HandlerLevel = 0 };
 
+            #region Sign in/out event
             // User signed in event
             Starcounter.Handle.POST("/__db/__default/societyobjects/systemusersession", (Request request) => {
 
+                // Hide or show menu choice 
                 Admin admin = Session.Current.Data as Admin;
                 SystemUserMenu menu = admin.Menu as SystemUserMenu;
                 menu.IsSignedIn = Admin.IsAuthorized();
@@ -23,6 +26,7 @@ namespace UserAdminApp.Server {
             // User signed out event
             Starcounter.Handle.DELETE("/__db/__default/societyobjects/systemusersession", (Request request) => {
 
+                // Hide or show menu choice 
                 Admin admin = Session.Current.Data as Admin;
                 SystemUserMenu menu = admin.Menu as SystemUserMenu;
                 menu.IsSignedIn = Admin.IsAuthorized();
@@ -30,37 +34,29 @@ namespace UserAdminApp.Server {
                 return (ushort)System.Net.HttpStatusCode.OK;
             }, opt);
 
+            #endregion
+
             // Menu
             Starcounter.Handle.GET("/menu", () => {
 
-                Admin a = new Admin();
+                Admin adminPage = new Admin();
 
                 var menuPage = new SystemUserMenu() {
                     Html = "/adminmenu.html",
                     IsSignedIn = Admin.IsAuthorized()
                 };
 
-                a.Menu = menuPage;
-                Session.Current.Data = a;
-
+                adminPage.Menu = menuPage;
+                Session.Current.Data = adminPage;
                 return menuPage;
             });
 
             #region System Users page
+
             Starcounter.Handle.GET("/admin/systemusers", () => {
 
                 if (!Admin.IsAuthorized()) {
-                    var signinPage = new SignIn()
-                    {
-                        // TODO: encode the query value to base64 
-
-                        Html = "/useradmin-signin.html",
-                        RedirectUrl = "/launcher/workspace/signinapp/signinuser?"+"originurl"+"="+"/launcher/workspace/admin/systemusers"
-                    };
-                    return signinPage;
-                    // Response response = new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.Redirect };
-                    // response["Location"] = "/";
-                    // return response;
+                    return GetSignInPage("/launcher/workspace/admin/systemusers");
                 }
 
                 SystemUsers page = new SystemUsers() {
@@ -73,29 +69,22 @@ namespace UserAdminApp.Server {
             Starcounter.Handle.GET("/admin/systemusers/{?}", (Request request, string userid) => {
 
                 if (!Admin.IsAuthorized()) {
-                    var signinPage = new SignIn() {
-                        Html = "/useradmin-signin.html",
-                        RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + "originurl" + "=" + "/launcher/workspace/admin/systemusers/"+ userid
-                    };
-                    return signinPage;
-
-                    //Response response = new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.Redirect };
-                    //response["Location"] = "/";
-                    //return response;
+                    return GetSignInPage("/launcher/workspace/admin/systemusers/" + userid);
                 }
 
-                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM SystemUser o WHERE Username=?", userid).First;
+                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username=?", userid).First;
 
                 if (user == null) {
+                    // TODO: Return a "User not found" page
                     return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
                 Server.SystemUser page = new SystemUser() {
                     Html = "/systemuser.html",
-                    Uri = "/admin/systemusers/"+user.Username
+                    Uri = "/admin/systemusers/" + user.Username
                 };
 
-                page.Transaction = new Transaction();
+                page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
                 page.Data = user;
 
                 return page;
@@ -103,21 +92,41 @@ namespace UserAdminApp.Server {
             #endregion
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        static private SignIn GetSignInPage(string referer) {
+
+            string query = HttpUtility.UrlEncode("originurl" + "=" + referer);
+
+            var signinPage = new SignIn() {
+                Html = "/useradmin-signin.html",
+                RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + query
+            };
+            return signinPage;
+        }
+
+        /// <summary>
+        /// Check if user is Authorized
+        /// </summary>
+        /// <returns></returns>
         static private bool IsAuthorized() {
 
-            SignInApp.Database.SystemUserSession userSession = Db.SQL<SignInApp.Database.SystemUserSession>("SELECT o FROM SignInApp.Database.SystemUserSession o WHERE o.SessionIdString=?", Session.Current.SessionIdString).First;
+            Concepts.Ring5.SystemUserSession userSession = Db.SQL<Concepts.Ring5.SystemUserSession>("SELECT o FROM Concepts.Ring5.SystemUserSession o WHERE o.SessionIdString=?", Session.Current.SessionIdString).First;
+
+            if (userSession != null && userSession.User == null) {
+                // system user has been deleted
+                return false;
+            }
+
+            // Here we can do more permission checking..
+
             return userSession != null;
         }
 
-        #region Base
-        // Browsers will ask for "text/html" and we will give it to them
-        // by loading the contents of the URI in our Html property
-        public override string AsMimeType(MimeType type) {
-            if (type == MimeType.Text_Html) {
-                return X.GET<string>(Html);
-            }
-            return base.AsMimeType(type);
-        }
+       #region Base
 
         /// <summary>
         /// The way to get a URL for HTML partial if any.
@@ -127,31 +136,6 @@ namespace UserAdminApp.Server {
             return Html;
         }
 
-        /// <summary>
-        /// Whenever we set a bound data object to this page, we update the
-        /// URI property on this page.
-        /// </summary>
-        protected override void OnData() {
-            base.OnData();
-            var str = "";
-            Json x = this;
-            while (x != null) {
-                if (x is Admin)
-                    str = (x as Admin).UriFragment + str;
-                x = x.Parent;
-            }
-            Uri = str;
-        }
-
-        /// <summary>
-        /// Override to provide an URI fragment
-        /// </summary>
-        /// <returns></returns>
-        protected virtual string UriFragment {
-            get {
-                return "";
-            }
-        }
         #endregion
     }
 }

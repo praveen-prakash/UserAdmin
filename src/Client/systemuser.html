@@ -1,3 +1,6 @@
+<link rel="import" href="/vendor/juicy-redirect/src/juicy-redirect.html">
+
+
 <template bind="{{UserAdminApp}}">
 
     <H1>{{FullName}}</H1>
@@ -13,5 +16,8 @@
 
     <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
     <button class="launcher-button"  onclick="getModel(this).Delete$ = null">Delete</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
+
+   <link is="juicy-redirect" history url="{{ RedirectUrl }}">
 
 </template>

@@ -42,25 +42,20 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Concepts.Ring1, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>third_party\Concepts.Ring1.dll</HintPath>
+    <Reference Include="Concepts.Ring1">
+      <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring1.dll</HintPath>
     </Reference>
-    <Reference Include="Concepts.Ring2, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>third_party\Concepts.Ring2.dll</HintPath>
+    <Reference Include="Concepts.Ring2">
+      <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring2.dll</HintPath>
     </Reference>
-    <Reference Include="Concepts.Ring3, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>third_party\Concepts.Ring3.dll</HintPath>
+    <Reference Include="Concepts.Ring3">
+      <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring3.dll</HintPath>
     </Reference>
-    <Reference Include="Concepts.Ring4, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>third_party\Concepts.Ring4.dll</HintPath>
+    <Reference Include="Concepts.Ring4">
+      <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring4.dll</HintPath>
     </Reference>
-    <Reference Include="SignInApp, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SignInApp\src\bin\Debug\SignInApp.exe</HintPath>
+    <Reference Include="Concepts.Ring5">
+      <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -83,6 +78,7 @@
     <Reference Include="Starcounter.XSON">
       <HintPath>..\..\..\Level1\bin\Debug\Starcounter.XSON.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,25 +111,8 @@
     <Content Include="Client\systemusers.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="third_party\Concepts.Ring1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="third_party\Concepts.Ring2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="third_party\Concepts.Ring3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="third_party\Concepts.Ring4.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="third_party\SignInApp.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Database\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypedJSON Include="Server\Admin.json">
       <Generator>MsBuild:Compile</Generator>

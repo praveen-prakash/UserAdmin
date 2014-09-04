@@ -5,5 +5,7 @@
 	"Username$":"", 
 	"Password$": "",
 	"Delete$":null,
-	"Save$":null
+	"Save$":null,
+	"Close$":null,
+	"RedirectUrl" : ""
 }
