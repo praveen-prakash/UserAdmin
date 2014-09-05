@@ -1,0 +1,12 @@
+<link rel="import" href="/vendor/juicy-redirect/src/juicy-redirect.html">
+
+<template bind="{{UserAdminApp}}">
+   
+    <template if="{{!IsSignedIn}}" >
+        <button onclick="getModel(this).Register$ = null">Register</button>
+    </template>
+
+   <link is="juicy-redirect" history url="{{ RedirectUrl }}">
+   
+
+</template>

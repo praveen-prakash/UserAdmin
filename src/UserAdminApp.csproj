@@ -85,6 +85,12 @@
     <Compile Include="Server\Admin.json.cs">
       <DependentUpon>Admin.json</DependentUpon>
     </Compile>
+    <Compile Include="Server\SystemUserRegister.json.cs">
+      <DependentUpon>SystemUserRegister.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\UserMenu.json.cs">
+      <DependentUpon>UserMenu.json</DependentUpon>
+    </Compile>
     <Compile Include="Server\SignIn.json.cs">
       <DependentUpon>SignIn.json</DependentUpon>
     </Compile>
@@ -102,6 +108,12 @@
     <Content Include="Client\adminmenu.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Client\usermenu.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\systemuserregister.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Client\useradmin-signin.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -112,7 +124,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <TypedJSON Include="Server\UserMenu.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\Admin.json">
       <Generator>MsBuild:Compile</Generator>
@@ -135,6 +151,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\SignIn.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\SystemUserRegister.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

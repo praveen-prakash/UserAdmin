@@ -1,0 +1,11 @@
+{
+	"$":{"Namespace":"UserAdminApp.Server"},
+	"Uri" : "",
+	"Html" : "",
+	"Username$":"", 
+	"Password$": "",
+	"Cancel$":null,
+	"Save$":null,
+	"RedirectUrl" : "",
+	"Message":""
+}

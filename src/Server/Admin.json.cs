@@ -15,10 +15,15 @@ namespace UserAdminApp.Server {
             // User signed in event
             Starcounter.Handle.POST("/__db/__default/societyobjects/systemusersession", (Request request) => {
 
+                bool isSignedIn = Admin.IsAuthorized();
+
                 // Hide or show menu choice 
                 Admin admin = Session.Current.Data as Admin;
                 SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                menu.IsSignedIn = Admin.IsAuthorized();
+                menu.IsSignedIn = isSignedIn;
+
+                UserMenu user = admin.User as UserMenu;
+                user.IsSignedIn = isSignedIn;
 
                 return (ushort)System.Net.HttpStatusCode.OK;
             }, opt);
@@ -26,15 +31,38 @@ namespace UserAdminApp.Server {
             // User signed out event
             Starcounter.Handle.DELETE("/__db/__default/societyobjects/systemusersession", (Request request) => {
 
+                bool isSignedIn = Admin.IsAuthorized();
+
                 // Hide or show menu choice 
                 Admin admin = Session.Current.Data as Admin;
                 SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                menu.IsSignedIn = Admin.IsAuthorized();
+                menu.IsSignedIn = isSignedIn;
+
+                UserMenu user = admin.User as UserMenu;
+                user.IsSignedIn = isSignedIn;
 
                 return (ushort)System.Net.HttpStatusCode.OK;
             }, opt);
 
             #endregion
+
+
+            Starcounter.Handle.GET("/user", () => {
+
+                Admin admin = Session.Current.Data as Admin;
+
+                var userMenu = new UserMenu() {
+                    Html = "/usermenu.html",
+                };
+
+                userMenu.IsSignedIn = Admin.IsAuthorized();
+
+                admin.User = userMenu;
+                
+
+                return userMenu;
+            });
+
 
             // Menu
             Starcounter.Handle.GET("/menu", () => {
@@ -89,6 +117,23 @@ namespace UserAdminApp.Server {
 
                 return page;
             });
+
+
+            Starcounter.Handle.GET("/admin/systemuser/register", () => {
+
+                SystemUserRegister page = new SystemUserRegister() {
+                    Html = "/systemuserregister.html",
+                    Uri = "/admin/systemuser/register"
+                };
+
+                //page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
+                //Db.Transaction(() => {
+                //    page.Data = new SystemUser();
+                //});
+
+
+                return page;
+            });
             #endregion
         }
 
@@ -126,7 +171,7 @@ namespace UserAdminApp.Server {
             return userSession != null;
         }
 
-       #region Base
+        #region Base
 
         /// <summary>
         /// The way to get a URL for HTML partial if any.

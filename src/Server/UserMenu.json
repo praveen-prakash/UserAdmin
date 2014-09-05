@@ -2,6 +2,7 @@
 	"$":{"Namespace":"UserAdminApp.Server"},
 	"Uri" : "",
 	"Html" : "",
-	"Menu": {},
-	"User": {}
+	"IsSignedIn" : false,
+	"Register$":null,
+	"RedirectUrl" : ""
 }
