@@ -10,21 +10,21 @@
             border-collapse: collapse;
         }
 
-        table.gridtable th {
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #666666;
-            background-color: #dedede;
-        }
+            table.gridtable th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #dedede;
+            }
 
-        table.gridtable td {
-            border-width: 1px;
-            padding: 0px;
-            border-style: solid;
-            border-color: #666666;
-            background-color: #ffffff;
-        }
+            table.gridtable td {
+                border-width: 1px;
+                padding: 0px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #ffffff;
+            }
     </Style>
 
 
@@ -33,7 +33,9 @@
     <table class="gridtable" >
         <thead>
             <tr>
+                <th>FullName</th>
                 <th>Username</th>
+                <th>Type</th>
                 <th>Password</th>
                 <th>Action</th>
             </tr>
@@ -43,9 +45,11 @@
 
             <template repeat="{{item in Items}}">
                 <tr>
+                    <td>{{item.FullName}}</td>
                     <td>
                         <a href="/launcher/workspace/admin/systemusers/{{item.Username}}"> {{item.Username}}</a>
                     </td>
+                    <td>{{item.Type}}</td>
                     <td>{{item.Password}}</td>
                     <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>
                 </tr>
@@ -63,6 +67,12 @@
         <input id="Password$" type='text' value='{{ Password$ }}' placeholder='<Password>'>
         <label for="Password$">Password</label>
     </div>
+
+<!--    <select value="{{Type}}" >
+        <option value="Company">Company</option>
+        <option value="Person">Person</option>
+    </select>-->
+  
 
     <button  class="launcher-button" style="background-color:#11653B" onclick="getModel(this).AddSystemUser$ = null">Add</button>
 

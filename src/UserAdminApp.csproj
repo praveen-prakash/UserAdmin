@@ -81,9 +81,15 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\SystemUserAdmin.cs" />
+    <Compile Include="Database\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Admin.json.cs">
       <DependentUpon>Admin.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Handlers\Systemusers.cs" />
+    <Compile Include="Server\Page.json.cs">
+      <DependentUpon>Page.json</DependentUpon>
     </Compile>
     <Compile Include="Server\SystemUserRegister.json.cs">
       <DependentUpon>SystemUserRegister.json</DependentUpon>
@@ -91,17 +97,17 @@
     <Compile Include="Server\UserMenu.json.cs">
       <DependentUpon>UserMenu.json</DependentUpon>
     </Compile>
-    <Compile Include="Server\SignIn.json.cs">
-      <DependentUpon>SignIn.json</DependentUpon>
+    <Compile Include="Server\UserAdminSignInPage.json.cs">
+      <DependentUpon>UserAdminSignInPage.json</DependentUpon>
     </Compile>
-    <Compile Include="Server\SystemUser.json.cs">
-      <DependentUpon>SystemUser.json</DependentUpon>
+    <Compile Include="Server\Partials\SystemUserPage.json.cs">
+      <DependentUpon>SystemUserPage.json</DependentUpon>
     </Compile>
     <Compile Include="Server\SystemUserMenu.json.cs">
       <DependentUpon>SystemUserMenu.json</DependentUpon>
     </Compile>
-    <Compile Include="Server\SystemUsers.json.cs">
-      <DependentUpon>SystemUsers.json</DependentUpon>
+    <Compile Include="Server\Partials\SystemUsersPage.json.cs">
+      <DependentUpon>SystemUsersPage.json</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -117,10 +123,10 @@
     <Content Include="Client\useradmin-signin.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Client\systemuser.html">
+    <Content Include="Client\partials\systemuser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Client\systemusers.html">
+    <Content Include="Client\partials\systemusers.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -135,7 +141,7 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="Server\SystemUsers.json">
+    <TypedJSON Include="Server\Partials\SystemUsersPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
@@ -145,17 +151,22 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="Server\SystemUser.json">
+    <TypedJSON Include="Server\Partials\SystemUserPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="Server\SignIn.json">
+    <TypedJSON Include="Server\UserAdminSignInPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\SystemUserRegister.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Page.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

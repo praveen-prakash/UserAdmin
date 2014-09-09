@@ -3,18 +3,7 @@ using Starcounter;
 namespace UserAdminApp.Server {
 
     [SystemUserMenu_json]
-    partial class SystemUserMenu : Json {
-
-        #region Base
-
-        /// <summary>
-        /// The way to get a URL for HTML partial if any.
-        /// </summary>
-        /// <returns></returns>
-        public override string GetHtmlPartialUrl() {
-            return Html;
-        }
-
-        #endregion
+    partial class SystemUserMenu : Page {
+     
     }
 }

@@ -1,0 +1,24 @@
+{
+	"$":{"Namespace":"UserAdminApp.Server.Partials"},
+	"Uri" : "",
+	"Html" : "",
+	"$Items" : { "Bind":"Users" },
+	"Items" : [{
+		"$FullName" :  { "Bind":"WhoIs.FullName" },
+		"FullName" : "",
+		"Username" : "", 
+		"Password" : "",
+		"$Type" :  { "Bind":"Kind" },
+		"Type" : "",
+		"Delete$" : null
+	}],
+
+	"FirstName" : "",
+	"Surname" : "",
+
+	"Name":"",
+
+	"EMail$" : "",
+	"Password$" : "",
+	"AddSystemUser$" : null
+}

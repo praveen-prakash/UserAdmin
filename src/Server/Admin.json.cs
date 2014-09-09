@@ -1,24 +1,28 @@
 using Concepts.Ring3;
 using Starcounter;
 using System.Web;
+using UserAdminApp.Server.Partials;
 
 namespace UserAdminApp.Server {
 
     [Admin_json]
-    partial class Admin : Json {
+    partial class Admin : Page {
+
+        // TODO: How to remove items from this list
+        static Admin AdminPage;
 
         static void Main() {
 
             HandlerOptions opt = new HandlerOptions() { HandlerLevel = 0 };
 
-            #region Sign in/out event
+            #region Sign in/out commit hooks
             // User signed in event
             Starcounter.Handle.POST("/__db/__default/societyobjects/systemusersession", (Request request) => {
 
                 bool isSignedIn = Admin.IsAuthorized();
 
                 // Hide or show menu choice 
-                Admin admin = Session.Current.Data as Admin;
+                Admin admin = Admin.AdminPage;
                 SystemUserMenu menu = admin.Menu as SystemUserMenu;
                 menu.IsSignedIn = isSignedIn;
 
@@ -34,7 +38,7 @@ namespace UserAdminApp.Server {
                 bool isSignedIn = Admin.IsAuthorized();
 
                 // Hide or show menu choice 
-                Admin admin = Session.Current.Data as Admin;
+                Admin admin = Admin.AdminPage;
                 SystemUserMenu menu = admin.Menu as SystemUserMenu;
                 menu.IsSignedIn = isSignedIn;
 
@@ -46,10 +50,11 @@ namespace UserAdminApp.Server {
 
             #endregion
 
-
+            #region Launcher hooks
             Starcounter.Handle.GET("/user", () => {
 
-                Admin admin = Session.Current.Data as Admin;
+//                Admin admin = Session.Current.Data as Admin;
+                Admin admin = Admin.AdminPage;
 
                 var userMenu = new UserMenu() {
                     Html = "/usermenu.html",
@@ -58,7 +63,7 @@ namespace UserAdminApp.Server {
                 userMenu.IsSignedIn = Admin.IsAuthorized();
 
                 admin.User = userMenu;
-                
+
 
                 return userMenu;
             });
@@ -75,66 +80,16 @@ namespace UserAdminApp.Server {
                 };
 
                 adminPage.Menu = menuPage;
-                Session.Current.Data = adminPage;
+
+                Admin.AdminPage = adminPage;
+
+//                Session.Current.Data = adminPage;
                 return menuPage;
             });
 
-            #region System Users page
-
-            Starcounter.Handle.GET("/admin/systemusers", () => {
-
-                if (!Admin.IsAuthorized()) {
-                    return GetSignInPage("/launcher/workspace/admin/systemusers");
-                }
-
-                SystemUsers page = new SystemUsers() {
-                    Html = "/systemusers.html",
-                    Uri = "/admin/systemusers"
-                };
-                return page;
-            });
-
-            Starcounter.Handle.GET("/admin/systemusers/{?}", (Request request, string userid) => {
-
-                if (!Admin.IsAuthorized()) {
-                    return GetSignInPage("/launcher/workspace/admin/systemusers/" + userid);
-                }
-
-                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username=?", userid).First;
-
-                if (user == null) {
-                    // TODO: Return a "User not found" page
-                    return (ushort)System.Net.HttpStatusCode.NotFound;
-                }
-
-                Server.SystemUser page = new SystemUser() {
-                    Html = "/systemuser.html",
-                    Uri = "/admin/systemusers/" + user.Username
-                };
-
-                page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
-                page.Data = user;
-
-                return page;
-            });
-
-
-            Starcounter.Handle.GET("/admin/systemuser/register", () => {
-
-                SystemUserRegister page = new SystemUserRegister() {
-                    Html = "/systemuserregister.html",
-                    Uri = "/admin/systemuser/register"
-                };
-
-                //page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
-                //Db.Transaction(() => {
-                //    page.Data = new SystemUser();
-                //});
-
-
-                return page;
-            });
             #endregion
+
+            Handlers.Systemusers.RegisterHandlers();
         }
 
         /// <summary>
@@ -142,11 +97,11 @@ namespace UserAdminApp.Server {
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        static private SignIn GetSignInPage(string referer) {
+        static public UserAdminSignInPage GetSignInPage(string referer) {
 
             string query = HttpUtility.UrlEncode("originurl" + "=" + referer);
 
-            var signinPage = new SignIn() {
+            var signinPage = new UserAdminSignInPage() {
                 Html = "/useradmin-signin.html",
                 RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + query
             };
@@ -157,11 +112,12 @@ namespace UserAdminApp.Server {
         /// Check if user is Authorized
         /// </summary>
         /// <returns></returns>
-        static private bool IsAuthorized() {
+        static public bool IsAuthorized() {
 
             Concepts.Ring5.SystemUserSession userSession = Db.SQL<Concepts.Ring5.SystemUserSession>("SELECT o FROM Concepts.Ring5.SystemUserSession o WHERE o.SessionIdString=?", Session.Current.SessionIdString).First;
 
-            if (userSession != null && userSession.User == null) {
+            if (userSession != null && userSession.Token.User == null) {
+
                 // system user has been deleted
                 return false;
             }
@@ -171,16 +127,6 @@ namespace UserAdminApp.Server {
             return userSession != null;
         }
 
-        #region Base
-
-        /// <summary>
-        /// The way to get a URL for HTML partial if any.
-        /// </summary>
-        /// <returns></returns>
-        public override string GetHtmlPartialUrl() {
-            return Html;
-        }
-
-        #endregion
+ 
     }
 }

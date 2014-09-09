@@ -2,8 +2,8 @@ using Starcounter;
 
 namespace UserAdminApp.Server {
 
-    [SignIn_json]
-    partial class SignIn : Json
+    [UserAdminSignInPage_json]
+    partial class UserAdminSignInPage : Json
     {
         #region Base
 

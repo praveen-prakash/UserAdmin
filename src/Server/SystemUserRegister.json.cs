@@ -4,7 +4,7 @@ using System.Web;
 namespace UserAdminApp.Server {
 
     [SystemUserRegister_json]
-    partial class SystemUserRegister : Json {
+    partial class SystemUserRegister : Page {
 
   
         void Handle(Input.Save action) {
@@ -36,17 +36,5 @@ namespace UserAdminApp.Server {
             this.RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + query;
         }
 
-        #region Base
-
-
-        /// <summary>
-        /// The way to get a URL for HTML partial if any.
-        /// </summary>
-        /// <returns></returns>
-        public override string GetHtmlPartialUrl() {
-            return Html;
-        }
-
-        #endregion
     }
 }
