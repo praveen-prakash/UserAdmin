@@ -6,6 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UserAdminApp.Server.Partials;
 
+// http://localhost:8080/launcher/workspace/admin/
+// admin/systemusers/{?}
+// admin/createuser
+// settings
+
 namespace UserAdminApp.Server.Handlers {
     public class Systemusers {
 
@@ -13,20 +18,34 @@ namespace UserAdminApp.Server.Handlers {
 
             #region System Users Pages/Partials
 
-
-
             //
             // System users
             //
-            Starcounter.Handle.GET("/admin/systemusers", () => {
+            Starcounter.Handle.GET("/admin/createuser", () => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage("/launcher/workspace/admin/systemusers");
+                    return Admin.GetSignInPage("/launcher/workspace/admin/createuser");
                 }
 
-                SystemUsersPage page = new SystemUsersPage() {
-                    Html = "/partials/systemusers.html",
-                    Uri = "/admin/systemusers"
+                Partials.Administrator.CreateUserPage page = new Partials.Administrator.CreateUserPage() {
+                    Html = "/partials/administrator/createuser.html",
+                    Uri = "/admin/createuser"
+                };
+                return page;
+            });
+
+            //
+            // List users
+            //
+            Starcounter.Handle.GET("/admin/users", () => {
+
+                if (!Admin.IsAuthorized()) {
+                    return Admin.GetSignInPage("/launcher/workspace/admin/users");
+                }
+
+                Partials.Administrator.ListUsersPage page = new Partials.Administrator.ListUsersPage() {
+                    Html = "/partials/administrator/listusers.html",
+                    Uri = "/admin/users"
                 };
                 return page;
             });
@@ -34,10 +53,10 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System user
             //
-            Starcounter.Handle.GET("/admin/systemusers/{?}", (Request request, string userid) => {
+            Starcounter.Handle.GET("/admin/users/{?}", (Request request, string userid) => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage("/launcher/workspace/admin/systemusers/" + userid);
+                    return Admin.GetSignInPage("/launcher/workspace/admin/users/" + userid);
                 }
 
                 Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username=?", userid).First;
@@ -47,30 +66,40 @@ namespace UserAdminApp.Server.Handlers {
                     return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
-                Partials.SystemUserPage page = new Partials.SystemUserPage() {
-                    Html = "/partials/systemuser.html",
-                    Uri = "/admin/systemusers/" + user.Username
-                };
+                if (user.WhoIs is Concepts.Ring1.Person) {
+                    Partials.Administrator.EditPersonPage page = new Partials.Administrator.EditPersonPage() {
+                        Html = "/partials/administrator/editperson.html",
+                        Uri = "/admin/users/" + user.Username
+                    };
+                    page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
+                    page.Data = user;
+                    return page;
+                }
+                else if (user.WhoIs is Concepts.Ring2.Company) {
+                    Partials.Administrator.EditCompanyPage page = new Partials.Administrator.EditCompanyPage() {
+                        Html = "/partials/administrator/editcompany.html",
+                        Uri = "/admin/users/" + user.Username
+                    };
+                    page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
+                    page.Data = user;
+                    return page;
+                }
 
-                page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
-                page.Data = user;
 
-                return page;
+                return (ushort)System.Net.HttpStatusCode.NotFound;
             });
 
-            Starcounter.Handle.GET("/admin/systemuser/register", () => {
 
-                SystemUserRegister page = new SystemUserRegister() {
-                    Html = "/systemuserregister.html",
-                    Uri = "/admin/systemuser/register"
-                };
+            //Starcounter.Handle.GET("/admin/systemuser/register", () => {
 
-                return page;
-            });
+            //    SystemUserRegister page = new SystemUserRegister() {
+            //        Html = "/systemuserregister.html",
+            //        Uri = "/admin/systemuser/register"
+            //    };
+
+            //    return page;
+            //});
             #endregion
-
-
         }
-
     }
 }

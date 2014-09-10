@@ -1,0 +1,65 @@
+<link rel="import" href="/vendor/juicy-redirect/src/juicy-redirect.html">
+
+<template bind="{{UserAdminApp}}">
+
+    <Style>
+        table.gridtable {
+            font-family: verdana,arial,sans-serif;
+            font-size: 11px;
+            color: #333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+        }
+
+        table.gridtable th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table.gridtable td {
+            border-width: 1px;
+            padding: 0px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+    </Style>
+
+    <H1>System users</H1>
+
+    <table class="gridtable" >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <template repeat="{{item in Items}}">
+                <tr>
+                    <td>{{item.FullName}}</td>
+                    <td>
+                        <a href="/launcher/workspace/admin/users/{{item.Username}}"> {{item.Username}}</a>
+                    </td>
+                    <td>{{item.Type}}</td>
+                    <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>
+                </tr>
+            </template>
+
+        </tbody>
+
+    </table>
+
+    <button  class="launcher-button" style="background-color:#11653B" onclick="getModel(this).AddSystemUser$ = null">Add</button>
+
+    <link is="juicy-redirect" history url="{{ RedirectUrl }}">
+
+</template>

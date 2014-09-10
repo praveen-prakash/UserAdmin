@@ -4,10 +4,10 @@ using Starcounter;
 using System.Collections;
 using UserAdminApp.Database;
 
-namespace UserAdminApp.Server.Partials {
+namespace UserAdminApp.Server.Partials.Administrator {
 
-    [SystemUsersPage_json]
-    partial class SystemUsersPage : Page {
+    [ListUsersPage_json]
+    partial class ListUsersPage : Page {
 
         public IEnumerable Users {
 
@@ -21,22 +21,24 @@ namespace UserAdminApp.Server.Partials {
 
             // TODO: Check for duplicates
 
-            Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.EMail, this.Password);
+            this.RedirectUrl = "/launcher/workspace/admin/createuser";
 
-            Db.Transaction(() => {
+            //Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.EMail, this.Password);
+
+            //Db.Transaction(() => {
 
                 
-                Concepts.Ring3.SystemUser user = new Concepts.Ring3.SystemUser();
-                user.Username = this.EMail;
-                user.Password = this.Password;
-            });
+            //    Concepts.Ring3.SystemUser user = new Concepts.Ring3.SystemUser();
+            //    user.Username = this.EMail;
+            //    user.Password = this.Password;
+            //});
 
-            this.EMail = this.Password = string.Empty;
+            //this.EMail = this.Password = string.Empty;
         }
 
     }
 
-    [SystemUsersPage_json.Items]
+    [ListUsersPage_json.Items]
     partial class SystemUsersItem : Json {
 
         protected override void OnData() {

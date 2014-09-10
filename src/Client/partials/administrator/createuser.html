@@ -1,0 +1,38 @@
+<link rel="import" href="/vendor/juicy-redirect/src/juicy-redirect.html">
+
+
+<template bind="{{UserAdminApp}}">
+
+    <H1>Create User</H1>
+
+    <div class="launcher-labeled-input">
+        <input id="Username$" type='text' value='{{ Username$ }}' placeholder='<Username>'>
+        <label for="Username$">Username</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="FirstName$" type='text' value='{{ FirstName$ }}' placeholder='<FirstName>'>
+        <label for="FirstName$">FirstName</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="Surname$" type='text' value='{{ Surname$ }}' placeholder='<Surname>'>
+        <label for="Surname$">Surname</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="Password$" type='text' value='{{ Password$ }}' placeholder='<Password>'>
+        <label for="Password$">Password</label>
+    </div>
+
+
+    <template if="{{Message}}">
+        <p>{{Message}}</p>
+    </template>
+
+    <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
+
+   <link is="juicy-redirect" history url="{{ RedirectUrl }}">
+
+</template>

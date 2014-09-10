@@ -91,6 +91,12 @@
     <Compile Include="Server\Page.json.cs">
       <DependentUpon>Page.json</DependentUpon>
     </Compile>
+    <Compile Include="Server\Partials\Administrator\EditCompanyPage.json.cs">
+      <DependentUpon>EditCompanyPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Partials\Administrator\CreateUserPage.json.cs">
+      <DependentUpon>CreateUserPage.json</DependentUpon>
+    </Compile>
     <Compile Include="Server\SystemUserRegister.json.cs">
       <DependentUpon>SystemUserRegister.json</DependentUpon>
     </Compile>
@@ -100,18 +106,24 @@
     <Compile Include="Server\UserAdminSignInPage.json.cs">
       <DependentUpon>UserAdminSignInPage.json</DependentUpon>
     </Compile>
-    <Compile Include="Server\Partials\SystemUserPage.json.cs">
-      <DependentUpon>SystemUserPage.json</DependentUpon>
+    <Compile Include="Server\Partials\Administrator\EditPersonPage.json.cs">
+      <DependentUpon>EditPersonPage.json</DependentUpon>
     </Compile>
     <Compile Include="Server\SystemUserMenu.json.cs">
       <DependentUpon>SystemUserMenu.json</DependentUpon>
     </Compile>
-    <Compile Include="Server\Partials\SystemUsersPage.json.cs">
-      <DependentUpon>SystemUsersPage.json</DependentUpon>
+    <Compile Include="Server\Partials\Administrator\ListUsersPage.json.cs">
+      <DependentUpon>ListUsersPage.json</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\adminmenu.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\partials\administrator\editcompany.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\partials\administrator\createuser.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Client\usermenu.html">
@@ -123,10 +135,10 @@
     <Content Include="Client\useradmin-signin.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Client\partials\systemuser.html">
+    <Content Include="Client\partials\administrator\editperson.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Client\partials\systemusers.html">
+    <Content Include="Client\partials\administrator\listusers.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -141,7 +153,7 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="Server\Partials\SystemUsersPage.json">
+    <TypedJSON Include="Server\Partials\Administrator\ListUsersPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
@@ -151,7 +163,7 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="Server\Partials\SystemUserPage.json">
+    <TypedJSON Include="Server\Partials\Administrator\EditPersonPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
@@ -167,6 +179,20 @@
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\Page.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Client\partials\user\" />
+    <Folder Include="Server\Partials\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Partials\Administrator\CreateUserPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Partials\Administrator\EditCompanyPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

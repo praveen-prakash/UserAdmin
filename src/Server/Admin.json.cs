@@ -23,11 +23,15 @@ namespace UserAdminApp.Server {
 
                 // Hide or show menu choice 
                 Admin admin = Admin.AdminPage;
-                SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                menu.IsSignedIn = isSignedIn;
+                if (admin.Menu != null) {
+                    SystemUserMenu menu = admin.Menu as SystemUserMenu;
+                    menu.IsSignedIn = isSignedIn;
+                }
 
-                UserMenu user = admin.User as UserMenu;
-                user.IsSignedIn = isSignedIn;
+                //if (admin.User != null) {
+                //    UserMenu user = admin.User as UserMenu;
+                //    user.IsSignedIn = isSignedIn;
+                //}
 
                 return (ushort)System.Net.HttpStatusCode.OK;
             }, opt);
@@ -39,11 +43,15 @@ namespace UserAdminApp.Server {
 
                 // Hide or show menu choice 
                 Admin admin = Admin.AdminPage;
-                SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                menu.IsSignedIn = isSignedIn;
+                if (admin.Menu != null) {
+                    SystemUserMenu menu = admin.Menu as SystemUserMenu;
+                    menu.IsSignedIn = isSignedIn;
+                }
 
-                UserMenu user = admin.User as UserMenu;
-                user.IsSignedIn = isSignedIn;
+                //if (admin.User != null) {
+                //    UserMenu user = admin.User as UserMenu;
+                //    user.IsSignedIn = isSignedIn;
+                //}
 
                 return (ushort)System.Net.HttpStatusCode.OK;
             }, opt);
@@ -51,22 +59,22 @@ namespace UserAdminApp.Server {
             #endregion
 
             #region Launcher hooks
-            Starcounter.Handle.GET("/user", () => {
+            //Starcounter.Handle.GET("/user", () => {
 
-//                Admin admin = Session.Current.Data as Admin;
-                Admin admin = Admin.AdminPage;
+            //    //                Admin admin = Session.Current.Data as Admin;
+            //    Admin admin = Admin.AdminPage;
 
-                var userMenu = new UserMenu() {
-                    Html = "/usermenu.html",
-                };
+            //    var userMenu = new UserMenu() {
+            //        Html = "/usermenu.html",
+            //    };
 
-                userMenu.IsSignedIn = Admin.IsAuthorized();
+            //    userMenu.IsSignedIn = Admin.IsAuthorized();
 
-                admin.User = userMenu;
+            //    admin.User = userMenu;
 
 
-                return userMenu;
-            });
+            //    return userMenu;
+            //});
 
 
             // Menu
@@ -83,7 +91,6 @@ namespace UserAdminApp.Server {
 
                 Admin.AdminPage = adminPage;
 
-//                Session.Current.Data = adminPage;
                 return menuPage;
             });
 
@@ -126,7 +133,5 @@ namespace UserAdminApp.Server {
 
             return userSession != null;
         }
-
- 
     }
 }

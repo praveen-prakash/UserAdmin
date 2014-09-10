@@ -51,8 +51,10 @@ namespace UserAdminApp.Database {
 
                 Person person = new Person() { FirstName = firstName, Surname = surname };
                 Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(person);
-                systemUser.Password = password;
                 systemUser.Username = email;
+                string hashedPassword;
+                Concepts.Ring5.SystemUserPassword.GeneratePasswordHash(systemUser.Username, password, out hashedPassword);
+                systemUser.Password = hashedPassword;
 
                 EMailAddress emailRel = new EMailAddress();
                 emailRel.SetToWhat(systemUser);
@@ -96,7 +98,9 @@ namespace UserAdminApp.Database {
 
                 Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(company);
                 systemUser.Username = email;
-                systemUser.Password = password;
+                string hashedPassword;
+                Concepts.Ring5.SystemUserPassword.GeneratePasswordHash(systemUser.Username, password, out hashedPassword);
+                systemUser.Password = hashedPassword;
 
                 EMailAddress emailRel = new EMailAddress();
                 emailRel.SetToWhat(systemUser);

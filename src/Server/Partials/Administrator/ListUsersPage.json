@@ -1,5 +1,5 @@
 {
-	"$":{"Namespace":"UserAdminApp.Server.Partials"},
+	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
 	"Uri" : "",
 	"Html" : "",
 	"$Items" : { "Bind":"Users" },
@@ -7,18 +7,12 @@
 		"$FullName" :  { "Bind":"WhoIs.FullName" },
 		"FullName" : "",
 		"Username" : "", 
-		"Password" : "",
 		"$Type" :  { "Bind":"Kind" },
 		"Type" : "",
 		"Delete$" : null
 	}],
 
-	"FirstName" : "",
-	"Surname" : "",
+	"AddSystemUser$" : null,
+	"RedirectUrl" : ""
 
-	"Name":"",
-
-	"EMail$" : "",
-	"Password$" : "",
-	"AddSystemUser$" : null
 }

@@ -1,0 +1,13 @@
+{
+	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
+	"Uri" : "",
+	"Html" : "",
+	"Username" : "",
+	"$Name$" : { "Bind": "WhoIs.Name"},
+	"Name$" : "",
+	"Delete$":null,
+	"Save$":null,
+	"Close$":null,
+	"RedirectUrl" : "",
+	"Message" : ""
+}

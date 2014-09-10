@@ -3,22 +3,20 @@
 
 <template bind="{{UserAdminApp}}">
 
-    <H1>{{FullName}}</H1>
+    <H1>Company - {{Name$}}</H1>
 
     <div class="launcher-labeled-input">
-        <input id="Username$" type='text' value='{{ Username$ }}' placeholder='<Username>'>
-        <label for="Username$">Username</label>
+        <input id="Username" type='text' readonly value='{{ Username }}' placeholder='<Username>'>
+        <label for="Username">Username</label>
     </div>
+
     <div class="launcher-labeled-input">
-        <input id="Password$" type='text' value='{{ Password$ }}' placeholder='<Password>'>
-        <label for="Password$">Password</label>
+        <input id="Name$" type='text' value='{{ Name$ }}' placeholder='<Name>'>
+        <label for="Name$">Name</label>
     </div>
 
-    Type: {{ Type }}<br />
-
-    List of emails
-    <template repeat="{{item in EMails}}">
-        Email:{{item.EMail}}
+    <template if="{{Message}}">
+        <p>{{Message}}</p>
     </template>
 
     <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
