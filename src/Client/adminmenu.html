@@ -1,15 +1,21 @@
 <template bind="{{UserAdminApp}}">
-       <template if="{{IsSignedIn}}">
-   <li>
+
+    <template if="{{IsSignedIn}}">
+        <li>
             <a href="/launcher/workspace/admin/users">
                 <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Users (dynamic)</span></div>					
             </a>
-    </li>
-       </template>
+        </li>
+        <li>
+            <a href="/launcher/workspace/admin/settings">
+                <div title="Settings" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">Settings</span></div>					
+            </a>
+        </li>
+    </template>
 
-   <li>
-    <a href="/launcher/workspace/admin/users">
-        <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Users (static)</span></div>					
-    </a>
+    <li>
+        <a href="/launcher/workspace/admin/users">
+            <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Users (static)</span></div>					
+        </a>
     </li>
 </template>

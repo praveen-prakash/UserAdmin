@@ -81,21 +81,32 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\CommitHooks.cs" />
+    <Compile Include="Database\Settings.cs" />
+    <Compile Include="Database\ResetPassword.cs" />
     <Compile Include="Database\SystemUserAdmin.cs" />
     <Compile Include="Database\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\Admin.json.cs">
       <DependentUpon>Admin.json</DependentUpon>
     </Compile>
+    <Compile Include="Server\Handlers\Administrator.cs" />
+    <Compile Include="Server\Handlers\LauncherHooks.cs" />
     <Compile Include="Server\Handlers\Systemusers.cs" />
     <Compile Include="Server\Page.json.cs">
       <DependentUpon>Page.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Partials\Administrator\SettingsPage.json.cs">
+      <DependentUpon>SettingsPage.json</DependentUpon>
     </Compile>
     <Compile Include="Server\Partials\Administrator\EditCompanyPage.json.cs">
       <DependentUpon>EditCompanyPage.json</DependentUpon>
     </Compile>
     <Compile Include="Server\Partials\Administrator\CreateUserPage.json.cs">
       <DependentUpon>CreateUserPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Partials\User\ResetPasswordPage.json.cs">
+      <DependentUpon>ResetPasswordPage.json</DependentUpon>
     </Compile>
     <Compile Include="Server\SystemUserRegister.json.cs">
       <DependentUpon>SystemUserRegister.json</DependentUpon>
@@ -115,15 +126,22 @@
     <Compile Include="Server\Partials\Administrator\ListUsersPage.json.cs">
       <DependentUpon>ListUsersPage.json</DependentUpon>
     </Compile>
+    <Compile Include="Server\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Client\adminmenu.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\partials\administrator\settings.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Client\partials\administrator\editcompany.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Client\partials\administrator\createuser.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\partials\user\resetpassword.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Client\usermenu.html">
@@ -183,8 +201,9 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Client\partials\user\" />
-    <Folder Include="Server\Partials\User\" />
+    <TypedJSON Include="Server\Partials\Administrator\SettingsPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\Partials\Administrator\CreateUserPage.json">
@@ -193,6 +212,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\Partials\Administrator\EditCompanyPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Partials\User\ResetPasswordPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

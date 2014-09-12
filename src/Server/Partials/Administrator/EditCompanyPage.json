@@ -5,6 +5,7 @@
 	"Username" : "",
 	"$Name$" : { "Bind": "WhoIs.Name"},
 	"Name$" : "",
+	"ResetPassword$" : null,
 	"Delete$":null,
 	"Save$":null,
 	"Close$":null,

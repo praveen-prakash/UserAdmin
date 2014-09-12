@@ -1,9 +1,23 @@
 <link rel="import" href="/vendor/juicy-redirect/src/juicy-redirect.html">
 
-
 <template bind="{{UserAdminApp}}">
 
-    <H1>Create User</H1>
+    <H1>Settings Mail</H1>
+
+    <div class="launcher-labeled-input">
+        <input id="Host$" type='text' value='{{ Host$ }}' placeholder='<Host>'>
+        <label for="Host$">Host</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="Port$" type='number' value='{{ Port$ }}' placeholder='<Port>'>
+        <label for="Port$">Port</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="EnableSsl$" type='checkbox' value='{{ EnableSsl$ }}'>
+        <label for="EnableSsl$">Enable SSL</label>
+    </div>
 
     <div class="launcher-labeled-input">
         <input id="Username$" type='text' value='{{ Username$ }}' placeholder='<Username>'>
@@ -11,27 +25,9 @@
     </div>
 
     <div class="launcher-labeled-input">
-        <input id="EMail$" type='email' value='{{ EMail$ }}' placeholder='<E-Mail>'>
-        <label for="EMail$">E-Mail</label>
-    </div>
-
-    <div class="launcher-labeled-input">
-        <input id="FirstName$" type='text' value='{{ FirstName$ }}' placeholder='<FirstName>'>
-        <label for="FirstName$">FirstName</label>
-    </div>
-
-    <div class="launcher-labeled-input">
-        <input id="Surname$" type='text' value='{{ Surname$ }}' placeholder='<Surname>'>
-        <label for="Surname$">Surname</label>
-    </div>
-
-    <div class="launcher-labeled-input">
         <input id="Password$" type='password' value='{{ Password$ }}' placeholder='<Password>'>
         <label for="Password$">Password</label>
     </div>
-
-    <!--<input type="checkbox"  value="{{SendInventationMail$}}">Send Inventation Mail<br>-->
-    
 
     <template if="{{Message}}">
         <p>{{Message}}</p>
@@ -40,6 +36,6 @@
     <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
     <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
 
-   <link is="juicy-redirect" history url="{{ RedirectUrl }}">
+    <link is="juicy-redirect" history url="{{ RedirectUrl }}">
 
 </template>

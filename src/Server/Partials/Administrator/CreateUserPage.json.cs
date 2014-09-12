@@ -8,12 +8,15 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             try {
-                Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.Username, this.Password);
+                Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.Username, this.EMail, this.Password);
                 this.RedirectUrl = "/launcher/workspace/admin/users";
             }
             catch (Exception e) {
                 this.Message = e.Message;
             }
+        }
+
+        void Handle(Input.SendInventationMail action) {
         }
 
         void Handle(Input.Close action) {

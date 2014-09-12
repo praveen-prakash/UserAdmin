@@ -1,9 +1,13 @@
 ﻿using Starcounter;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using UserAdminApp.Database;
 using UserAdminApp.Server.Partials;
 
 // http://localhost:8080/launcher/workspace/admin/
@@ -16,12 +20,11 @@ namespace UserAdminApp.Server.Handlers {
 
         public static void RegisterHandlers() {
 
-            #region System Users Pages/Partials
 
             //
             // System users
             //
-            Starcounter.Handle.GET("/admin/createuser", () => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/createuser", () => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage("/launcher/workspace/admin/createuser");
@@ -37,7 +40,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // List users
             //
-            Starcounter.Handle.GET("/admin/users", () => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/users", () => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage("/launcher/workspace/admin/users");
@@ -53,7 +56,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System user
             //
-            Starcounter.Handle.GET("/admin/users/{?}", (Request request, string userid) => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/users/{?}", (Request request, string userid) => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage("/launcher/workspace/admin/users/" + userid);
@@ -85,21 +88,51 @@ namespace UserAdminApp.Server.Handlers {
                     return page;
                 }
 
-
                 return (ushort)System.Net.HttpStatusCode.NotFound;
             });
 
+            //
+            // Reset password
+            //
+            Starcounter.Handle.GET(Admin.Port, "/admin/user/resetpassword?{?}", (string query, Request request) => {
 
-            //Starcounter.Handle.GET("/admin/systemuser/register", () => {
+                NameValueCollection queryCollection = HttpUtility.ParseQueryString(query);
+                string token = queryCollection.Get("token");
+                if (token == null) {
+                    return (ushort)System.Net.HttpStatusCode.NotFound;
+                }
 
-            //    SystemUserRegister page = new SystemUserRegister() {
-            //        Html = "/systemuserregister.html",
-            //        Uri = "/admin/systemuser/register"
-            //    };
+                // Retrive the resetPassword instance
+                ResetPassword resetPassword = Db.SQL<UserAdminApp.Database.ResetPassword>("SELECT o FROM UserAdminApp.Database.ResetPassword o WHERE o.Token=? AND o.Expire>?", token, DateTime.UtcNow).First;
 
-            //    return page;
-            //});
-            #endregion
+                if (resetPassword == null) {
+                    // TODO: Show message "Reset token already used or expired"
+                    return (ushort)System.Net.HttpStatusCode.NotFound;
+                }
+
+                if (resetPassword.User == null) {
+                    // TODO: Show message "User deleted"
+                    return (ushort)System.Net.HttpStatusCode.NotFound;
+                }
+
+                Concepts.Ring3.SystemUser systemUser = resetPassword.User;
+
+                Partials.User.ResetPasswordPage page = new Partials.User.ResetPasswordPage() {
+                    Html = "/partials/user/resetpassword.html",
+                    Uri = "/admin/user/resetpassword"
+                };
+
+                page.resetPassword = resetPassword;
+
+                if (systemUser.WhoIs != null) {
+                    page.FullName = systemUser.WhoIs.FullName;
+                }
+                else {
+                    page.FullName = systemUser.Username;
+                }
+
+                return page;
+            });
         }
     }
 }

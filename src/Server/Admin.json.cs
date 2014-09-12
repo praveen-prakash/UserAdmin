@@ -1,6 +1,7 @@
 using Concepts.Ring3;
 using Starcounter;
 using System.Web;
+using UserAdminApp.Database;
 using UserAdminApp.Server.Partials;
 
 namespace UserAdminApp.Server {
@@ -9,94 +10,28 @@ namespace UserAdminApp.Server {
     partial class Admin : Page {
 
         // TODO: How to remove items from this list
-        static Admin AdminPage;
+        internal static Admin AdminPage;
+
+        static public ushort Port = 8080;
 
         static void Main() {
 
-            HandlerOptions opt = new HandlerOptions() { HandlerLevel = 0 };
+            Admin.AssureFirstTimeUsage();
 
-            #region Sign in/out commit hooks
-            // User signed in event
-            Starcounter.Handle.POST("/__db/__default/societyobjects/systemusersession", (Request request) => {
-
-                bool isSignedIn = Admin.IsAuthorized();
-
-                // Hide or show menu choice 
-                Admin admin = Admin.AdminPage;
-                if (admin.Menu != null) {
-                    SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                    menu.IsSignedIn = isSignedIn;
-                }
-
-                //if (admin.User != null) {
-                //    UserMenu user = admin.User as UserMenu;
-                //    user.IsSignedIn = isSignedIn;
-                //}
-
-                return (ushort)System.Net.HttpStatusCode.OK;
-            }, opt);
-
-            // User signed out event
-            Starcounter.Handle.DELETE("/__db/__default/societyobjects/systemusersession", (Request request) => {
-
-                bool isSignedIn = Admin.IsAuthorized();
-
-                // Hide or show menu choice 
-                Admin admin = Admin.AdminPage;
-                if (admin.Menu != null) {
-                    SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                    menu.IsSignedIn = isSignedIn;
-                }
-
-                //if (admin.User != null) {
-                //    UserMenu user = admin.User as UserMenu;
-                //    user.IsSignedIn = isSignedIn;
-                //}
-
-                return (ushort)System.Net.HttpStatusCode.OK;
-            }, opt);
-
-            #endregion
-
-            #region Launcher hooks
-            //Starcounter.Handle.GET("/user", () => {
-
-            //    //                Admin admin = Session.Current.Data as Admin;
-            //    Admin admin = Admin.AdminPage;
-
-            //    var userMenu = new UserMenu() {
-            //        Html = "/usermenu.html",
-            //    };
-
-            //    userMenu.IsSignedIn = Admin.IsAuthorized();
-
-            //    admin.User = userMenu;
-
-
-            //    return userMenu;
-            //});
-
-
-            // Menu
-            Starcounter.Handle.GET("/menu", () => {
-
-                Admin adminPage = new Admin();
-
-                var menuPage = new SystemUserMenu() {
-                    Html = "/adminmenu.html",
-                    IsSignedIn = Admin.IsAuthorized()
-                };
-
-                adminPage.Menu = menuPage;
-
-                Admin.AdminPage = adminPage;
-
-                return menuPage;
-            });
-
-            #endregion
-
+            Handlers.Administrator.RegisterHandlers();
             Handlers.Systemusers.RegisterHandlers();
+            Database.CommitHooks.RegisterCommitHooks();
+            Handlers.LauncherHooks.RegisterLauncherHooks();
+        }
+
+        static private void AssureFirstTimeUsage() {
+
+            Concepts.Ring3.SystemUser systemUser = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o").First;
+            if (systemUser == null) {
+                Db.Transaction(() => {
+                    SystemUserAdmin.AddPerson("admin", "admin", "admin", "change@this.email", "admin");
+                });
+            }
         }
 
         /// <summary>

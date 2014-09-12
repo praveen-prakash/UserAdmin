@@ -1,5 +1,6 @@
 using Starcounter;
 using System.Collections;
+using UserAdminApp.Database;
 
 namespace UserAdminApp.Server.Partials.Administrator {
 
@@ -27,12 +28,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             // TODO: Warn user with Yes/No dialog
 
-            Db.Transaction(() => {
-                this.Data.Delete();
-            });
-
+            SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
             this.RedirectUrl = "/launcher/workspace/admin/users";
-
         }
 
         void Handle(Input.Save action) {

@@ -11,6 +11,11 @@
     </div>
 
     <div class="launcher-labeled-input">
+        <input id="EMail$" type='email'  value='{{ EMail$ }}' placeholder='<E-Mail>'>
+        <label for="EMail$">E-Mail</label>
+    </div>
+
+    <div class="launcher-labeled-input">
         <input id="FirstName$" type='text' value='{{ FirstName$ }}' placeholder='<FirstName>'>
         <label for="FirstName$">FirstName</label>
     </div>
@@ -25,6 +30,7 @@
         <label for="Password$">Password</label>
     </div>-->
 
+
     <template if="{{Message}}">
         <p>{{Message}}</p>
     </template>
@@ -32,6 +38,7 @@
     <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
     <button class="launcher-button"  onclick="getModel(this).Delete$ = null">Delete</button>
     <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
+    <button class="launcher-button"  onclick="getModel(this).ResetPassword$ = null">Reset Password</button>
 
    <link is="juicy-redirect" history url="{{ RedirectUrl }}">
 

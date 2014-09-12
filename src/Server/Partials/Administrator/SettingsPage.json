@@ -2,14 +2,13 @@
 	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
 	"Uri" : "",
 	"Html" : "",
+	"Host$" : "",
+	"Port$" : 0,
+	"EnableSsl$" : true,
 	"Username$" : "",
-	"FirstName$" : "",
-	"Surname$" : "",
 	"Password$" : "",
-	"EMail$" : "",
 	"Save$" : null,
 	"Close$" : null,
 	"RedirectUrl" : "",
-	"Message" : "",
-	"SendInventationMail" : false
+	"Message" : ""
 }

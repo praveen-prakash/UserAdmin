@@ -19,21 +19,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.AddSystemUser action) {
 
-            // TODO: Check for duplicates
-
             this.RedirectUrl = "/launcher/workspace/admin/createuser";
-
-            //Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.EMail, this.Password);
-
-            //Db.Transaction(() => {
-
-                
-            //    Concepts.Ring3.SystemUser user = new Concepts.Ring3.SystemUser();
-            //    user.Username = this.EMail;
-            //    user.Password = this.Password;
-            //});
-
-            //this.EMail = this.Password = string.Empty;
         }
 
     }
@@ -64,11 +50,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Delete action) {
 
             // TODO: Warning user with Yes/No dialog
-
-            Db.Transaction(() => {
-
-                this.Data.Delete();
-            });
+            SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
         }
     }
 }
