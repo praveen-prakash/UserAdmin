@@ -81,6 +81,7 @@ namespace UserAdminApp.Database {
                 emailRel = new EMailAddress();
                 emailRel.SetToWhat(person);
                 emailRel.EMail = emailLow.ToLowerInvariant();
+                person.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
             });
         }
 
@@ -144,6 +145,7 @@ namespace UserAdminApp.Database {
                 emailRel = new EMailAddress();
                 emailRel.SetToWhat(company);
                 emailRel.EMail = emailLow;
+                company.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
             });
         }
 

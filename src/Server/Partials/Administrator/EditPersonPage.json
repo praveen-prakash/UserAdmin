@@ -11,6 +11,8 @@
 	"FirstName$" : "",
 	"$Surname$" : { "Bind": "WhoIs.Surname"},
 	"Surname$" : "",
+	"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
+	"ImageURL" : "",
 	"ResetPassword$" : null,
 	"Delete$":null,
 	"Save$":null,

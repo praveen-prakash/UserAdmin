@@ -49,6 +49,13 @@ namespace UserAdminApp.Server.Partials.Administrator {
                             Concepts.Ring2.EMailAddress emailRel = new Concepts.Ring2.EMailAddress();
                             emailRel.SetToWhat(systemUser);
                             emailRel.EMail = value.ToLowerInvariant();
+
+                            // Update Gravatar image
+                            if (systemUser.WhoIs is Concepts.Ring1.Somebody) {
+                                ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(emailRel.EMail);
+                                //this.ImageURL = ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL;
+                            }
+
                         });
                     }
                 }
@@ -63,6 +70,12 @@ namespace UserAdminApp.Server.Partials.Administrator {
                         // Update email
                         this.Transaction.Add(() => {
                             eMailAddress.EMail = value.ToLowerInvariant();
+
+                            // Update Gravatar image
+                            if (systemUser.WhoIs is Concepts.Ring1.Somebody) {
+                                ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(eMailAddress.EMail);
+                                //this.ImageURL = ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL;
+                            }
                         });
                     }
                 }

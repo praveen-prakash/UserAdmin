@@ -5,6 +5,8 @@
 	"Username" : "",
 	"$Name$" : { "Bind": "WhoIs.Name"},
 	"Name$" : "",
+	"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
+	"ImageURL" : "",
 	"ResetPassword$" : null,
 	"Delete$":null,
 	"Save$":null,
