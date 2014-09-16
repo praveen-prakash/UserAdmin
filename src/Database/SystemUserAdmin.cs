@@ -181,8 +181,10 @@ namespace UserAdminApp.Database {
                     foreach (var addr in res) {
                         addr.Delete();
                     }
-                }
 
+                    // TODO: Should we also delete the Somebody?
+                    user.WhatIs.Delete();
+                }
 
                 user.Delete();
             });

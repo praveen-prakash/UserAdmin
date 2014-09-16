@@ -15,15 +15,24 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [SettingsPage_json]
     partial class SettingsPage : Page {
 
-        void Handle(Input.Username action) {
-        }
+        //void Handle(Input.Host action) {
+
+
+        //}
 
         void Handle(Input.Port action) {
+
+            if (action.Value > IPEndPoint.MaxPort || (action.Value < IPEndPoint.MinPort)) {
+                this.AddPropertyFeedback("Port_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "Invalid port number");
+            }
+            else {
+                this.RemovePropertyFeedback("Port_Feedback");
+            }
         }
 
 
-        void Handle(Input.EnableSsl action) {
-        }
+        //void Handle(Input.EnableSsl action) {
+        //}
 
         void Handle(Input.Save action) {
 

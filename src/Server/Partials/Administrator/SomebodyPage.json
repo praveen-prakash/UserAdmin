@@ -14,12 +14,5 @@
 	"ResetPassword$" : null,
 	"Delete$":null,
 	"Save$":null,
-	"Close$":null,
-
-	"IsPristine" : true,
-	"IsDirty" : false,
-	"Rollback$" : null,
-
-	"$Name$" : { "Bind": "WhoIs.Name"},
-	"Name$" : ""
+	"Close$":null
 }

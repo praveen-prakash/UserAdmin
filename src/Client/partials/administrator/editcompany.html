@@ -19,10 +19,11 @@
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Save$ = null">Save</button>
     <button class="launcher-button"  onclick="getModel(this).Delete$ = null">Delete</button>
+    <button class="launcher-button" disabled?="{{ IsDirty }}" onclick="getModel(this).ResetPassword$ = null">Reset Password</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = null">Undo</button>
     <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
-    <button class="launcher-button"  onclick="getModel(this).ResetPassword$ = null">Reset Password</button>
 
    <link is="juicy-redirect" history url="{{ RedirectUrl }}">
 

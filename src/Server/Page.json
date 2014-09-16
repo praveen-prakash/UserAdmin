@@ -2,5 +2,10 @@
 	"$":{"Namespace":"UserAdminApp.Server"},
 	"Uri" : "",
 	"Html" : "",
-	"RedirectUrl" : ""
+	"RedirectUrl" : "",
+	"IsPristine" : true,
+	"IsDirty" : false,
+	"IsValid" : true,
+	"IsInvalid" : false,
+	"Rollback$" : null
 }

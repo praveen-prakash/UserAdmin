@@ -96,6 +96,9 @@
     <Compile Include="Server\Page.json.cs">
       <DependentUpon>Page.json</DependentUpon>
     </Compile>
+    <Compile Include="Server\Partials\Administrator\SomebodyPage.json.cs">
+      <DependentUpon>SomebodyPage.json</DependentUpon>
+    </Compile>
     <Compile Include="Server\Partials\Administrator\SettingsPage.json.cs">
       <DependentUpon>SettingsPage.json</DependentUpon>
     </Compile>
@@ -107,6 +110,9 @@
     </Compile>
     <Compile Include="Server\Partials\User\ResetPasswordPage.json.cs">
       <DependentUpon>ResetPasswordPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\PropertyFeedback.json.cs">
+      <DependentUpon>PropertyFeedback.json</DependentUpon>
     </Compile>
     <Compile Include="Server\SystemUserRegister.json.cs">
       <DependentUpon>SystemUserRegister.json</DependentUpon>
@@ -217,6 +223,16 @@
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\Partials\User\ResetPasswordPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Partials\Administrator\SomebodyPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\PropertyFeedback.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

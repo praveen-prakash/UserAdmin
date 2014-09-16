@@ -1,31 +1,69 @@
 <link rel="import" href="/vendor/juicy-redirect/src/juicy-redirect.html">
 
+<style>
+
+    .isa_Message, .isa_Warning, .isa_Error {
+        margin: 0px 0px;
+        padding: 3px 5px 3px 5px;
+        align-self: center;
+    }
+
+    .isa_Message {
+        color: #00529B;
+        background-color: #BDE5F8;
+    }
+
+    .isa_Warning {
+        color: #9F6000;
+        background-color: #FEEFB3;
+    }
+
+    .isa_Error {
+        color: #D8000C;
+        background-color: #FFBABA;
+    }
+
+</style>
+
 <template bind="{{UserAdminApp}}">
 
     <H1>Settings Mail</H1>
 
+
     <div class="launcher-labeled-input">
-        <input id="Host$" type='text' value='{{ Host$ }}' placeholder='<Host>'>
+        <input id="Enabled$" type='checkbox' checked='{{ Enabled$ }}'>
+        <label for="Enabled$">Enabled</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="Host$" type='text' disabled?="{{ !Enabled$ }}" value='{{ Host$ }}' placeholder='<Host>'>
         <label for="Host$">Host</label>
     </div>
-
+        
     <div class="launcher-labeled-input">
-        <input id="Port$" type='number' value='{{ Port$ }}' placeholder='<Port>'>
+        <input class="invalid" id="Port$" type='number' disabled?="{{ !Enabled$ }}" value='{{ Port$ }}' placeholder='<Port>'>
         <label for="Port$">Port</label>
+
+        <template if="{{Port_Feedback.TypeNo>=0}}">
+            <span class="isa_{{Port_Feedback.Type}}">
+                {{Port_Feedback.Message}}
+            </span>
+        </template>
+        
     </div>
 
     <div class="launcher-labeled-input">
-        <input id="EnableSsl$" type='checkbox' checked='{{ EnableSsl$ }}'>
+        <input id="EnableSsl$" type='checkbox' disabled?="{{ !Enabled$ }}" checked='{{ EnableSsl$ }}'>
         <label for="EnableSsl$">Enable SSL</label>
     </div>
 
     <div class="launcher-labeled-input">
-        <input id="Username$" type='text' value='{{ Username$ }}' placeholder='<Username>'>
+        <input id="Username$" type='text' disabled?="{{ !Enabled$ }}" value='{{ Username$ }}' placeholder='<Username>'>
         <label for="Username$">Username</label>
     </div>
 
     <div class="launcher-labeled-input">
-        <input id="Password$" type='password' value='{{ Password$ }}' placeholder='<Password>'>
+        <input id="Password$" type='password' disabled?="{{ !Enabled$ }}" value='{{ Password$ }}' placeholder='<Password>'>
         <label for="Password$">Password</label>
     </div>
 
@@ -33,7 +71,8 @@
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button" disabled?="{{ IsInvalid || IsPristine}}" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = null">Undo</button>
     <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
 
     <link is="juicy-redirect" history url="{{ RedirectUrl }}">

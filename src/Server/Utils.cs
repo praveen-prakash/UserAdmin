@@ -21,6 +21,10 @@ namespace UserAdminApp.Server {
 
             try {
 
+                if (!settings.Enabled) {
+                    throw new InvalidOperationException("Mail service not enabled in the configuration.");
+                }
+
                 MailAddress fromAddress = new MailAddress(settings.Username, "UserAdminApp Reset Password");
                 MailAddress toAddress = new MailAddress(toEmail);
 

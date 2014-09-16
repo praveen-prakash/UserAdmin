@@ -5,18 +5,23 @@
 	"Username" : "",
 	"$EMail$" : { "Bind" : "UserEmail" },
 	"EMail$" : "",
-	"$FullName" : { "Bind": "WhoIs.FullName"},
-	"FullName" : "",
-	"$FirstName$" : { "Bind": "WhoIs.FirstName"},
-	"FirstName$" : "",
-	"$Surname$" : { "Bind": "WhoIs.Surname"},
-	"Surname$" : "",
 	"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
 	"ImageURL" : "",
+	"$FullName" : { "Bind": "WhoIs.FullName"},
+	"FullName" : "",
+	"Message" : "",
+	"RedirectUrl" : "",
 	"ResetPassword$" : null,
 	"Delete$":null,
 	"Save$":null,
 	"Close$":null,
-	"RedirectUrl" : "",
-	"Message" : ""
+
+	"IsPristine" : true,
+	"IsDirty" : false,
+	"Rollback$" : null,
+
+	"$FirstName$" : { "Bind": "WhoIs.FirstName"},
+	"FirstName$" : "",
+	"$Surname$" : { "Bind": "WhoIs.Surname"},
+	"Surname$" : ""
 }
