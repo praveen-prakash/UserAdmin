@@ -79,6 +79,17 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         #region View-model Handlers
 
+        void Handle(Input.EMail action) {
+
+            if (!UserAdminApp.Database.Utils.IsValidEmail(action.Value)) {
+                this.AddPropertyFeedback("EMail_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "Invalid e-mail adress");
+            }
+            else {
+                this.RemovePropertyFeedback("EMail_Feedback");
+            }
+        }
+
+
         /// <summary>
         /// Reset Password
         /// </summary>

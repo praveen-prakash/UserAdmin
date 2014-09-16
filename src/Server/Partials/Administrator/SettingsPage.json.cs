@@ -15,11 +15,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [SettingsPage_json]
     partial class SettingsPage : Page {
 
-        //void Handle(Input.Host action) {
-
-
-        //}
-
         void Handle(Input.Port action) {
 
             if (action.Value > IPEndPoint.MaxPort || (action.Value < IPEndPoint.MinPort)) {
@@ -30,9 +25,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
             }
         }
 
-
-        //void Handle(Input.EnableSsl action) {
-        //}
 
         void Handle(Input.Save action) {
 

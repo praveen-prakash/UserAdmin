@@ -5,6 +5,7 @@
 	"Username" : "",
 	"$EMail$" : { "Bind" : "UserEmail" },
 	"EMail$" : "",
+	"EMail$_Feedback" : {},
 	"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
 	"ImageURL" : "",
 	"$FullName" : { "Bind": "WhoIs.FullName"},

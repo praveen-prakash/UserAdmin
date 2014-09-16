@@ -27,8 +27,9 @@ namespace UserAdminApp.Database {
                 for (int i = 0; i < data.Length; i++) {
                     sBuilder.Append(data[i].ToString("x2"));
                 }
-                return "http://www.gravatar.com/avatar/" + sBuilder.ToString() + "?s=32&d=mm";
+                return "http://www.gravatar.com/avatar/" + sBuilder.ToString() + "?s=32&d=identicon";
             }
         }
     }
 }
+    

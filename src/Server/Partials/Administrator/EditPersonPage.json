@@ -5,6 +5,7 @@
 	"Username" : "",
 	"$EMail$" : { "Bind" : "UserEmail" },
 	"EMail$" : "",
+	"EMail_Feedback" : {},
 	"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
 	"ImageURL" : "",
 	"$FullName" : { "Bind": "WhoIs.FullName"},
@@ -18,6 +19,8 @@
 
 	"IsPristine" : true,
 	"IsDirty" : false,
+	"IsValid" : true,
+	"IsInvalid" : false,
 	"Rollback$" : null,
 
 	"$FirstName$" : { "Bind": "WhoIs.FirstName"},
