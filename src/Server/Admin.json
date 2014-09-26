@@ -1,6 +1,5 @@
 {
 	"$":{"Namespace":"UserAdminApp.Server"},
 	"Uri" : "",
-	"Html" : "",
-	"Menu": {}
+	"Html" : ""
 }

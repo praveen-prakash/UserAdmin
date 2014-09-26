@@ -12,6 +12,8 @@ namespace UserAdminApp.Server {
         // TODO: How to remove items from this list
         internal static Admin AdminPage;
 
+        internal object Menu;
+
         static public ushort Port = 8080;
 
         static void Main() {
