@@ -1,4 +1,4 @@
-<link rel="import" href="/vendor/juicy-redirect/src/juicy-redirect.html">
+<link rel="import" href="/vendor/puppet-redirect/src/puppet-redirect.html">
 
 <link rel="stylesheet" href="/css/useradmin.css">
 
@@ -26,6 +26,6 @@
     <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = null">Undo</button>
     <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
 
-   <link is="juicy-redirect" history url="{{ RedirectUrl }}">
+   <link is="puppet-redirect" history url="{{ RedirectUrl }}">
 
 </template>
