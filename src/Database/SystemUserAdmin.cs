@@ -57,7 +57,7 @@ namespace UserAdminApp.Database {
             }
             var dupEmail = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.EMail=?", emailLow).First;
             if (dupEmail != null) {
-                throw new ArgumentException("username", "Duplicated email");
+                throw new ArgumentException("email", "Duplicated email");
             }
 
             // Check for duplicated username

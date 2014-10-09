@@ -1,4 +1,5 @@
 <link rel="import" href="/vendor/puppet-redirect/src/puppet-redirect.html">
+<link rel="import" href="/vendor/console-log/console-log.html">
 
 
 <template bind="{{UserAdminApp}}">
@@ -41,5 +42,6 @@
     <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
 
    <link is="puppet-redirect" history url="{{ RedirectUrl }}">
+    <console-log info="REDIRECT: UserAdminApp (createuser) - Redirecting to => {{RedirectUrl}}"></console-log>
 
 </template>
