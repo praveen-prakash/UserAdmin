@@ -9,6 +9,13 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [SomebodyPage_json]
     partial class SomebodyPage : Page {
 
+
+        public bool ResetPassword_Enabled_ {
+            get {
+                return SettingsMailServer.Settings.Enabled;
+            }
+        }
+
         /// <summary>
         /// EMailAddress
         /// </summary>
@@ -140,6 +147,11 @@ namespace UserAdminApp.Server.Partials.Administrator {
             string link = null;
             string fullName = string.Empty;
             Concepts.Ring2.EMailAddress eMailAddress = null;
+
+            if (SettingsMailServer.Settings.Enabled == false) {
+                this.Message = "Mail Server not enabled in the settings.";
+                return;
+            }
 
             this.Transaction.Commit(); // TODO: Make this action disabled it user data has been changed.
 

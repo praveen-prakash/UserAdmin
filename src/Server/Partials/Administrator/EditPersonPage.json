@@ -13,6 +13,8 @@
 	"Message" : "",
 	"RedirectUrl" : "",
 	"ResetPassword$" : null,
+	"$ResetPassword_Enabled" : { "Bind": "ResetPassword_Enabled_"},
+	"ResetPassword_Enabled" : false,
 	"Delete$":null,
 	"Save$":null,
 	"Close$":null,

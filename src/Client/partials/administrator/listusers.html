@@ -1,6 +1,3 @@
-<link rel="import" href="/vendor/puppet-redirect/src/puppet-redirect.html">
-<link rel="import" href="/vendor/console-log/console-log.html">
-
 <template bind="{{UserAdminApp}}">
 
     <Style>
@@ -59,9 +56,5 @@
 
     </table>
 
-    <button  class="launcher-button" style="background-color:#11653B" onclick="getModel(this).AddSystemUser$ = null">Add</button>
-
-    <link is="puppet-redirect" history url="{{ RedirectUrl }}">
-    <console-log info="REDIRECT: UserAdminApp (listusers) - Redirecting to => {{RedirectUrl}}"></console-log>
-
+    <a href="/launcher/workspace/admin/createuser">Create User</a>
 </template>

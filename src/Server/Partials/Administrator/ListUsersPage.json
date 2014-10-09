@@ -10,9 +10,5 @@
 		"$Type" :  { "Bind":"Kind" },
 		"Type" : "",
 		"Delete$" : null
-	}],
-
-	"AddSystemUser$" : null,
-	"RedirectUrl" : ""
-
+	}]
 }

@@ -15,21 +15,10 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 return Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o");
             }
         }
-
-
-        void Handle(Input.AddSystemUser action) {
-
-            this.RedirectUrl = "/launcher/workspace/admin/createuser";
-        }
-
     }
 
     [ListUsersPage_json.Items]
     partial class SystemUsersItem : Json {
-
-        protected override void OnData() {
-            base.OnData();
-        }
 
         public string Kind {
             get {
