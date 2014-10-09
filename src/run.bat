@@ -1,2 +1,2 @@
-@ECHO OFF
-star --resourcedir=Client bin\Debug\UserAdminApp.exe
+@echo off
+star --resourcedir=%~dp0Client %~dp0bin\Debug\UserAdminApp.exe
