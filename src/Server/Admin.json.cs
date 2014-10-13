@@ -18,7 +18,7 @@ namespace UserAdminApp.Server {
 
         static void Main() {
 
-            Admin.AssureFirstTimeUsage();
+            Admin.AssureOneSystemUser();
 
             Handlers.Administrator.RegisterHandlers();
             Handlers.Systemusers.RegisterHandlers();
@@ -26,7 +26,7 @@ namespace UserAdminApp.Server {
             Handlers.LauncherHooks.RegisterLauncherHooks();
         }
 
-        static private void AssureFirstTimeUsage() {
+        static private void AssureOneSystemUser() {
 
             Concepts.Ring3.SystemUser systemUser = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o").First;
             if (systemUser == null) {

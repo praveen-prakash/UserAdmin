@@ -55,7 +55,9 @@ namespace UserAdminApp.Database {
             if (!Utils.IsValidEmail(email)) {
                 throw new ArgumentException("email", "Invalid email address");
             }
-            var dupEmail = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.EMail=?", emailLow).First;
+
+            // Check if there is any system users that has this email.
+            var dupEmail = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.EMail=? AND o.ToWhat IS Concepts.Ring3.SystemUser", emailLow).First;
             if (dupEmail != null) {
                 throw new ArgumentException("email", "Duplicated email");
             }
@@ -78,9 +80,9 @@ namespace UserAdminApp.Database {
                 emailRel.SetToWhat(systemUser);
                 emailRel.EMail = emailLow.ToLowerInvariant();
 
-                emailRel = new EMailAddress();
-                emailRel.SetToWhat(person);
-                emailRel.EMail = emailLow.ToLowerInvariant();
+                //emailRel = new EMailAddress();
+                //emailRel.SetToWhat(person);
+                //emailRel.EMail = emailLow.ToLowerInvariant();
                 person.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
             });
         }
@@ -118,9 +120,11 @@ namespace UserAdminApp.Database {
             if (!Utils.IsValidEmail(email)) {
                 throw new ArgumentException("email", "Invalid email address");
             }
-            var dupEmail = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.EMail=?", emailLow).First;
+
+            // Check if there is any system users that has this email.
+            var dupEmail = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.EMail=? AND o.ToWhat IS Concepts.Ring3.SystemUser", emailLow).First;
             if (dupEmail != null) {
-                throw new ArgumentException("username", "Duplicated email");
+                throw new ArgumentException("email", "Duplicated email");
             }
 
             // Check for duplicated username
@@ -142,9 +146,9 @@ namespace UserAdminApp.Database {
                 emailRel.SetToWhat(systemUser);
                 emailRel.EMail = emailLow;
 
-                emailRel = new EMailAddress();
-                emailRel.SetToWhat(company);
-                emailRel.EMail = emailLow;
+                //emailRel = new EMailAddress();
+                //emailRel.SetToWhat(company);
+                //emailRel.EMail = emailLow;
                 company.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
             });
         }
