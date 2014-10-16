@@ -3,31 +3,6 @@
 
 <link rel="stylesheet" href="/css/useradmin.css">
 
-<!--<style>
-
-    .isa_Message, .isa_Warning, .isa_Error {
-        margin: 0px 0px;
-        padding: 3px 5px 3px 5px;
-        align-self: center;
-    }
-
-    .isa_Message {
-        color: #00529B;
-        background-color: #BDE5F8;
-    }
-
-    .isa_Warning {
-        color: #9F6000;
-        background-color: #FEEFB3;
-    }
-
-    .isa_Error {
-        color: #D8000C;
-        background-color: #FFBABA;
-    }
-
-</style>-->
-
 <template bind="{{UserAdminApp}}">
 
     <H1>Settings Mail</H1>
@@ -74,7 +49,7 @@
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" disabled?="{{ IsInvalid || IsPristine}}" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine}}" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
     <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = null">Undo</button>
     <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
 

@@ -1,0 +1,25 @@
+<link rel="import" href="/vendor/puppet-redirect/src/puppet-redirect.html">
+<link rel="import" href="/vendor/console-log/console-log.html">
+
+<link rel="stylesheet" href="/css/useradmin.css">
+
+<template bind="{{UserAdminApp}}">
+
+    <H1>Create Group</H1>
+
+    <div class="launcher-labeled-input">
+        <input id="Name$" type='text' value='{{ Name$ }}' placeholder='<Name>'>
+        <label for="Name$">Name</label>
+    </div>
+
+    <template if="{{Message}}">
+        <p>{{Message}}</p>
+    </template>
+
+    <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
+
+   <link is="puppet-redirect" history url="{{ RedirectUrl }}">
+    <console-log info="REDIRECT: UserAdminApp (createusergroup) - Redirecting to => {{RedirectUrl}}"></console-log>
+
+</template>

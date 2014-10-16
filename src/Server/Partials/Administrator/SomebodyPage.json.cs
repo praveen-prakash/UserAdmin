@@ -1,6 +1,7 @@
 using Starcounter;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using UserAdminApp.Database;
 
@@ -9,6 +10,41 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [SomebodyPage_json]
     partial class SomebodyPage : Page {
 
+        public string SelectedSystemUserGroupID_;
+        public IEnumerable SystemUserGroups_ {
+            get {
+
+                List<Concepts.Ring3.SystemUserGroup> notmemberofgroups = new List<Concepts.Ring3.SystemUserGroup>();
+
+                var groups = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o");
+                foreach (var group in groups) {
+
+                    var memberOfGroup = Db.SQL<Concepts.Ring3.SystemUserGroupMember>("SELECT o FROM Concepts.Ring3.SystemUserGroupMember o WHERE o.SystemUserGroup=? AND o.SystemUser=?", group, this.Data).First;
+                    if (memberOfGroup == null) {
+                        notmemberofgroups.Add(group);
+                    }
+
+                }
+                return notmemberofgroups;
+            }
+        }
+
+        void Handle(Input.AddUserToGroup action) {
+
+            if (string.IsNullOrEmpty(this.SelectedSystemUserGroupID_)) {
+                action.Cancel();
+                // TODO: Feedback!
+                return;
+            }
+
+            Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.DbIDString=?", this.SelectedSystemUserGroupID_).First;
+
+            Concepts.Ring3.SystemUserGroupMember systemUserGroupMember = new Concepts.Ring3.SystemUserGroupMember();
+            systemUserGroupMember.SetSystemUser(this.Data as Concepts.Ring3.SystemUser);
+            systemUserGroupMember.SetToWhat(group);
+
+            this.SelectedSystemUserGroupID_ = null;
+        }
 
         public bool ResetPassword_Enabled_ {
             get {
@@ -115,9 +151,14 @@ namespace UserAdminApp.Server.Partials.Administrator {
             // TODO: Warn user with Yes/No dialog
             this.Transaction.Rollback();
 
-            SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
+            this.Transaction.Add(() => {
+                SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
+            });
 
-            this.RedirectUrl = "/launcher/workspace/admin/users";
+            this.Transaction.Commit();
+
+
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
         }
 
         /// <summary>
@@ -127,7 +168,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             this.Transaction.Commit();
-            this.RedirectUrl = "/launcher/workspace/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
         }
 
         /// <summary>
@@ -137,7 +178,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Close action) {
 
             this.Transaction.Rollback();
-            this.RedirectUrl = "/launcher/workspace/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
         }
 
         #endregion
@@ -153,9 +194,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 return;
             }
 
-            this.Transaction.Commit(); // TODO: Make this action disabled it user data has been changed.
-
-            Db.Transaction(() => {
+            this.Transaction.Add(() => {
 
                 Concepts.Ring3.SystemUser systemUser = (Concepts.Ring3.SystemUser)this.Data;
                 // Generate Password Reset token
@@ -186,6 +225,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             });
 
+            this.Transaction.Commit();
+
             try {
                 this.Message = string.Format("Sending mail sent to {0}...", eMailAddress.EMail);
                 Utils.sendResetPasswordMail(fullName, eMailAddress.EMail, link);
@@ -196,5 +237,15 @@ namespace UserAdminApp.Server.Partials.Administrator {
             }
         }
 
+    }
+
+    [SomebodyPage_json.Groups]
+    partial class SombodyGroupItem : Json {
+
+        void Handle(Input.Remove action) {
+
+            Concepts.Ring3.SystemUserGroup group = this.Data as Concepts.Ring3.SystemUserGroup;
+            group.RemoveMember(this.Parent.Parent.Data as Concepts.Ring3.SystemUser);
+        }
     }
 }

@@ -14,4 +14,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [EditPersonPage_json]
     partial class EditPersonPage : SomebodyPage {
     }
+
+    [EditPersonPage_json.Groups]
+    partial class PersonGroupItem : SombodyGroupItem {
+    }
 }

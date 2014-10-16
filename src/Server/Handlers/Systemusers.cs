@@ -24,15 +24,16 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System users
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/createuser", () => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/createuser", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage("/launcher/workspace/admin/createuser");
+//                    return Admin.GetSignInPage("/launcher/workspace/admin/createuser");
+                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);
                 }
 
                 Partials.Administrator.CreateUserPage page = new Partials.Administrator.CreateUserPage() {
                     Html = "/partials/administrator/createuser.html",
-                    Uri = "/admin/createuser"
+                    Uri = request.Uri
                 };
                 return page;
             });
@@ -40,15 +41,15 @@ namespace UserAdminApp.Server.Handlers {
             //
             // List users
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/users", () => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/users", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage("/launcher/workspace/admin/users");
+                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath +request.Uri);
                 }
 
                 Partials.Administrator.ListUsersPage page = new Partials.Administrator.ListUsersPage() {
                     Html = "/partials/administrator/listusers.html",
-                    Uri = "/admin/users"
+                    Uri = request.Uri
                 };
                 return page;
             });
@@ -56,13 +57,13 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System user
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/users/{?}", (Request request, string userid) => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/users/{?}", (string userid, Request request) => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage("/launcher/workspace/admin/users/" + userid);
+                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);
                 }
 
-                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username=?", userid).First;
+                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.DbIDString=?", userid).First;
 
                 if (user == null) {
                     // TODO: Return a "User not found" page
@@ -72,18 +73,18 @@ namespace UserAdminApp.Server.Handlers {
                 if (user.WhoIs is Concepts.Ring1.Person) {
                     Partials.Administrator.EditPersonPage page = new Partials.Administrator.EditPersonPage() {
                         Html = "/partials/administrator/editperson.html",
-                        Uri = "/admin/users/" + user.Username
+                        Uri = request.Uri
                     };
-                    page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
+                    page.Transaction = new Transaction();
                     page.Data = user;
                     return page;
                 }
                 else if (user.WhoIs is Concepts.Ring2.Company) {
                     Partials.Administrator.EditCompanyPage page = new Partials.Administrator.EditCompanyPage() {
                         Html = "/partials/administrator/editcompany.html",
-                        Uri = "/admin/users/" + user.Username
+                        Uri = request.Uri
                     };
-                    page.Transaction = new Transaction();   // TODO: How to close this transaction if the user do a refresh in the browser?
+                    page.Transaction = new Transaction();
                     page.Data = user;
                     return page;
                 }
@@ -120,6 +121,7 @@ namespace UserAdminApp.Server.Handlers {
                 Partials.User.ResetPasswordPage page = new Partials.User.ResetPasswordPage() {
                     Html = "/partials/user/resetpassword.html",
                     Uri = "/admin/user/resetpassword"
+                        //Uri = request.Uri // TODO:
                 };
 
                 page.resetPassword = resetPassword;

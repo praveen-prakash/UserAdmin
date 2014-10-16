@@ -68,23 +68,20 @@ namespace UserAdminApp.Database {
                 throw new ArgumentException("username", "Duplicated username");
             }
 
-            Db.Transaction(() => {
+            Person person = new Person() { FirstName = firstName, Surname = surname };
+            Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(person);
+            systemUser.Username = username;
+            SetPassword(systemUser, password);
 
-                Person person = new Person() { FirstName = firstName, Surname = surname };
-                Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(person);
-                systemUser.Username = username;
-                SetPassword(systemUser, password);
+            // Add ability to also sign in with email
+            EMailAddress emailRel = new EMailAddress();
+            emailRel.SetToWhat(systemUser);
+            emailRel.EMail = emailLow.ToLowerInvariant();
 
-                // Add ability to also sign in with email
-                EMailAddress emailRel = new EMailAddress();
-                emailRel.SetToWhat(systemUser);
-                emailRel.EMail = emailLow.ToLowerInvariant();
-
-                //emailRel = new EMailAddress();
-                //emailRel.SetToWhat(person);
-                //emailRel.EMail = emailLow.ToLowerInvariant();
-                person.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
-            });
+            //emailRel = new EMailAddress();
+            //emailRel.SetToWhat(person);
+            //emailRel.EMail = emailLow.ToLowerInvariant();
+            person.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
         }
 
         /// <summary>
@@ -133,24 +130,21 @@ namespace UserAdminApp.Database {
                 throw new ArgumentException("username", "Duplicated username");
             }
 
+            Company company = new Company() { Name = name };
 
-            Db.Transaction(() => {
-                Company company = new Company() { Name = name };
+            Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(company);
+            systemUser.Username = username;
+            SetPassword(systemUser, password);
 
-                Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(company);
-                systemUser.Username = username;
-                SetPassword(systemUser, password);
+            // Add ability to also sign in with email
+            EMailAddress emailRel = new EMailAddress();
+            emailRel.SetToWhat(systemUser);
+            emailRel.EMail = emailLow;
 
-                // Add ability to also sign in with email
-                EMailAddress emailRel = new EMailAddress();
-                emailRel.SetToWhat(systemUser);
-                emailRel.EMail = emailLow;
-
-                //emailRel = new EMailAddress();
-                //emailRel.SetToWhat(company);
-                //emailRel.EMail = emailLow;
-                company.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
-            });
+            //emailRel = new EMailAddress();
+            //emailRel.SetToWhat(company);
+            //emailRel.EMail = emailLow;
+            company.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
         }
 
         /// <summary>
@@ -163,36 +157,57 @@ namespace UserAdminApp.Database {
                 throw new ArgumentNullException("user");
             }
 
-            Db.Transaction(() => {
+            // Remove Email adresses associated to the system user
+            Db.SlowSQL("DELETE FROM Concepts.Ring2.EMailAddress WHERE ToWhat=?", user);
 
-                // Remove Email adresses associated to the system user
-                var result = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.ToWhat=?", user);
-                foreach (var addr in result) {
-                    addr.Delete();
-                }
+            // Remove ResetPassword associated to the system user Sombody
+            Db.SlowSQL("DELETE FROM UserAdminApp.Database.ResetPassword WHERE User=?", user);
 
-                // Remove Email adresses associated to the system user Sombody
-                if (user.WhatIs != null) {
-                    result = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.ToWhat=?", user.WhatIs);
-                    foreach (var addr in result) {
-                        addr.Delete();
-                    }
-                }
+            // TODO: Should we also delete the Somebody (Person/Company)?
 
-                // Remove ResetPassword associated to the system user Sombody
-                if (user.WhatIs != null) {
-                    var res = Db.SQL<UserAdminApp.Database.ResetPassword>("SELECT o FROM UserAdminApp.Database.ResetPassword o WHERE o.User=?", user);
-                    foreach (var addr in res) {
-                        addr.Delete();
-                    }
+            // Remove system user group member (If system user is member of a system user group)
+            Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroupMember WHERE SystemUser=?", user);
 
-                    // TODO: Should we also delete the Somebody?
-                    user.WhatIs.Delete();
-                }
+            user.Delete();
+        }
 
-                user.Delete();
-            });
+        /// <summary>
+        /// Delete System User Group and it's relationships
+        /// </summary>
+        /// <param name="group"></param>
+        public static void DeleteSystemUserGroup(Concepts.Ring3.SystemUserGroup group) {
 
+            // Remove basedOn's
+            Db.SlowSQL("DELETE FROM Concepts.Ring5.SystemUserGroupBasedOn WHERE SystemUserGroup=?", group);
+            Db.SlowSQL("DELETE FROM Concepts.Ring5.SystemUserGroupBasedOn WHERE SystemUserGroupBaseOn=?", group);
+
+            // Remove System user member's
+            Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroupMember WHERE SystemUserGroup=?", group);
+
+            group.Delete();
+        }
+
+        /// <summary>
+        /// Add System User as a Member of a SystemUserGroup
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="group"></param>
+        public static void AddSystemUserToSystemUserGroup(Concepts.Ring3.SystemUser user, Concepts.Ring3.SystemUserGroup group) {
+
+            Concepts.Ring3.SystemUserGroupMember systemUserGroupMember = new Concepts.Ring3.SystemUserGroupMember();
+            systemUserGroupMember.SetSystemUser(user);
+            systemUserGroupMember.SetToWhat(group);
+            //group.AddMember(systemUser);
+        }
+
+        /// <summary>
+        /// Remove System User as a Member of a SystemUserGroup
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="group"></param>
+        public static void RemoveSystemUserFromSystemUserGroup(Concepts.Ring3.SystemUser user, Concepts.Ring3.SystemUserGroup group) {
+
+            group.RemoveMember(user);
         }
 
         /// <summary>
@@ -202,13 +217,9 @@ namespace UserAdminApp.Database {
         /// <param name="password"></param>
         public static void SetPassword(Concepts.Ring3.SystemUser user, string password) {
 
-            Db.Transaction(() => {
-                string hashedPassword;
-                Concepts.Ring5.SystemUserPassword.GeneratePasswordHash(user.Username, password, out hashedPassword);
-                user.Password = hashedPassword;
-            });
-
+            string hashedPassword;
+            Concepts.Ring5.SystemUserPassword.GeneratePasswordHash(user.Username, password, out hashedPassword);
+            user.Password = hashedPassword;
         }
-
     }
 }

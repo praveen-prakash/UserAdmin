@@ -7,7 +7,7 @@ namespace UserAdminApp.Server {
 
         void Handle(Input.Register action) {
 
-            this.RedirectUrl = "/launcher/workspace/admin/systemuser/register";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/systemuser/register";
         }
 
     }

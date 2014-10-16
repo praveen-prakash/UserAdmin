@@ -5,6 +5,37 @@ using System.Collections.Generic;
 namespace UserAdminApp.Server {
     partial class Page : Json {
 
+        public bool IsDirtyTest_ {
+            get {
+                if (this.Transaction == null) return false;
+                return this.Transaction.IsDirty;
+            }
+        }
+
+        public bool IsDirty_ {
+            get {
+                return this.GetIsDiryFlag();
+            }
+        }
+
+        public bool IsPristine_ {
+            get {
+                return !this.IsDirty_;
+            }
+        }
+
+        public bool IsValid_ {
+            get {
+                return this.Feedbacks.Count == 0;
+            }
+        }
+
+        public bool IsInvalid_ {
+            get {
+                return !this.IsValid_;
+            }
+        }
+
         protected override void HasChanged(Starcounter.Templates.TValue property) {
 
             this.RefreshDirtyFlags();
@@ -15,24 +46,20 @@ namespace UserAdminApp.Server {
             base.InternalSetData(data, template, readOperation);
         }
 
-        protected override void OnData() {
-            base.OnData();
-        }
-
         /// <summary>
         /// Refresh Dirty flags
         /// </summary>
         private void RefreshDirtyFlags() {
 
-            bool isDirtyFlag = this.GetIsDiryFlag();
+            //bool isDirtyFlag = this.GetIsDiryFlag();
 
-            if (this.IsDirty != isDirtyFlag) {
-                this.IsDirty = isDirtyFlag;
-            }
+            //if (this.IsDirty != isDirtyFlag) {
+            //    this.IsDirty = isDirtyFlag;
+            //}
 
-            if (this.IsPristine != !isDirtyFlag) {
-                this.IsPristine = !isDirtyFlag;
-            }
+            //if (this.IsPristine != !isDirtyFlag) {
+            //    this.IsPristine = !isDirtyFlag;
+            //}
         }
 
         /// <summary>
@@ -40,8 +67,8 @@ namespace UserAdminApp.Server {
         /// </summary>
         private void RefreshValidFlags() {
 
-            this.IsValid = this.Feedbacks.Count == 0;
-            this.IsInvalid = !this.IsValid;
+            //this.IsValid = this.Feedbacks.Count == 0;
+            //this.IsInvalid = !this.IsValid;
         }
 
         /// <summary>

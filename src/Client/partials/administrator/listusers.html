@@ -1,40 +1,17 @@
+<link rel="stylesheet" href="/css/useradmin.css">
+
 <template bind="{{UserAdminApp}}">
 
-    <Style>
-        table.gridtable {
-            font-family: verdana,arial,sans-serif;
-            font-size: 11px;
-            color: #333333;
-            border-width: 1px;
-            border-color: #666666;
-            border-collapse: collapse;
-        }
-
-        table.gridtable th {
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #666666;
-            background-color: #dedede;
-        }
-
-        table.gridtable td {
-            border-width: 1px;
-            padding: 0px;
-            border-style: solid;
-            border-color: #666666;
-            background-color: #ffffff;
-        }
-    </Style>
 
     <H1>System users</H1>
 
     <table class="gridtable" >
         <thead>
             <tr>
-                <th>Name</th>
                 <th>Username</th>
+                <th>Name</th>
                 <th>Type</th>
+                <th>Member in</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -43,11 +20,20 @@
 
             <template repeat="{{item in Items}}">
                 <tr>
-                    <td>{{item.FullName}}</td>
                     <td>
-                        <a href="/launcher/workspace/admin/users/{{item.Username}}"> {{item.Username}}</a>
+                        <a href="/launcher/workspace/admin/users/{{item.DbIDString}}"> {{item.Username}}</a>
+                    </td>
+                    <td>
+                        <a href="/launcher/workspace/admin/users/{{item.DbIDString}}">{{item.FullName}}</a>
                     </td>
                     <td>{{item.Type}}</td>
+                    <td>
+                        <template repeat="{{group, groupIndex in item.Groups}}">
+                            <template if="{{groupIndex > 0}}">,&nbsp;</template>
+                                <a href="/launcher/workspace/admin/usergroups/{{group.DbIDString}}">{{group.Name}}</a>
+                        </template>                        
+                    </td>
+
                     <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>
                 </tr>
             </template>

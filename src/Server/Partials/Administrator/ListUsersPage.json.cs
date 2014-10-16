@@ -39,7 +39,10 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Delete action) {
 
             // TODO: Warning user with Yes/No dialog
-            SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
+            Db.Transaction(() => {
+                SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
+            });
+
         }
     }
 }

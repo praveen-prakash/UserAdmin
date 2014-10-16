@@ -3,10 +3,16 @@
 	"Uri" : "",
 	"Html" : "",
 	"RedirectUrl" : "",
-	"IsPristine" : true,
+
+	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
+	"$IsPristine" : { "Bind" : "IsPristine_" },
+	"IsPristine" : true,
+	"$IsValid" : { "Bind" : "IsValid_" },
 	"IsValid" : true,
+	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
+
 	"Rollback$" : null,
 
 	"Enabled$" : false,

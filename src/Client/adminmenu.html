@@ -3,19 +3,21 @@
     <template if="{{IsSignedIn}}">
         <li>
             <a href="/launcher/workspace/admin/users">
-                <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Users (dynamic)</span></div>					
+                <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Users</span></div>					
             </a>
         </li>
+
+    <li>
+        <a href="/launcher/workspace/admin/usergroups">
+            <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System User Groups</span></div>					
+        </a>
+    </li>
+
         <li>
             <a href="/launcher/workspace/admin/settings">
-                <div title="Settings" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">Settings</span></div>					
+                <div title="Settings" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Settings</span></div>					
             </a>
         </li>
     </template>
-
-    <li>
-        <a href="/launcher/workspace/admin/users">
-            <div title="System Users" class="the-icons span3"><i class="icon-adult"></i> <span class="i-name">System Users (static)</span></div>					
-        </a>
-    </li>
+    
 </template>

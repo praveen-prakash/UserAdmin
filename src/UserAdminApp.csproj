@@ -91,10 +91,20 @@
       <DependentUpon>Admin.json</DependentUpon>
     </Compile>
     <Compile Include="Server\Handlers\Administrator.cs" />
+    <Compile Include="Server\Handlers\SystemUserGroups.cs" />
     <Compile Include="Server\Handlers\LauncherHooks.cs" />
     <Compile Include="Server\Handlers\Systemusers.cs" />
     <Compile Include="Server\Page.json.cs">
       <DependentUpon>Page.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Partials\Administrator\EditUserGroupPage.json.cs">
+      <DependentUpon>EditUserGroupPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Partials\Administrator\CreateUserGroupPage.json.cs">
+      <DependentUpon>CreateUserGroupPage.json</DependentUpon>
+    </Compile>
+    <Compile Include="Server\Partials\Administrator\ListUserGroupsPage.json.cs">
+      <DependentUpon>ListUserGroupsPage.json</DependentUpon>
     </Compile>
     <Compile Include="Server\Partials\Administrator\SomebodyPage.json.cs">
       <DependentUpon>SomebodyPage.json</DependentUpon>
@@ -139,6 +149,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Client\css\useradmin.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\partials\administrator\editusergroup.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\partials\administrator\listusergroups.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Client\partials\administrator\createusergroup.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Client\partials\administrator\settings.html">
@@ -236,6 +255,21 @@
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\PropertyFeedback.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Partials\Administrator\ListUserGroupsPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Partials\Administrator\CreateUserGroupPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="Server\Partials\Administrator\EditUserGroupPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

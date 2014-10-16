@@ -1,4 +1,24 @@
-﻿<style>
+﻿
+    table.gridtable {
+        border-collapse: collapse;
+    }
+
+    table.gridtable th {
+        border-width: 1px 1px 1px 1px;
+        padding: 4px 4px 4px 4px;
+        border-style: solid;
+        border-color: #cccccc;
+        color: #555555;
+        background-color: #eeeeee;
+    }
+
+    table.gridtable td {
+        border-width: 1px;
+        padding: 2px 4px 2px 4px;
+        border-style: solid;
+        border-color: #cccccc;
+        background-color: #ffffff;
+    }
 
     .isa_Message, .isa_Warning, .isa_Error {
         margin: 0px 0px;
@@ -21,4 +41,3 @@
         background-color: #FFBABA;
     }
 
-</style>

@@ -29,13 +29,13 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             this.Transaction.Commit();
-            this.RedirectUrl = "/launcher/workspace/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
         }
 
         void Handle(Input.Close action) {
 
             this.Transaction.Rollback();
-            this.RedirectUrl = "/launcher/workspace/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
         }
     }
 }

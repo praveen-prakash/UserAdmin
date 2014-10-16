@@ -41,11 +41,54 @@
         <label for="Surname$">Surname</label>
     </div>
 
+    <!-- Member in user groups -->
+    <h3>Member in</h3>
+    <table class="gridtable" >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <template repeat="{{item in Groups}}">
+                <tr>
+                    <td>
+                        <a href="/launcher/workspace/admin/usergroups/{{item.DbIDString}}"> {{item.Name}}</a>
+                    </td>
+                    <td><button onclick="getModel(this).item.Remove$ = null">Remove</button></td>
+                </tr>
+            </template>
+        </tbody>
+
+        <tfoot>
+            <tr>
+            <td>
+                <div class="launcher-labeled-input">
+                    <label for="AddToGroup">Add System Group</label>
+                    <select value="{{SelectedSystemUserGroupsID$}}">
+                        <option value="">None</option>
+                        <template repeat="{{ item in SystemUserGroups }}">
+                                <option value="{{item.DbIDString}}">{{item.Name}}</option>
+                        </template>
+                    </select>
+
+                </div>
+            </td>
+            <td>
+                <button  onclick="getModel(this).AddUserToGroup$ = null">Add</button>
+            </td>
+            </tr>
+        </tfoot>
+
+    </table>
+
     <template if="{{Message}}">
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$ = null">Save</button>
     <button class="launcher-button"  onclick="getModel(this).Delete$ = null">Delete</button>
     <button class="launcher-button" disabled?="{{ IsDirty || !ResetPassword_Enabled }}" onclick="getModel(this).ResetPassword$ = null">Reset Password</button>
     <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = null">Undo</button>

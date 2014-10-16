@@ -15,7 +15,6 @@ namespace UserAdminApp.Server.Partials.User {
         void Handle(Input.ConfirmPassword action) {
 
             CheckPasswordMatch(this.Password, action.Value);
-
         }
 
         void Handle(Input.Save action) {
@@ -40,15 +39,16 @@ namespace UserAdminApp.Server.Partials.User {
                 return;
             }
 
-            SystemUserAdmin.SetPassword(resetPassword.User, this.Password);
+            string userID = resetPassword.User.DbIDString;
 
-            // Remove resetPassord instance
             Db.Transaction(() => {
+
+                SystemUserAdmin.SetPassword(resetPassword.User, this.Password);
+                // Remove resetPassord instance
                 resetPassword.Delete();
             });
 
-            this.Message = "New password set";
-            this.RedirectUrl = "/";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users/" + userID;
         }
 
         private bool CheckPasswordMatch(string pw1, string pw2) {
@@ -59,6 +59,5 @@ namespace UserAdminApp.Server.Partials.User {
             this.Message = string.Empty;
             return true;
         }
-
     }
 }

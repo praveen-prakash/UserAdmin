@@ -3,28 +3,27 @@ using System;
 using System.Collections;
 
 namespace UserAdminApp.Server.Partials.Administrator {
-    partial class CreateUserPage : Page {
+    partial class CreateUserGroupPage : Page {
 
         void Handle(Input.Save action) {
 
             try {
                 Db.Transaction(() => {
-                    Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.Username, this.EMail, this.Password);
+                    Concepts.Ring3.SystemUserGroup group = new Concepts.Ring3.SystemUserGroup();
+                    group.Name = this.Name;
                 });
+                    this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/usergroups";
 
-                this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
             }
             catch (Exception e) {
                 this.Message = e.Message;
             }
         }
 
-        void Handle(Input.SendInventationMail action) {
-        }
 
         void Handle(Input.Close action) {
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/usergroups";
         }
     }
 }

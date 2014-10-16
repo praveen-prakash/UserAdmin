@@ -3,14 +3,9 @@
 	"Uri" : "",
 	"Html" : "",
 	"DbIDString" : "",
-	"Username$" : "",
-	"FirstName$" : "",
-	"Surname$" : "",
-	"Password$" : "",
-	"EMail$" : "",
+	"Name$" : "",
 	"Save$" : null,
 	"Close$" : null,
 	"RedirectUrl" : "",
-	"Message" : "",
-	"SendInventationMail" : false
+	"Message" : ""
 }

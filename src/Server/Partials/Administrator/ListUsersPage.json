@@ -4,11 +4,16 @@
 	"Html" : "",
 	"$Items" : { "Bind":"Users" },
 	"Items" : [{
+		"DbIDString" : "",
+		"Username" : "", 
 		"$FullName" :  { "Bind":"WhoIs.FullName" },
 		"FullName" : "",
-		"Username" : "", 
 		"$Type" :  { "Bind":"Kind" },
 		"Type" : "",
+		"Groups" : [{
+			"DbIDString" : "",
+			"Name": ""
+		}],
 		"Delete$" : null
 	}]
 }

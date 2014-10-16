@@ -9,19 +9,19 @@ namespace UserAdminApp.Server {
     [Admin_json]
     partial class Admin : Page {
 
-        // TODO: How to remove items from this list
         internal static Admin AdminPage;
 
         internal object Menu;
 
         static public ushort Port = 8080;
+        static public string LauncherWorkSpacePath = "/launcher/workspace"; // NOTE: If you change this you also need to change the links in the HTML files.
 
         static void Main() {
 
             Admin.AssureOneSystemUser();
-
             Handlers.Administrator.RegisterHandlers();
             Handlers.Systemusers.RegisterHandlers();
+            Handlers.SystemUserGroups.RegisterHandlers();
             Database.CommitHooks.RegisterCommitHooks();
             Handlers.LauncherHooks.RegisterLauncherHooks();
         }
@@ -47,7 +47,7 @@ namespace UserAdminApp.Server {
 
             var signinPage = new UserAdminSignInPage() {
                 Html = "/useradmin-signin.html",
-                RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + query
+                RedirectUrl = Admin.LauncherWorkSpacePath+"/signinapp/signinuser?" + query
             };
             return signinPage;
         }

@@ -26,14 +26,14 @@ namespace UserAdminApp.Server {
 
             // TODO: Get Current url
             string query = HttpUtility.UrlEncode("originurl" + "=" + "/");
-            this.RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + query;
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/signinapp/signinuser?" + query;
         }
 
         void Handle(Input.Cancel action) {
 
             // TODO: Get Current url
             string query = HttpUtility.UrlEncode("originurl" + "=" + "/");
-            this.RedirectUrl = "/launcher/workspace/signinapp/signinuser?" + query;
+            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/signinapp/signinuser?" + query;
         }
 
     }
