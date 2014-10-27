@@ -37,7 +37,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 return;
             }
 
-            Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.DbIDString=?", this.SelectedSystemUserGroupID_).First;
+            Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", this.SelectedSystemUserGroupID_).First;
 
             Concepts.Ring3.SystemUserGroupMember systemUserGroupMember = new Concepts.Ring3.SystemUserGroupMember();
             systemUserGroupMember.SetSystemUser(this.Data as Concepts.Ring3.SystemUser);

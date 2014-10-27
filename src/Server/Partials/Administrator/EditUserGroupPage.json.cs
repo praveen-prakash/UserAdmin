@@ -41,7 +41,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// </summary>
         public IEnumerable Groups {
             get {
-                return Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.DbIDString<>? ORDER BY o.Name", ((Concepts.Ring3.SystemUserGroup)this.Data).DbIDString);
+                return Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID<>? ORDER BY o.Name", ((Concepts.Ring3.SystemUserGroup)this.Data).DbIDString);
             }
         }
 

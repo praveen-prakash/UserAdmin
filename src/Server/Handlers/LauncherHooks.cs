@@ -11,6 +11,22 @@ namespace UserAdminApp.Server.Handlers {
 
         public static void RegisterLauncherHooks() {
 
+
+
+            Starcounter.Handle.GET("/app-name", () => {
+                var json = new AppName();
+                //json
+                return json;
+            });
+
+            // App name required for Launchpad
+            Starcounter.Handle.GET("/app-icon", () => {
+                var iconpage = new Page() { Html = "/useradminapp/app-icon.html" };
+                //json
+                return iconpage;
+            });
+
+
             // Menu
             Starcounter.Handle.GET(Admin.Port, "/menu", () => {
 
@@ -22,7 +38,6 @@ namespace UserAdminApp.Server.Handlers {
                 };
 
                 adminPage.Menu = menuPage;
-                //adminPage.Menu = menuPage;
                 Admin.AdminPage = adminPage;
                 return menuPage;
             });

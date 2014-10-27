@@ -63,7 +63,7 @@ namespace UserAdminApp.Server.Handlers {
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);
                 }
 
-                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.DbIDString=?", userid).First;
+                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.ObjectID=?", userid).First;
 
                 if (user == null) {
                     // TODO: Return a "User not found" page

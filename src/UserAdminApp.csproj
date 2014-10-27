@@ -42,19 +42,24 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Concepts.Ring1">
+    <Reference Include="Concepts.Ring1, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring1.dll</HintPath>
     </Reference>
-    <Reference Include="Concepts.Ring2">
+    <Reference Include="Concepts.Ring2, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring2.dll</HintPath>
     </Reference>
-    <Reference Include="Concepts.Ring3">
+    <Reference Include="Concepts.Ring3, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring3.dll</HintPath>
     </Reference>
-    <Reference Include="Concepts.Ring4">
+    <Reference Include="Concepts.Ring4, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring4.dll</HintPath>
     </Reference>
-    <Reference Include="Concepts.Ring5">
+    <Reference Include="Concepts.Ring5, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SignInApp\src\third_party\Concepts.Ring5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -172,6 +177,7 @@
     <Content Include="Client\partials\user\resetpassword.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Client\useradminapp\app-icon.html" />
     <Content Include="Client\usermenu.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -270,6 +276,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\Partials\Administrator\EditUserGroupPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="AppName.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

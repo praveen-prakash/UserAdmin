@@ -39,7 +39,7 @@ namespace UserAdminApp.Server.Partials.User {
                 return;
             }
 
-            string userID = resetPassword.User.DbIDString;
+            string userID = resetPassword.User.GetObjectID();
 
             Db.Transaction(() => {
 

@@ -21,7 +21,7 @@
                         <a href="/launcher/workspace/admin/usergroups/{{item.DbIDString}}"> {{item.Name}}</a>
                     </td>
                     <td>
-                        <a href="/launcher/workspace/admin/usergroups/{{item.BasedOn}}"> {{item.BasedOn}}</a>
+                        <a href="/launcher/workspace/admin/usergroups/{{item.BasedOn.DbIDString}}"> {{item.BasedOn.Name}}</a>
                     </td>
                     <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>
                 </tr>

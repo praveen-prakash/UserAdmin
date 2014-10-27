@@ -24,7 +24,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System users
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/createusergroup", () => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/createusergroup", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath+"/admin/createusergroup");
@@ -32,7 +32,7 @@ namespace UserAdminApp.Server.Handlers {
 
                 Partials.Administrator.CreateUserGroupPage page = new Partials.Administrator.CreateUserGroupPage() {
                     Html = "/partials/administrator/createusergroup.html",
-                    Uri = "/admin/createusergroup"
+                    Uri = request.Uri
                 };
                 return page;
             });
@@ -40,7 +40,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // List user groups
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/usergroups", () => {
+            Starcounter.Handle.GET(Admin.Port, "/admin/usergroups", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath+"/admin/usergroups");
@@ -48,7 +48,7 @@ namespace UserAdminApp.Server.Handlers {
 
                 Partials.Administrator.ListUserGroupsPage page = new Partials.Administrator.ListUserGroupsPage() {
                     Html = "/partials/administrator/listusergroups.html",
-                    Uri = "/admin/usergroups"
+                    Uri = request.Uri
                 };
                 return page;
             });
@@ -62,7 +62,7 @@ namespace UserAdminApp.Server.Handlers {
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + "/admin/usergroups/" + usergroupid);
                 }
 
-                Concepts.Ring3.SystemUserGroup usergroup = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.DbIDString=?", usergroupid).First;
+                Concepts.Ring3.SystemUserGroup usergroup = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", usergroupid).First;
 
                 if (usergroup == null) {
                     // TODO: Return a "User Group not found" page
@@ -71,7 +71,7 @@ namespace UserAdminApp.Server.Handlers {
 
                 Partials.Administrator.EditUserGroupPage page = new Partials.Administrator.EditUserGroupPage() {
                     Html = "/partials/administrator/editusergroup.html",
-                    Uri = "/admin/users/" + usergroup.Name
+                    Uri = request.Uri
                 };
                 page.Transaction = new Transaction();
                 page.Data = usergroup;

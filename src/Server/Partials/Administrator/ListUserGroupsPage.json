@@ -7,7 +7,12 @@
 		"DbIDString" : "",
 		"Name" : "",
 		"$BasedOn" : { "Bind" :"BasedOn_" },
-		"BasedOn" : "",
+		"BasedOn": {
+			"$DbIDString" : { "Bind" :"SystemUserGroupBaseOn.DbIDString" },
+			"DbIDString" : "",
+			"$Name" : { "Bind" :"SystemUserGroupBaseOn.Name" },
+			"Name": ""
+		},
 		"Delete$" : null
 	}]
 }

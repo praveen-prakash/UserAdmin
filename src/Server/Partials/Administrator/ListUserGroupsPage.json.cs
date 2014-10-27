@@ -20,18 +20,37 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [ListUserGroupsPage_json.Items]
     partial class SystemUserGroupsItem : Json {
 
-        public string BasedOn_ {
+        public Concepts.Ring5.SystemUserGroupBasedOn BasedOn_ {
             get {
-
-                if (this.Data == null) return null;
-
-                Concepts.Ring5.SystemUserGroupBasedOn basedOn = Db.SQL<Concepts.Ring5.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring5.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
-                if (basedOn != null) {
-                    return basedOn.SystemUserGroupBaseOn.Name;
-                }
-                return string.Empty;
+                return Db.SQL<Concepts.Ring5.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring5.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
             }
         }
+
+        //public string BasedOn_ {
+        //    get {
+
+        //        if (this.Data == null) return null;
+        //        if (this.BasedOnGroup != null) {
+        //            return this.BasedOnGroup.SystemUserGroupBaseOn.Name;
+        //        }
+        //        return string.Empty;
+        //    }
+        //}
+
+        //public string BasedOnID_ {
+        //    get {
+        //        Concepts.Ring5.SystemUserGroupBasedOn basedOn = this.BasedOn_;
+        //        if (basedOn != null) {
+        //            basedOn.GetObjectID();
+        //        }
+                    
+        //            return string.Empty;
+
+
+
+        //    }
+        //}
+
 
         void Handle(Input.Delete action) {
 
