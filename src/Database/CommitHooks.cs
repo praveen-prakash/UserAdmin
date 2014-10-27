@@ -1,4 +1,5 @@
 ﻿using Starcounter;
+using Starcounter.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace UserAdminApp.Database {
 
             #region Sign in/out commit hooks
             // User signed in event
-            Starcounter.Handle.POST(Admin.Port, "/__db/__default/societyobjects/systemusersession", (Request request) => {
+            Starcounter.Handle.POST(Admin.Port, "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
 
                 bool isSignedIn = Admin.IsAuthorized();
 
@@ -35,7 +36,7 @@ namespace UserAdminApp.Database {
             }, opt);
 
             // User signed out event
-            Starcounter.Handle.DELETE(Admin.Port, "/__db/__default/societyobjects/systemusersession", (Request request) => {
+            Starcounter.Handle.DELETE(Admin.Port, "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
 
                 bool isSignedIn = Admin.IsAuthorized();
 
