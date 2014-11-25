@@ -12,6 +12,12 @@ namespace UserAdminApp.Server.Handlers {
         public static void RegisterLauncherHooks() {
 
 
+            // Workspace root (Launchpad)
+            Starcounter.Handle.GET(8080, "/UserAdminApp", () => {
+                Starcounter.Response resp;
+                Starcounter.X.GET("/admin/users", out resp);
+                return resp;
+            });
 
             Starcounter.Handle.GET("/app-name", () => {
                 var json = new AppName();
@@ -25,7 +31,6 @@ namespace UserAdminApp.Server.Handlers {
                 //json
                 return iconpage;
             });
-
 
             // Menu
             Starcounter.Handle.GET(Admin.Port, "/menu", () => {
