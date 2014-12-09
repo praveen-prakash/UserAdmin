@@ -19,7 +19,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         #region Set Based On System User group
         private IEnumerable BasedOn {
             get {
-                return Db.SQL<Concepts.Ring5.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring5.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data);
+                return Db.SQL<Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data);
             }
         }
 
@@ -28,7 +28,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// </summary>
         public string SelectedBasedOnGroup_ {
             get {
-                Concepts.Ring5.SystemUserGroupBasedOn basedOn = Db.SQL<Concepts.Ring5.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring5.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
+                Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn basedOn = Db.SQL<Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
                 if (basedOn != null) {
                     return basedOn.SystemUserGroupBaseOn.Name;
                 }
@@ -62,7 +62,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             // Set new basedOn
             if (basedOn != null) {
-                Concepts.Ring5.SystemUserGroupBasedOn basedOnRelation = new Concepts.Ring5.SystemUserGroupBasedOn();
+                Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn basedOnRelation = new Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn();
                 basedOnRelation.SetSystemUserGroup(this.Data as Concepts.Ring3.SystemUserGroup);
                 basedOnRelation.ToWhat = basedOn;
             }

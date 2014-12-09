@@ -61,7 +61,7 @@ namespace UserAdminApp.Server.Handlers {
                     Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroup");
                     Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroupMember");
                     Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUser");
-                    Db.SlowSQL("DELETE FROM Concepts.Ring5.SystemUserGroupBasedOn");
+                    Db.SlowSQL("DELETE FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn");
 
                     Db.SlowSQL("DELETE FROM UserAdminApp.Database.ResetPassword");
                     Db.SlowSQL("DELETE FROM UserAdminApp.Database.SettingsMailServer");

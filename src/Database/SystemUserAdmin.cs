@@ -178,8 +178,8 @@ namespace UserAdminApp.Database {
         public static void DeleteSystemUserGroup(Concepts.Ring3.SystemUserGroup group) {
 
             // Remove basedOn's
-            Db.SlowSQL("DELETE FROM Concepts.Ring5.SystemUserGroupBasedOn WHERE SystemUserGroup=?", group);
-            Db.SlowSQL("DELETE FROM Concepts.Ring5.SystemUserGroupBasedOn WHERE SystemUserGroupBaseOn=?", group);
+            Db.SlowSQL("DELETE FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn WHERE SystemUserGroup=?", group);
+            Db.SlowSQL("DELETE FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn WHERE SystemUserGroupBaseOn=?", group);
 
             // Remove System user member's
             Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroupMember WHERE SystemUserGroup=?", group);
@@ -218,7 +218,7 @@ namespace UserAdminApp.Database {
         public static void SetPassword(Concepts.Ring3.SystemUser user, string password) {
 
             string hashedPassword;
-            Concepts.Ring5.SystemUserPassword.GeneratePasswordHash(user.Username, password, out hashedPassword);
+            Concepts.Ring8.Polyjuice.SystemUserPassword.GeneratePasswordHash(user.Username, password, out hashedPassword);
             user.Password = hashedPassword;
         }
     }

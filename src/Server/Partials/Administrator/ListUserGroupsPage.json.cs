@@ -20,9 +20,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [ListUserGroupsPage_json.Items]
     partial class SystemUserGroupsItem : Json {
 
-        public Concepts.Ring5.SystemUserGroupBasedOn BasedOn_ {
+        public Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn BasedOn_ {
             get {
-                return Db.SQL<Concepts.Ring5.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring5.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
+                return Db.SQL<Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
             }
         }
 
@@ -39,7 +39,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         //public string BasedOnID_ {
         //    get {
-        //        Concepts.Ring5.SystemUserGroupBasedOn basedOn = this.BasedOn_;
+        //        Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn basedOn = this.BasedOn_;
         //        if (basedOn != null) {
         //            basedOn.GetObjectID();
         //        }

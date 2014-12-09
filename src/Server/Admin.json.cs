@@ -58,7 +58,7 @@ namespace UserAdminApp.Server {
         /// <returns></returns>
         static public bool IsAuthorized() {
 
-            Concepts.Ring5.SystemUserSession userSession = Db.SQL<Concepts.Ring5.SystemUserSession>("SELECT o FROM Concepts.Ring5.SystemUserSession o WHERE o.SessionIdString=?", Session.Current.SessionIdString).First;
+            Concepts.Ring8.Polyjuice.SystemUserSession userSession = Db.SQL<Concepts.Ring8.Polyjuice.SystemUserSession>("SELECT o FROM Concepts.Ring8.Polyjuice.SystemUserSession o WHERE o.SessionIdString=?", Session.Current.SessionIdString).First;
 
             if (userSession != null && userSession.Token.User == null) {
 

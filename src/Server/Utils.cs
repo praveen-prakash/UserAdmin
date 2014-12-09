@@ -25,17 +25,17 @@ namespace UserAdminApp.Server {
                     throw new InvalidOperationException("Mail service not enabled in the configuration.");
                 }
 
-                MailAddress fromAddress = new MailAddress(settings.Username, "UserAdminApp Reset Password");
+                MailAddress fromAddress = new MailAddress(settings.Username, "Polyjuice App");
                 MailAddress toAddress = new MailAddress(toEmail);
 
-                const string subject = "EVENT: UserAdminApp Reset Password";
+                const string subject = "Polyjuice App, Reset password request";
 
                 string body = string.Format(
                     "Hi {0}<br><br>"+
                     "We received a request to reset your password<br><br>" +
                     "Click <a href='{1}'>here</a> to set a new password<br><br>"+
-                    "Thanks,<br>"+
-                    " - The UserAdminApp Team<br>",
+                    "Thanks<br>",
+                    
                     toFullName, link);
 
                 var smtp = new SmtpClient {
