@@ -73,8 +73,9 @@ namespace UserAdminApp.Server.Handlers {
                     Html = "/partials/administrator/editusergroup.html",
                     Uri = request.Uri
                 };
-                page.Transaction = new Transaction();
-                page.Data = usergroup;
+                Db.Scope(() => {
+                    page.Data = usergroup;
+                });
                 return page;
             });
         }
