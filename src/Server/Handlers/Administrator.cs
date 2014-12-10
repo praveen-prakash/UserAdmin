@@ -36,9 +36,9 @@ namespace UserAdminApp.Server.Handlers {
                     Uri = request.Uri
                 };
 
-                page.Transaction = new Transaction();
-                page.Data = SettingsMailServer.Settings;
-
+                Db.Scope(() => {
+                    page.Data = SettingsMailServer.Settings;
+                });
                 return page;
             });
 

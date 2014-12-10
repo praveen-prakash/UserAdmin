@@ -75,8 +75,9 @@ namespace UserAdminApp.Server.Handlers {
                         Html = "/partials/administrator/editperson.html",
                         Uri = request.Uri
                     };
-                    page.Transaction = new Transaction();
-                    page.Data = user;
+                    Db.Scope(() => {
+                        page.Data = user;
+                    });
                     return page;
                 }
                 else if (user.WhoIs is Concepts.Ring2.Company) {
@@ -84,8 +85,9 @@ namespace UserAdminApp.Server.Handlers {
                         Html = "/partials/administrator/editcompany.html",
                         Uri = request.Uri
                     };
-                    page.Transaction = new Transaction();
-                    page.Data = user;
+                    Db.Scope(() => {
+                        page.Data = user;
+                    });
                     return page;
                 }
 

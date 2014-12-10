@@ -46,6 +46,24 @@ namespace UserAdminApp.Server.Handlers {
                 Admin.AdminPage = adminPage;
                 return menuPage;
             }, HandlerOptions.ApplicationLevel);
+
+            Starcounter.Handle.GET("/search?query={?}", (string query) => {
+                return X.GET<Json>("/UserAdminApp/search=" + query);
+            });
+
+            // TODO:
+            // Not sure where to put this.
+            Starcounter.Handle.GET("/UserAdminApp/search={?}", (string query) => {
+                var result = new UserAdminApp.Server.Partials.Administrator.SearchResult();
+                result.Html = "/useradminapp/app-search.html";
+
+                // If not authorized we don't return any results.
+                if (Admin.IsAuthorized()) {
+                    result.Users = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username LIKE ? FETCH ?", "%" + query + "%", 5);
+                    result.Groups = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name LIKE ? FETCH ?", "%" + query + "%", 5);
+                }
+                return result;
+            });
         }
     }
 }
