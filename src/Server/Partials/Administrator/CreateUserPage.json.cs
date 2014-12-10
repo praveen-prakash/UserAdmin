@@ -12,7 +12,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                     Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.Username, this.EMail, this.Password);
                 });
 
-                this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
+                this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
             }
             catch (Exception e) {
                 this.Message = e.Message;
@@ -24,7 +24,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Close action) {
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
         }
     }
 }

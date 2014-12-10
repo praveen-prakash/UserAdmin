@@ -186,7 +186,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             });
             this.Transaction.Commit();
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/admin/usergroups";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             this.Transaction.Commit();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/admin/usergroups";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Close action) {
 
             this.Transaction.Rollback();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/admin/usergroups";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
         }
 
         #endregion

@@ -10,7 +10,7 @@ using System.Web;
 using UserAdminApp.Database;
 using UserAdminApp.Server.Partials;
 
-// http://localhost:8080/launcher/workspace/admin/
+// http://localhost:8080/launcher/workspace/UserAdminApp/
 // admin/systemusers/{?}
 // admin/createuser
 // settings
@@ -24,10 +24,10 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System users
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/createuser", (Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/createuser", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
-//                    return Admin.GetSignInPage("/launcher/workspace/admin/createuser");
+                    //                    return Admin.GetSignInPage("/launcher/workspace/UserAdminApp/createuser");
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);
                 }
 
@@ -41,7 +41,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // List users
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/users", (Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/users", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath +request.Uri);
@@ -57,7 +57,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System user
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/users/{?}", (string userid, Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/users/{?}", (string userid, Request request) => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);
@@ -95,7 +95,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Reset password
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/user/resetpassword?{?}", (string query, Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/user/resetpassword?{?}", (string query, Request request) => {
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(query);
                 string token = queryCollection.Get("token");
@@ -120,7 +120,7 @@ namespace UserAdminApp.Server.Handlers {
 
                 Partials.User.ResetPasswordPage page = new Partials.User.ResetPasswordPage() {
                     Html = "/partials/user/resetpassword.html",
-                    Uri = "/admin/user/resetpassword"
+                    Uri = "/UserAdminApp/user/resetpassword"
                         //Uri = request.Uri // TODO:
                 };
 

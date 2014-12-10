@@ -21,16 +21,16 @@
             <template repeat="{{item in Items}}">
                 <tr>
                     <td>
-                        <a href="/launcher/workspace/admin/users/{{item.DbIDString}}"> {{item.Username}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/users/{{item.DbIDString}}"> {{item.Username}}</a>
                     </td>
                     <td>
-                        <a href="/launcher/workspace/admin/users/{{item.DbIDString}}">{{item.FullName}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/users/{{item.DbIDString}}">{{item.FullName}}</a>
                     </td>
                     <td>{{item.Type}}</td>
                     <td>
                         <template repeat="{{group, groupIndex in item.Groups}}">
                             <template if="{{groupIndex > 0}}">,&nbsp;</template>
-                                <a href="/launcher/workspace/admin/usergroups/{{group.DbIDString}}">{{group.Name}}</a>
+                                <a href="/launcher/workspace/UserAdminApp/usergroups/{{group.DbIDString}}">{{group.Name}}</a>
                         </template>                        
                     </td>
 
@@ -42,5 +42,5 @@
 
     </table>
 
-    <a href="/launcher/workspace/admin/createuser">Create User</a>
+    <a href="/launcher/workspace/UserAdminApp/createuser">Create User</a>
 </template>

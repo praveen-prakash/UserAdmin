@@ -12,8 +12,6 @@ namespace UserAdminApp.Database {
 
         internal static void RegisterCommitHooks() {
 
-            HandlerOptions opt = new HandlerOptions() { HandlerLevel = 0 };
-
             #region Sign in/out commit hooks
             // User signed in event
             Starcounter.Handle.POST(Admin.Port, "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
@@ -33,7 +31,7 @@ namespace UserAdminApp.Database {
                 //}
 
                 return (ushort)System.Net.HttpStatusCode.OK;
-            }, opt);
+            });
 
             // User signed out event
             Starcounter.Handle.DELETE(Admin.Port, "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
@@ -53,7 +51,7 @@ namespace UserAdminApp.Database {
                 //}
 
                 return (ushort)System.Net.HttpStatusCode.OK;
-            }, opt);
+            });
 
             #endregion
 

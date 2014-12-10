@@ -46,7 +46,7 @@
             <template repeat="{{item in Members}}">
                 <tr>
                     <td>
-                        <a href="/launcher/workspace/admin/users/{{item.DbIDString}}"> {{item.FullName}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/users/{{item.DbIDString}}"> {{item.FullName}}</a>
                     </td>
                     <td><button onclick="getModel(this).item.Remove$ = null">Remove</button></td>
                 </tr>

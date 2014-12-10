@@ -15,25 +15,25 @@ namespace UserAdminApp.Server.Handlers {
             // Workspace root (Launchpad)
             Starcounter.Handle.GET(8080, "/UserAdminApp", () => {
                 Starcounter.Response resp;
-                Starcounter.X.GET("/admin/users", out resp);
+                Starcounter.X.GET("/UserAdminApp/users", out resp);
                 return resp;
             });
 
-            Starcounter.Handle.GET("/app-name", () => {
+            Starcounter.Handle.GET("/launcher/app-name", () => {
                 var json = new AppName();
                 //json
                 return json;
-            });
+            }, HandlerOptions.ApplicationLevel);
 
             // App name required for Launchpad
-            Starcounter.Handle.GET("/app-icon", () => {
+            Starcounter.Handle.GET("/launcher/app-icon", () => {
                 var iconpage = new Page() { Html = "/useradminapp/app-icon.html" };
                 //json
                 return iconpage;
-            });
+            }, HandlerOptions.ApplicationLevel);
 
             // Menu
-            Starcounter.Handle.GET(Admin.Port, "/menu", () => {
+            Starcounter.Handle.GET(Admin.Port, "/launcher/menu", () => {
 
                 UserAdminApp.Server.Admin adminPage = new UserAdminApp.Server.Admin();
 
@@ -45,7 +45,7 @@ namespace UserAdminApp.Server.Handlers {
                 adminPage.Menu = menuPage;
                 Admin.AdminPage = adminPage;
                 return menuPage;
-            });
+            }, HandlerOptions.ApplicationLevel);
         }
     }
 }

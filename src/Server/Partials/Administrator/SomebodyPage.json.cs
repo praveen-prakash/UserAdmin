@@ -158,7 +158,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Commit();
 
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             this.Transaction.Commit();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Close action) {
 
             this.Transaction.Rollback();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath+"/admin/users";
+            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
         }
 
         #endregion
@@ -212,7 +212,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 UriBuilder uri = new UriBuilder();
                 uri.Host = Dns.GetHostEntry(String.Empty).HostName;
                 uri.Port = Admin.Port;
-                uri.Path = "launcher/workspace/admin/user/resetpassword";
+                uri.Path = "launcher/workspace/UserAdminApp/user/resetpassword";
                 uri.Query = "token=" + resetPassword.Token;
 
                 link = uri.ToString();

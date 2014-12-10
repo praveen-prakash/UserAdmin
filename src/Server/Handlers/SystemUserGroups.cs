@@ -10,7 +10,7 @@ using System.Web;
 using UserAdminApp.Database;
 using UserAdminApp.Server.Partials;
 
-// http://localhost:8080/launcher/workspace/admin/
+// http://localhost:8080/launcher/workspace/UserAdminApp/
 // admin/systemusers/{?}
 // admin/createuser
 // settings
@@ -24,10 +24,10 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System users
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/createusergroup", (Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/createusergroup", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath+"/admin/createusergroup");
+                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + "/UserAdminApp/createusergroup");
                 }
 
                 Partials.Administrator.CreateUserGroupPage page = new Partials.Administrator.CreateUserGroupPage() {
@@ -40,10 +40,10 @@ namespace UserAdminApp.Server.Handlers {
             //
             // List user groups
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/usergroups", (Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/usergroups", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath+"/admin/usergroups");
+                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups");
                 }
 
                 Partials.Administrator.ListUserGroupsPage page = new Partials.Administrator.ListUserGroupsPage() {
@@ -56,10 +56,10 @@ namespace UserAdminApp.Server.Handlers {
             //
             // System user group
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/usergroups/{?}", (string usergroupid, Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/usergroups/{?}", (string usergroupid, Request request) => {
 
                 if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + "/admin/usergroups/" + usergroupid);
+                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups/" + usergroupid);
                 }
 
                 Concepts.Ring3.SystemUserGroup usergroup = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", usergroupid).First;

@@ -10,7 +10,7 @@ using System.Web;
 using UserAdminApp.Database;
 using UserAdminApp.Server.Partials;
 
-// http://localhost:8080/launcher/workspace/admin/
+// http://localhost:8080/launcher/workspace/UserAdminApp/
 // admin/systemusers/{?}
 // admin/createuser
 // settings
@@ -23,7 +23,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Settings
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/settings", (Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/settings", (Request request) => {
 
                 // TODO: At the moment we only show MailSettings, eventually MailSettings will only be one part of all settings
 
@@ -45,7 +45,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Settings
             //
-            Starcounter.Handle.GET(Admin.Port, "/admin/clean", (Request request) => {
+            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/clean", (Request request) => {
 
                 if (!Admin.IsAuthorized()) {
                     return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);

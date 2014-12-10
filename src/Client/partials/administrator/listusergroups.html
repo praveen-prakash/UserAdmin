@@ -18,10 +18,10 @@
             <template repeat="{{item in Items}}">
                 <tr>
                     <td>
-                        <a href="/launcher/workspace/admin/usergroups/{{item.DbIDString}}"> {{item.Name}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/usergroups/{{item.DbIDString}}"> {{item.Name}}</a>
                     </td>
                     <td>
-                        <a href="/launcher/workspace/admin/usergroups/{{item.BasedOn.DbIDString}}"> {{item.BasedOn.Name}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/usergroups/{{item.BasedOn.DbIDString}}"> {{item.BasedOn.Name}}</a>
                     </td>
                     <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>
                 </tr>
@@ -31,5 +31,5 @@
 
     </table>
 
-    <a href="/launcher/workspace/admin/createusergroup">Create User group</a>
+    <a href="/launcher/workspace/UserAdminApp/createusergroup">Create User group</a>
 </template>
