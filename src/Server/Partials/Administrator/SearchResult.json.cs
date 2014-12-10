@@ -8,7 +8,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         partial class UserItem : Json {
             public string UserUri {
                 get {
-                    return "/launcher/workspace/admin/users/" + Data.GetObjectID();
+                    return "/launcher/workspace/UserAdminApp/users/" + Data.GetObjectID();
                 }
             }
         }
@@ -17,7 +17,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         partial class GroupItem : Json {
             public string GroupUri {
                 get {
-                    return "/launcher/workspace/admin/usergroups/" + Data.GetObjectID();
+                    return "/launcher/workspace/UserAdminApp/usergroups/" + Data.GetObjectID();
                 }
             }
         }

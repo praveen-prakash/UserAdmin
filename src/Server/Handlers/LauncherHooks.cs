@@ -47,9 +47,9 @@ namespace UserAdminApp.Server.Handlers {
                 return menuPage;
             }, HandlerOptions.ApplicationLevel);
 
-            Starcounter.Handle.GET("/search?query={?}", (string query) => {
+            Starcounter.Handle.GET("/launcher/search?query={?}", (string query) => {
                 return X.GET<Json>("/UserAdminApp/search=" + query);
-            });
+            }, HandlerOptions.ApplicationLevel);
 
             // TODO:
             // Not sure where to put this.
@@ -58,7 +58,7 @@ namespace UserAdminApp.Server.Handlers {
                 result.Html = "/useradminapp/app-search.html";
 
                 // If not authorized we don't return any results.
-                if (Admin.IsAuthorized()) {
+                if (!string.IsNullOrEmpty(query) && Admin.IsAuthorized()) {
                     result.Users = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username LIKE ? FETCH ?", "%" + query + "%", 5);
                     result.Groups = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name LIKE ? FETCH ?", "%" + query + "%", 5);
                 }
