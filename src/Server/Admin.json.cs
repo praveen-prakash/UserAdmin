@@ -1,4 +1,5 @@
 using Concepts.Ring3;
+using PolyjuiceNamespace;
 using Starcounter;
 using System.Web;
 using UserAdminApp.Database;
@@ -24,6 +25,11 @@ namespace UserAdminApp.Server {
             Handlers.SystemUserGroups.RegisterHandlers();
             Database.CommitHooks.RegisterCommitHooks();
             Handlers.LauncherHooks.RegisterLauncherHooks();
+
+
+
+            Polyjuice.Map("/UserAdminApp/users/@w", "/so/person/@w",null,null);
+
         }
 
         static private void AssureOneSystemUser() {
