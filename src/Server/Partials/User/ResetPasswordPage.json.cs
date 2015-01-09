@@ -48,7 +48,7 @@ namespace UserAdminApp.Server.Partials.User {
                 resetPassword.Delete();
             });
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users/" + userID;
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users/" + userID;
         }
 
         private bool CheckPasswordMatch(string pw1, string pw2) {

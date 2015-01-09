@@ -1,4 +1,6 @@
-﻿using Starcounter;
+﻿using Concepts.Ring8.Polyjuice.App;
+using Concepts.Ring8.Polyjuice.Permissions;
+using Starcounter;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -10,86 +12,98 @@ using System.Web;
 using UserAdminApp.Database;
 using UserAdminApp.Server.Partials;
 
-// http://localhost:8080/launcher/workspace/UserAdminApp/
-// admin/systemusers/{?}
-// admin/createuser
-// settings
 
 namespace UserAdminApp.Server.Handlers {
-    public class Systemusers {
+    public class SystemUsers {
 
-        public static void RegisterHandlers() {
-
+        public static void Register() {
 
             //
-            // System users
+            // Create System user
             //
-            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/createuser", (Request request) => {
+            Starcounter.Handle.GET( "/UserAdminApp/admin/createuser", (Request request) => {
 
-                if (!Admin.IsAuthorized()) {
-                    //                    return Admin.GetSignInPage("/launcher/workspace/UserAdminApp/createuser");
-                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);
+                Json page;
+                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/createuser", request, "/useradminapp/redirect.html", out page)) {
+                    return page;
                 }
 
-                Partials.Administrator.CreateUserPage page = new Partials.Administrator.CreateUserPage() {
-                    Html = "/partials/administrator/createuser.html",
-                    Uri = request.Uri
-                };
-                return page;
+                return new Partials.Administrator.CreateUserPage() { Html = "/useradminapp/partials/administrator/createuser.html", Uri = request.Uri };
             });
 
             //
-            // List users
+            // Get System users
             //
-            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/users", (Request request) => {
+            Starcounter.Handle.GET( "/UserAdminApp/admin/users", (Request request) => {
 
-                if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath +request.Uri);
+                Json page;
+                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/users", request, "/useradminapp/redirect.html", out page)) {
+                    return page;
                 }
 
-                Partials.Administrator.ListUsersPage page = new Partials.Administrator.ListUsersPage() {
-                    Html = "/partials/administrator/listusers.html",
-                    Uri = request.Uri
-                };
-                return page;
+                return new Partials.Administrator.ListUsersPage() { Html = "/useradminapp/partials/administrator/listusers.html", Uri = request.Uri };
             });
 
             //
-            // System user
+            // Get System user
             //
-            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/users/{?}", (string userid, Request request) => {
+            Starcounter.Handle.GET( "/UserAdminApp/admin/users/{?}", (string userid, Request request) => {
 
-                if (!Admin.IsAuthorized()) {
-                    return Admin.GetSignInPage(Admin.LauncherWorkSpacePath + request.Uri);
+                Json page;
+                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/users/{?}", request, "/useradminapp/redirect.html", out page)) {
+                    return page;
                 }
 
+                // Get system user
                 Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.ObjectID=?", userid).First;
-
                 if (user == null) {
                     // TODO: Return a "User not found" page
                     return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
-                if (user.WhoIs is Concepts.Ring1.Person) {
-                    Partials.Administrator.EditPersonPage page = new Partials.Administrator.EditPersonPage() {
-                        Html = "/partials/administrator/editperson.html",
-                        Uri = request.Uri
-                    };
-                    Db.Scope(() => {
-                        page.Data = user;
-                    });
-                    return page;
+                Concepts.Ring3.SystemUser systemUser = UriPermissionHelper.GetCurrentSystemUser();
+                Concepts.Ring3.SystemUserGroup adminGroup = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
+
+
+                // Check if current user has permission to get this user instance
+                if (UriPermission.IsMemberOfGroup(systemUser, adminGroup)) {
+
+                    if (user.WhoIs is Concepts.Ring1.Person) {
+                        Partials.Administrator.EditPersonPage editPersonPage = new Partials.Administrator.EditPersonPage() {
+                            Html = "/useradminapp/partials/administrator/editperson.html",
+                            Uri = request.Uri
+                        };
+                        Db.Scope(() => {
+                            editPersonPage.Data = user;
+                        });
+                        return editPersonPage;
+                    }
+                    else if (user.WhoIs is Concepts.Ring2.Company) {
+                        Partials.Administrator.EditCompanyPage editCompanyPage = new Partials.Administrator.EditCompanyPage() {
+                            Html = "/useradminapp/partials/administrator/editcompany.html",
+                            Uri = request.Uri
+                        };
+                        Db.Scope(() => {
+                            editCompanyPage.Data = user;
+                        });
+                        return editCompanyPage;
+                    }
                 }
-                else if (user.WhoIs is Concepts.Ring2.Company) {
-                    Partials.Administrator.EditCompanyPage page = new Partials.Administrator.EditCompanyPage() {
-                        Html = "/partials/administrator/editcompany.html",
-                        Uri = request.Uri
-                    };
-                    Db.Scope(() => {
-                        page.Data = user;
-                    });
-                    return page;
+                else if (user == systemUser) {
+                    // User can edit it's self
                 }
+                else {
+                    // No rights
+                    // User trying to view another's users data
+
+                    // User has no permission, redirect to app's root page
+                    return new RedirectPage() {
+                        Html = "/useradminapp/redirect.html",
+                        RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp"
+                    };
+
+                }
+
 
                 return (ushort)System.Net.HttpStatusCode.NotFound;
             });
@@ -97,7 +111,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Reset password
             //
-            Starcounter.Handle.GET(Admin.Port, "/UserAdminApp/user/resetpassword?{?}", (string query, Request request) => {
+            Starcounter.Handle.GET( "/UserAdminApp/user/resetpassword?{?}", (string query, Request request) => {
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(query);
                 string token = queryCollection.Get("token");
@@ -121,9 +135,9 @@ namespace UserAdminApp.Server.Handlers {
                 Concepts.Ring3.SystemUser systemUser = resetPassword.User;
 
                 Partials.User.ResetPasswordPage page = new Partials.User.ResetPasswordPage() {
-                    Html = "/partials/user/resetpassword.html",
+                    Html = "/useradminapp/partials/user/resetpassword.html",
                     Uri = "/UserAdminApp/user/resetpassword"
-                        //Uri = request.Uri // TODO:
+                    //Uri = request.Uri // TODO:
                 };
 
                 page.resetPassword = resetPassword;

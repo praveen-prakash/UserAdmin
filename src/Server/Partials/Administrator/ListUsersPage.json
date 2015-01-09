@@ -8,6 +8,8 @@
 		"Username" : "", 
 		"$FullName" :  { "Bind":"WhoIs.FullName" },
 		"FullName" : "",
+		"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
+		"ImageURL" : "",
 		"$Type" :  { "Bind":"Kind" },
 		"Type" : "",
 		"Groups" : [{

@@ -17,7 +17,7 @@ namespace UserAdminApp.Database {
         /// <param name="firstName"></param>
         /// <param name="surname"></param>
         /// <param name="email"></param>
-        public static void AddPerson(string firstName, string surname, string username, string email, string password) {
+        public static Concepts.Ring3.SystemUser AddPerson(string firstName, string surname, string username, string email, string password) {
 
             if (firstName == null) {
                 throw new ArgumentNullException("firstname");
@@ -78,10 +78,9 @@ namespace UserAdminApp.Database {
             emailRel.SetToWhat(systemUser);
             emailRel.EMail = emailLow.ToLowerInvariant();
 
-            //emailRel = new EMailAddress();
-            //emailRel.SetToWhat(person);
-            //emailRel.EMail = emailLow.ToLowerInvariant();
             person.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
+
+            return systemUser;
         }
 
         /// <summary>
@@ -177,9 +176,6 @@ namespace UserAdminApp.Database {
         /// <param name="group"></param>
         public static void DeleteSystemUserGroup(Concepts.Ring3.SystemUserGroup group) {
 
-            // Remove basedOn's
-            Db.SlowSQL("DELETE FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn WHERE SystemUserGroup=?", group);
-            Db.SlowSQL("DELETE FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn WHERE SystemUserGroupBaseOn=?", group);
 
             // Remove System user member's
             Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroupMember WHERE SystemUserGroup=?", group);
@@ -218,7 +214,7 @@ namespace UserAdminApp.Database {
         public static void SetPassword(Concepts.Ring3.SystemUser user, string password) {
 
             string hashedPassword;
-            Concepts.Ring8.Polyjuice.SystemUserPassword.GeneratePasswordHash(user.Username, password, out hashedPassword);
+            Concepts.Ring8.Polyjuice.SystemUserPassword.GeneratePasswordHash(user.Username.ToLower(), password, out hashedPassword);
             user.Password = hashedPassword;
         }
     }

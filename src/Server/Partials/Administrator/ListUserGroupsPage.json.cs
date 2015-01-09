@@ -18,39 +18,15 @@ namespace UserAdminApp.Server.Partials.Administrator {
     }
 
     [ListUserGroupsPage_json.Items]
-    partial class SystemUserGroupsItem : Json {
+    partial class SystemUserGroupsItem : Json, IBound<Concepts.Ring3.SystemUserGroup> {
 
-        public Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn BasedOn_ {
+        public Concepts.Ring3.SystemUserGroup BasedOn_ {
             get {
-                return Db.SQL<Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
+                if (this.Data == null || this.Data.Parent == null) return null;
+
+                return Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o=?",this.Data.Parent).First;
             }
         }
-
-        //public string BasedOn_ {
-        //    get {
-
-        //        if (this.Data == null) return null;
-        //        if (this.BasedOnGroup != null) {
-        //            return this.BasedOnGroup.SystemUserGroupBaseOn.Name;
-        //        }
-        //        return string.Empty;
-        //    }
-        //}
-
-        //public string BasedOnID_ {
-        //    get {
-        //        Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn basedOn = this.BasedOn_;
-        //        if (basedOn != null) {
-        //            basedOn.GetObjectID();
-        //        }
-                    
-        //            return string.Empty;
-
-
-
-        //    }
-        //}
-
 
         void Handle(Input.Delete action) {
 

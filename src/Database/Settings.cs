@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 using Starcounter;
 using System.Web;
 using System.Net;
+using Starcounter.Internal;
 namespace UserAdminApp.Database {
 
     //[Database]
     //public class Settings {
-
     //    public SettingsMailServer SettingsMailServer { get; private set; }
-
-
     //}
-
 
     [Database]
     public class SettingsMailServer {
@@ -25,6 +22,9 @@ namespace UserAdminApp.Database {
         public bool EnableSsl;
         public string Username;
         public string Password;
+
+        public string SiteHost;
+        public long SitePort;
 
         /// <summary>
         /// Settings
@@ -44,6 +44,8 @@ namespace UserAdminApp.Database {
                         settings.EnableSsl = true;
                         settings.Username = "";
                         settings.Password = "";
+                        settings.SiteHost = Dns.GetHostEntry(String.Empty).HostName;
+                        settings.SitePort = StarcounterEnvironment.Default.UserHttpPort;
                     });
                 }
 

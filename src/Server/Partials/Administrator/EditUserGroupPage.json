@@ -5,8 +5,8 @@
 	"DbIDString" : "",
 	"Name$" : "",
 	"Name_Feedback" : {},
-	"$SelectedBasedOnGroup$" : { "Bind" : "SelectedBasedOnGroup_" },
-	"SelectedBasedOnGroup$" : "",
+	"$SelectedBasedOnGroupID$" : { "Bind" : "SelectedBasedOnGroupID_" },
+	"SelectedBasedOnGroupID$" : "",
 	"$UserGroups" : { "Bind" : "Groups" },
 	"UserGroups" : [{ 
 		"DbIDString" : "", 

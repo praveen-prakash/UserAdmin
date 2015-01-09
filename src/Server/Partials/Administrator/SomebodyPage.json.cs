@@ -48,7 +48,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         public bool ResetPassword_Enabled_ {
             get {
-                return SettingsMailServer.Settings.Enabled;
+                return UserAdminApp.Database.SettingsMailServer.Settings.Enabled;
             }
         }
 
@@ -158,7 +158,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Commit();
 
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             this.Transaction.Commit();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Close action) {
 
             this.Transaction.Rollback();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/users";
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
         }
 
         #endregion
@@ -189,10 +189,16 @@ namespace UserAdminApp.Server.Partials.Administrator {
             string fullName = string.Empty;
             Concepts.Ring2.EMailAddress eMailAddress = null;
 
-            if (SettingsMailServer.Settings.Enabled == false) {
+            if (UserAdminApp.Database.SettingsMailServer.Settings.Enabled == false) {
                 this.Message = "Mail Server not enabled in the settings.";
                 return;
             }
+
+            if (string.IsNullOrEmpty(UserAdminApp.Database.SettingsMailServer.Settings.SiteHost)) {
+                this.Message = "Invalid settings, check site host name / port";
+                return;
+            }
+       
 
             this.Transaction.Add(() => {
 
@@ -210,8 +216,10 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
                 // Build reset password link
                 UriBuilder uri = new UriBuilder();
-                uri.Host = Dns.GetHostEntry(String.Empty).HostName;
-                uri.Port = Admin.Port;
+
+                uri.Host = UserAdminApp.Database.SettingsMailServer.Settings.SiteHost;
+                uri.Port = (int)UserAdminApp.Database.SettingsMailServer.Settings.SitePort;
+
                 uri.Path = "launcher/workspace/UserAdminApp/user/resetpassword";
                 uri.Query = "token=" + resetPassword.Token;
 

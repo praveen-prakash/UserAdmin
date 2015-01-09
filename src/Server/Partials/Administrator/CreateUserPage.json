@@ -3,14 +3,28 @@
 	"Uri" : "",
 	"Html" : "",
 	"DbIDString" : "",
+
 	"Username$" : "",
+	"EMail$" : "",
 	"FirstName$" : "",
 	"Surname$" : "",
 	"Password$" : "",
-	"EMail$" : "",
+
 	"Save$" : null,
 	"Close$" : null,
 	"RedirectUrl" : "",
 	"Message" : "",
-	"SendInventationMail" : false
+
+
+	// Inherited from PropertyFeedbackPage
+	"PropertyMetadataItems" : { "$" : { "Reuse" : "PropertyMetadataItems" } },
+	"$IsDirty" : { "Bind" : "IsDirty_" },
+	"IsDirty" : false,
+	"$IsPristine" : { "Bind" : "IsPristine_" },
+	"IsPristine" : true,
+	"$IsValid" : { "Bind" : "IsValid_" },
+	"IsValid" : true,
+	"$IsInvalid" : { "Bind" : "IsInvalid_" },
+	"IsInvalid" : false,
+	"Rollback$" : null
 }

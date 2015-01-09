@@ -41,3 +41,27 @@
         background-color: #FFBABA;
     }
 
+
+    textarea:invalid { 
+        border: 1px solid red;
+        background: rgb(248, 214, 214);
+    }
+
+    input[type=text]:invalid {
+
+        border: 1px solid red;
+        background: rgb(248, 214, 214);
+    }
+
+    input[type=email]:invalid {
+
+        border: 1px solid red;
+        background: rgb(248, 214, 214);
+    }
+
+
+    input[type=number]:invalid {
+
+        border: 1px solid red;
+        background: rgb(248, 214, 214);
+    }

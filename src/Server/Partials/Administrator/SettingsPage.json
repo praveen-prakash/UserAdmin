@@ -4,6 +4,26 @@
 	"Html" : "",
 	"RedirectUrl" : "",
 
+	// General settings
+	"SiteHost$" : "",
+	"SitePort$" : 0,
+
+	// Email settings
+	"Enabled$" : false,
+	"Host$" : "",
+	"Port$" : 0,
+	"EnableSsl$" : true,
+	"Username$" : "",
+	"Password$" : "",
+
+
+	"Message" : "",
+	"Save$" : null,
+	"Close$" : null,
+
+
+	// Inherited from PropertyFeedbackPage
+	"PropertyMetadataItems" : { "$" : { "Reuse" : "PropertyMetadataItems" } },
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
 	"$IsPristine" : { "Bind" : "IsPristine_" },
@@ -12,17 +32,5 @@
 	"IsValid" : true,
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
-
-	"Rollback$" : null,
-
-	"Enabled$" : false,
-	"Host$" : "",
-	"Port$" : 0,
-	"Port_Feedback" : {},
-	"EnableSsl$" : true,
-	"Username$" : "",
-	"Password$" : "",
-	"Message" : "",
-	"Save$" : null,
-	"Close$" : null
+	"Rollback$" : null
 }

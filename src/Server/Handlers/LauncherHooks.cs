@@ -5,45 +5,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserAdminApp.Server.Partials;
+using UserAdminApp.Server.Partials.Launcher;
 
 namespace UserAdminApp.Server.Handlers {
     public class LauncherHooks {
 
-        public static void RegisterLauncherHooks() {
+        public static void Register() {
 
 
             // Workspace root (Launchpad)
-            Starcounter.Handle.GET(8080, "/UserAdminApp", () => {
+            Starcounter.Handle.GET( "/UserAdminApp", () => {
                 Starcounter.Response resp;
-                Starcounter.X.GET("/UserAdminApp/users", out resp);
+                Starcounter.X.GET("/UserAdminApp/admin/users", out resp);
                 return resp;
             });
 
             Starcounter.Handle.GET("/launcher/app-name", () => {
-                var json = new AppName();
-                //json
-                return json;
+                return new AppName();
             }, HandlerOptions.ApplicationLevel);
 
             // App name required for Launchpad
             Starcounter.Handle.GET("/launcher/app-icon", () => {
-                var iconpage = new Page() { Html = "/useradminapp/app-icon.html" };
-                //json
-                return iconpage;
+                return new UserAdminApp.Server.Partials.Page() { Html = "/useradminapp/launcher/app-icon.html" };
             }, HandlerOptions.ApplicationLevel);
 
             // Menu
-            Starcounter.Handle.GET(Admin.Port, "/launcher/menu", () => {
+            Starcounter.Handle.GET( "/launcher/menu", () => {
 
-                UserAdminApp.Server.Admin adminPage = new UserAdminApp.Server.Admin();
+                UserAdminApp.Server.UserSession userSessionPage = new UserAdminApp.Server.UserSession();
 
-                var menuPage = new UserAdminApp.Server.SystemUserMenu() {
-                    Html = "/adminmenu.html",
-                    IsSignedIn = Admin.IsAuthorized()
+                var menuPage = new AdminMenu() {
+                    Html = "/useradminapp/launcher/adminmenu.html",
+                    IsAdministrator = UserSession.IsAdmin()
                 };
 
-                adminPage.Menu = menuPage;
-                Admin.AdminPage = adminPage;
+                userSessionPage.Menu = menuPage;
+
+                string sessionID = Session.Current.SessionIdString;
+                if (Program.Sessions.ContainsKey(sessionID)) {
+                    Program.Sessions.Remove(sessionID);
+                }
+                Program.Sessions.Add(sessionID, userSessionPage);
+
                 return menuPage;
             }, HandlerOptions.ApplicationLevel);
 
@@ -55,10 +58,10 @@ namespace UserAdminApp.Server.Handlers {
             // Not sure where to put this.
             Starcounter.Handle.GET("/UserAdminApp/search={?}", (string query) => {
                 var result = new UserAdminApp.Server.Partials.Administrator.SearchResult();
-                result.Html = "/useradminapp/app-search.html";
+                result.Html = "/useradminapp/launcher/app-search.html";
 
                 // If not authorized we don't return any results.
-                if (!string.IsNullOrEmpty(query) && Admin.IsAuthorized()) {
+                if (!string.IsNullOrEmpty(query) && UserSession.IsAdmin()) {
                     result.Users = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username LIKE ? FETCH ?", "%" + query + "%", 5);
                     result.Groups = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name LIKE ? FETCH ?", "%" + query + "%", 5);
                 }

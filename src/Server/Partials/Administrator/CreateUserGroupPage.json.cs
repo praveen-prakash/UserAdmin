@@ -12,7 +12,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                     Concepts.Ring3.SystemUserGroup group = new Concepts.Ring3.SystemUserGroup();
                     group.Name = this.Name;
                 });
-                this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
+                this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
 
             }
             catch (Exception e) {
@@ -23,7 +23,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Close action) {
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
         }
     }
 }

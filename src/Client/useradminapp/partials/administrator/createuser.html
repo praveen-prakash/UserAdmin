@@ -1,0 +1,83 @@
+<link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html">
+<link rel="import" href="vendor/sgb-property-metadata/sgb-property-metadata.html">
+
+<link rel="stylesheet" href="/css/useradmin.css">
+
+<template bind="{{UserAdminApp}}">
+
+    <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
+
+    <H1>Create User</H1>
+
+    <div class="launcher-labeled-input">
+        <input id="Username$" type='text' value='{{ Username$ }}' update-on="input" placeholder='<Username>'>
+        <label for="Username$">Username</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="EMail$" type='email' value='{{ EMail$ }}' update-on="input" placeholder='<E-Mail>'>
+        <label for="EMail$">E-Mail</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="FirstName$" type='text' value='{{ FirstName$ }}' update-on="input" placeholder='<FirstName>'>
+        <label for="FirstName$">FirstName</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="Surname$" type='text' value='{{ Surname$ }}' update-on="input" placeholder='<Surname>'>
+        <label for="Surname$">Surname</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="Password$" type='password' value='{{ Password$ }}' placeholder='<Password>'>
+        <label for="Password$">Password</label>
+    </div>
+
+    <!--<input type="checkbox"  value="{{SendInventationMail$}}">Send Inventation Mail<br>-->
+    
+
+    <template if="{{Message}}">
+        <p>{{Message}}</p>
+    </template>
+
+    <button class="launcher-button" disabled?="{{ IsInvalid }}" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
+
+   <link is="puppet-redirect" history url="{{ RedirectUrl }}">
+
+
+<!-- <div class="debug">
+     <h3>Debug Window</h3>
+
+     IsDirty: {{IsDirty}}<br />
+     IsPristine: {{IsPristine}}<br />
+     IsValid: {{IsValid}}<br />
+     IsInvalid: {{IsInvalid}}<br />
+
+    <table class="roomsTable" >
+        <thead>
+            <tr>
+                <th>PropertyName</th>
+                <th>Level</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <template repeat="{{item in PropertyMetadataItems.Items}}">
+                <tr>
+                    <td>{{item.PropertyName}}</td>
+                    <td>{{item.Level}}</td>
+                    <td>{{item.Message}}</td>
+                </tr>
+            </template>
+
+        </tbody>
+
+    </table>
+ </div>-->
+
+
+</template>

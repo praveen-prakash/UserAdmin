@@ -12,27 +12,35 @@ using UserAdminApp.Database;
 namespace UserAdminApp.Server.Partials.Administrator {
 
     [EditUserGroupPage_json]
-    partial class EditUserGroupPage : Page {
+    partial class EditUserGroupPage : Page, IBound<Concepts.Ring3.SystemUserGroup> {
 
         #region Properties
 
         #region Set Based On System User group
-        private IEnumerable BasedOn {
-            get {
-                return Db.SQL<Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data);
-            }
-        }
 
         /// <summary>
         /// Selected System User group (dropdown)
         /// </summary>
-        public string SelectedBasedOnGroup_ {
+        public string SelectedBasedOnGroupID_ {
             get {
-                Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn basedOn = Db.SQL<Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn>("SELECT o FROM Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn o WHERE o.SystemUserGroup=?", this.Data).First;
-                if (basedOn != null) {
-                    return basedOn.SystemUserGroupBaseOn.Name;
+
+                if (this.Data.Parent == null) return null;
+
+                Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", this.Data.Parent.GetObjectID()).First;
+                if (group == null) return null;
+
+                return group.GetObjectID();
+            }
+            set {
+
+                if (string.IsNullOrEmpty(value)) {
+                    this.Data.Parent = null;
                 }
-                return null;
+
+                Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", value).First;
+
+                this.Data.Parent = group;
+
             }
         }
 
@@ -41,7 +49,10 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// </summary>
         public IEnumerable Groups {
             get {
-                return Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID<>? ORDER BY o.Name", ((Concepts.Ring3.SystemUserGroup)this.Data).DbIDString);
+
+                // TODO: do not show groups that this group is inhereted
+
+                return Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID<>? ORDER BY o.Name", ((Concepts.Ring3.SystemUserGroup)this.Data).GetObjectID());
             }
         }
 
@@ -49,24 +60,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         #endregion
 
-        /// <summary>
-        /// Set the based on SystemGroup
-        /// </summary>
-        /// <param name="basedOn"></param>
-        private void SetBasedOn(Concepts.Ring3.SystemUserGroup basedOn) {
-
-            // Remove (if any) current basedOn 
-            foreach (var item in this.BasedOn) {
-                item.Delete();
-            }
-
-            // Set new basedOn
-            if (basedOn != null) {
-                Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn basedOnRelation = new Concepts.Ring8.Polyjuice.SystemUserGroupBasedOn();
-                basedOnRelation.SetSystemUserGroup(this.Data as Concepts.Ring3.SystemUserGroup);
-                basedOnRelation.ToWhat = basedOn;
-            }
-        }
 
         /// <summary>
         /// Validate username, Show Feedback to user
@@ -109,25 +102,25 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// BasedOn changed
         /// </summary>
         /// <param name="action"></param>
-        void Handle(Input.SelectedBasedOnGroup action) {
+        void Handle(Input.SelectedBasedOnGroupID action) {
 
-            if (action.Value == this.Name) {
-                action.Cancel();
-            }
-            else {
+            Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", action.Value).First;
 
-                Concepts.Ring3.SystemUserGroup basedOn = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name=?", action.Value).First;
-                if (basedOn == null) {
-                    if (!string.IsNullOrEmpty(action.Value)) {
-                        this.Message = "Failed to find SystemUserGroup with name: " + action.Value;
-                    }
+            // Check for circular references?
+            while (group != null) {
+
+                if (group.Equals(this.Data)) {
+                    this.Message = "Circular referenced system groups are not allowd";
                     action.Cancel();
+                    action.Cancelled = true;
+                    this.SelectedBasedOnGroupID = action.OldValue;
+                    return;
                 }
-                else {
-                    this.Message = string.Empty;
-                }
-                this.SetBasedOn(basedOn);
+
+                group = group.Parent;
             }
+
+            this.Message = string.Empty;
         }
 
         /// <summary>
@@ -186,7 +179,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             });
             this.Transaction.Commit();
 
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
         }
 
         /// <summary>
@@ -196,7 +189,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             this.Transaction.Commit();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
         }
 
         /// <summary>
@@ -206,7 +199,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Close action) {
 
             this.Transaction.Rollback();
-            this.RedirectUrl = Admin.LauncherWorkSpacePath + "/UserAdminApp/usergroups";
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
         }
 
         #endregion
@@ -222,7 +215,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Remove action) {
             Concepts.Ring3.SystemUserGroup group = this.Parent.Parent.Data as Concepts.Ring3.SystemUserGroup;
             Concepts.Ring3.SystemUser systemUser = this.Data as Concepts.Ring3.SystemUser;
-            //group.RemoveMember(this.Data as Concepts.Ring3.SystemUser);
             SystemUserAdmin.RemoveSystemUserFromSystemUserGroup(systemUser, group);
         }
     }

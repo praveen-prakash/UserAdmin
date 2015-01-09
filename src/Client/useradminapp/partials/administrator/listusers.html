@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="/css/useradmin.css">
+
+
+<template bind="{{UserAdminApp}}">
+
+
+    <H1>System users</H1>
+
+    <table class="gridtable" >
+        <thead>
+            <tr>
+                <th>Sign-in name</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Member in</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <template repeat="{{item in Items}}">
+                <tr>
+       
+                    <td>
+                        <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
+                        <a href="/launcher/workspace/UserAdminApp/admin/users/{{item.DbIDString}}"> {{item.Username}}</a>
+                    </td>
+                    <td>
+                        <a href="/launcher/workspace/UserAdminApp/admin/users/{{item.DbIDString}}">{{item.FullName}}</a>
+                    </td>
+                    <td>{{item.Type}}</td>
+                    <td>
+                        <template repeat="{{group, groupIndex in item.Groups}}">
+                            <template if="{{groupIndex > 0}}">,&nbsp;</template>
+                                <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{group.DbIDString}}">{{group.Name}}</a>
+                        </template>                        
+                    </td>
+
+                    <td><button onclick="getModel(this).item.Delete$ = null">Delete</button></td>
+                </tr>
+            </template>
+
+        </tbody>
+
+    </table>
+
+    <a href="/launcher/workspace/UserAdminApp/admin/createuser">Create User</a>
+</template>

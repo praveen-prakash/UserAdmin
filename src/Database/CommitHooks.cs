@@ -6,56 +6,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UserAdminApp.Server;
+using UserAdminApp.Server.Partials.Launcher;
 
 namespace UserAdminApp.Database {
     public class CommitHooks {
 
-        internal static void RegisterCommitHooks() {
+        internal static void Register() {
 
             #region Sign in/out commit hooks
             // User signed in event
-            Starcounter.Handle.POST(Admin.Port, "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
+            Starcounter.Handle.POST( "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
 
-                bool isSignedIn = Admin.IsAuthorized();
+                string sessionID = Session.Current.SessionIdString;
+                if (!Program.Sessions.ContainsKey(sessionID)) {
+                    return new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.InternalServerError, Body = "Failed to get the signin app Session" };
+                }
+                UserSession admin = Program.Sessions[sessionID];
+
+                bool isAuthorized = UserSession.IsAdmin();
 
                 // Hide or show menu choice 
-                Admin admin = Admin.AdminPage;
+                //Admin admin = Admin.AdminPage;
                 if (admin.Menu != null) {
-                    SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                    menu.IsSignedIn = isSignedIn;
+                    AdminMenu menu = admin.Menu as AdminMenu;
+                    menu.IsAdministrator = isAuthorized;
                 }
-
-                //if (admin.User != null) {
-                //    UserMenu user = admin.User as UserMenu;
-                //    user.IsSignedIn = isSignedIn;
-                //}
 
                 return (ushort)System.Net.HttpStatusCode.OK;
             });
 
             // User signed out event
-            Starcounter.Handle.DELETE(Admin.Port, "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
+            Starcounter.Handle.DELETE( "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
 
-                bool isSignedIn = Admin.IsAuthorized();
+                bool isAuthorized = UserSession.IsAdmin();
+
+                string sessionID = Session.Current.SessionIdString;
+                if (!Program.Sessions.ContainsKey(sessionID)) {
+                    return new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.InternalServerError, Body = "Failed to get the signin app Session" };
+                }
+                UserSession admin = Program.Sessions[sessionID];
 
                 // Hide or show menu choice 
-                Admin admin = Admin.AdminPage;
+                //Admin admin = Admin.AdminPage;
                 if (admin.Menu != null) {
-                    SystemUserMenu menu = admin.Menu as SystemUserMenu;
-                    menu.IsSignedIn = isSignedIn;
+                    AdminMenu menu = admin.Menu as AdminMenu;
+                    menu.IsAdministrator = isAuthorized;
+                    menu.RedirectUrl = "/";
                 }
 
-                //if (admin.User != null) {
-                //    UserMenu user = admin.User as UserMenu;
-                //    user.IsSignedIn = isSignedIn;
-                //}
 
                 return (ushort)System.Net.HttpStatusCode.OK;
             });
 
             #endregion
-
-   
+  
         }
     }
 }
