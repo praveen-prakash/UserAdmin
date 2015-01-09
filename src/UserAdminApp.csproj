@@ -61,10 +61,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Smorgasbord-Development\PropertyMetadata\bin\Debug\Smorgasbord.PropertyMetadata.dll</HintPath>
     </Reference>
-    <Reference Include="SocietyObjects.Concepts.Ring1, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64" />
-    <Reference Include="SocietyObjects.Concepts.Ring2, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64" />
-    <Reference Include="SocietyObjects.Concepts.Ring3, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64" />
-    <Reference Include="SocietyObjects.Concepts.Ring4, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64" />
+    <Reference Include="SocietyObjects.Concepts.Ring1, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SocietyObjects.Concepts.Ring2, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SocietyObjects.Concepts.Ring3, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SocietyObjects.Concepts.Ring4, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="SocietyObjects.Concepts.Ring8.Polyjuice">
       <HintPath>..\..\SignInApp\src\SocietyObjects\SocietyObjects.Concepts.Ring8.Polyjuice\bin\Debug\SocietyObjects.Concepts.Ring8.Polyjuice.dll</HintPath>
     </Reference>
