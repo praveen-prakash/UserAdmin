@@ -14,15 +14,15 @@
 	"Groups" : [{ 
 		"DbIDString" : "", 
 		"Name" : "",
-		"Remove$":null
+		"Remove$":false
 	}],
 	"Message" : "",
 	"RedirectUrl" : "",
 
-	"AddUserToGroup$" : null,
+	"AddUserToGroup$" : false,
 
 	"ResetPassword$" : null,
-	"Delete$":null,
-	"Save$":null,
-	"Close$":null
+	"Delete$":false,
+	"Save$":false,
+	"Close$":false
 }

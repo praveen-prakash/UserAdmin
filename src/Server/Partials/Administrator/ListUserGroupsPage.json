@@ -11,6 +11,6 @@
 			"DbIDString" : "",
 			"Name": ""
 		},
-		"Delete$" : null
+		"Delete$" : false
 	}]
 }

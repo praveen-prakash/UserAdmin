@@ -47,7 +47,7 @@
                     <td>
                         <a href="/launcher/workspace/UserAdminApp/admin/users/{{item.DbIDString}}"> {{item.FullName}}</a>
                     </td>
-                    <td><button onclick="getModel(this).item.Remove$ = null">Remove</button></td>
+                    <td><button onclick="getModel(this).item.Remove$ = true">Remove</button></td>
                 </tr>
             </template>
         </tbody>
@@ -65,16 +65,16 @@
                 </template>
             </td>
             <td>
-                <button  onclick="getModel(this).AddUser$ = null">Add User</button>
+                <button  onclick="getModel(this).AddUser$ = true">Add User</button>
             </td>
             </tr>
         </tfoot>
     </table>
 
-    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$ = null">Save</button>
-    <button class="launcher-button"  onclick="getModel(this).Delete$ = null">Delete</button>
-    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = null">Undo</button>
-    <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
+    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$ = true">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Delete$ = true">Delete</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = true">Undo</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$ = true">Close</button>
 
    <link is="puppet-redirect" history url="{{ RedirectUrl }}">
 

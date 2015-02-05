@@ -17,17 +17,17 @@
 		"Username" : "",
 		"$FullName" :  { "Bind":"WhoIs.FullName" },
 		"FullName" : "",
-		"Remove$":null
+		"Remove$": false
 	}],
 	"AddUserName$" : "",
-	"AddUser$" : null,
+	"AddUser$" :  false,
 	"AddUser_Feedback" : {},
 
 	"Message" : "",
 	"RedirectUrl" : "",
-	"Delete$":null,
-	"Save$":null,
-	"Close$":null,
+	"Delete$": false,
+	"Save$": false,
+	"Close$": false,
 	
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
@@ -38,5 +38,5 @@
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
 
-	"Rollback$" : null
+	"Rollback$" : false
 }

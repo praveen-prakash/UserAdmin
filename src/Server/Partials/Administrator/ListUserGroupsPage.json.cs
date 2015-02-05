@@ -34,6 +34,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
             Db.Transaction(() => {
                 SystemUserAdmin.DeleteSystemUserGroup(this.Data as Concepts.Ring3.SystemUserGroup);
             });
+            // Use bellow if row is not deleted completely.
+            // this.Delete = false;
+            // action.Value = false;
         }
     }
 }

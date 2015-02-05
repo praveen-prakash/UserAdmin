@@ -44,6 +44,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
             systemUserGroupMember.SetToWhat(group);
 
             this.SelectedSystemUserGroupID_ = null;
+
+            this.AddUserToGroup = false;
+            action.Value = false;
         }
 
         public bool ResetPassword_Enabled_ {
@@ -159,6 +162,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+
+            this.Delete = false;
+            action.Value = false;
         }
 
         /// <summary>
@@ -169,6 +175,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             this.Transaction.Commit();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+
+            this.Save = false;
+            action.Value = false;
         }
 
         /// <summary>
@@ -179,6 +188,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             this.Transaction.Rollback();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+
+            this.Close = false;
+            action.Value = false;
         }
 
         #endregion
@@ -254,6 +266,10 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             Concepts.Ring3.SystemUserGroup group = this.Data as Concepts.Ring3.SystemUserGroup;
             group.RemoveMember(this.Parent.Parent.Data as Concepts.Ring3.SystemUser);
+
+            // Use bellow if row is not deleted completely.
+            // this.Remove = false;
+            // action.Value = false;
         }
     }
 }

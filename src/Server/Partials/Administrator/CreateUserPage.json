@@ -10,8 +10,8 @@
 	"Surname$" : "",
 	"Password$" : "",
 
-	"Save$" : null,
-	"Close$" : null,
+	"Save$" : false,
+	"Close$" : false,
 	"RedirectUrl" : "",
 	"Message" : "",
 
@@ -26,5 +26,5 @@
 	"IsValid" : true,
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
-	"Rollback$" : null
+	"Rollback$" : false
 }

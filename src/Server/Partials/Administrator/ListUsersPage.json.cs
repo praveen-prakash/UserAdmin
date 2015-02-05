@@ -42,6 +42,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
             Db.Transaction(() => {
                 SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
             });
+            // Use bellow if row is not deleted completely.
+            // this.Delete = false;
+            // action.Value = false;
 
         }
     }

@@ -144,6 +144,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.AddUser action) {
 
+            this.AddUser = false;
+            action.Value = false;
             Concepts.Ring3.SystemUser systemUser;
             if (!this.ValidateUserToAdd(this.AddUserName, out systemUser)) {
                 return;
@@ -180,6 +182,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Commit();
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+
+            this.Delete = false;
+            action.Value = false;
         }
 
         /// <summary>
@@ -190,6 +195,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             this.Transaction.Commit();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+
+            this.Save = false;
+            action.Value = false;
         }
 
         /// <summary>
@@ -200,6 +208,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             this.Transaction.Rollback();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+
+            this.Close = false;
+            action.Value = false;
         }
 
         #endregion
@@ -216,6 +227,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
             Concepts.Ring3.SystemUserGroup group = this.Parent.Parent.Data as Concepts.Ring3.SystemUserGroup;
             Concepts.Ring3.SystemUser systemUser = this.Data as Concepts.Ring3.SystemUser;
             SystemUserAdmin.RemoveSystemUserFromSystemUserGroup(systemUser, group);
+
+            this.Remove = false;
+            action.Value = false;
         }
     }
 }

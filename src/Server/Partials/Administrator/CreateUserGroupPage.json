@@ -4,8 +4,8 @@
 	"Html" : "",
 	"DbIDString" : "",
 	"Name$" : "",
-	"Save$" : null,
-	"Close$" : null,
+	"Save$" : false,
+	"Close$" : false,
 	"RedirectUrl" : "",
 	"Message" : ""
 }

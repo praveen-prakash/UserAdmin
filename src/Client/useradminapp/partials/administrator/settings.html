@@ -63,9 +63,9 @@
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine}}" style="background-color:#11653B" onclick="getModel(this).Save$ = null">Save</button>
-    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = null">Undo</button>
-    <button class="launcher-button"  onclick="getModel(this).Close$ = null">Close</button>
+    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine}}" style="background-color:#11653B" onclick="getModel(this).Save$ = true">Save</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = true">Undo</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$ = true">Close</button>
 
     <link is="puppet-redirect" history url="{{ RedirectUrl }}">
 

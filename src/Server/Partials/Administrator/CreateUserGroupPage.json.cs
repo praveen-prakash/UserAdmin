@@ -18,12 +18,16 @@ namespace UserAdminApp.Server.Partials.Administrator {
             catch (Exception e) {
                 this.Message = e.Message;
             }
+            this.Save = false;
+            action.Value = false;
         }
 
 
         void Handle(Input.Close action) {
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+            this.Close = false;
+            action.Value = false;
         }
     }
 }

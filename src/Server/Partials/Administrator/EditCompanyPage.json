@@ -14,7 +14,7 @@
 	"Groups" : [{ 
 		"DbIDString" : "", 
 		"Name" : "",
-		"Remove$":null
+		"Remove$":false
 	}],
 	"Message" : "",
 	"RedirectUrl" : "",
@@ -26,14 +26,14 @@
 		"DbIDString" : "", 
 		"Name" : "" 
 	}],
-	"AddUserToGroup$" : null,
+	"AddUserToGroup$" : false,
 
-	"ResetPassword$" : null,
+	"ResetPassword$" : false,
 	"$ResetPassword_Enabled" : { "Bind": "ResetPassword_Enabled_"},
 	"ResetPassword_Enabled" : false,
-	"Delete$":null,
-	"Save$":null,
-	"Close$":null,
+	"Delete$":false,
+	"Save$":false,
+	"Close$":false,
 
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
@@ -44,7 +44,7 @@
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
 
-	"Rollback$" : null,
+	"Rollback$" : false,
 
 	"$Name$" : { "Bind": "WhoIs.Name"},
 	"Name$" : ""
