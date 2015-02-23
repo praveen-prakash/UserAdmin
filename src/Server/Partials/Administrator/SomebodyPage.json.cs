@@ -86,7 +86,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 if (eMailAddress == null) {
                     if (!string.IsNullOrEmpty(value)) {
                         // Create email
-                        this.Transaction.Add(() => {
+                        this.Transaction.Scope(() => {
                             Concepts.Ring2.EMailAddress emailRel = new Concepts.Ring2.EMailAddress();
                             emailRel.SetToWhat(systemUser);
                             emailRel.EMail = value.ToLowerInvariant();
@@ -103,13 +103,13 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 else {
                     if (string.IsNullOrEmpty(value)) {
                         // Delete email
-                        this.Transaction.Add(() => {
+                        this.Transaction.Scope(() => {
                             eMailAddress.Delete();
                         });
                     }
                     else {
                         // Update email
-                        this.Transaction.Add(() => {
+                        this.Transaction.Scope(() => {
                             eMailAddress.EMail = value.ToLowerInvariant();
 
                             // Update Gravatar image
@@ -150,15 +150,16 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// </summary>
         /// <param name="action"></param>
         void Handle(Input.Delete action) {
+            var transaction = this.Transaction;
 
             // TODO: Warn user with Yes/No dialog
-            this.Transaction.Rollback();
+            transaction.Rollback();
 
-            this.Transaction.Add(() => {
+            transaction.Scope(() => {
                 SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
             });
 
-            this.Transaction.Commit();
+            transaction.Commit();
 
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
@@ -210,9 +211,9 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Message = "Invalid settings, check site host name / port";
                 return;
             }
-       
 
-            this.Transaction.Add(() => {
+            var transaction = this.Transaction;
+            transaction.Scope(() => {
 
                 Concepts.Ring3.SystemUser systemUser = (Concepts.Ring3.SystemUser)this.Data;
                 // Generate Password Reset token
@@ -245,7 +246,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             });
 
-            this.Transaction.Commit();
+            transaction.Commit();
 
             try {
                 this.Message = string.Format("Sending mail sent to {0}...", eMailAddress.EMail);

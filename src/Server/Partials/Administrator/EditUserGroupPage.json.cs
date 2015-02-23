@@ -175,11 +175,11 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Delete action) {
 
             // TODO: Warn user with Yes/No dialog
-
-            this.Transaction.Add(() => {
+            var transaction = this.Transaction;
+            transaction.Scope(() => {
                 SystemUserAdmin.DeleteSystemUserGroup(this.Data as Concepts.Ring3.SystemUserGroup);
             });
-            this.Transaction.Commit();
+            transaction.Commit();
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
 

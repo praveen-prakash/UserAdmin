@@ -40,7 +40,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             }
 
             try {
-                Db.Transaction(() => {
+                Db.Transact(() => {
                     Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.Username, this.EMail, this.Password);
                 });
 

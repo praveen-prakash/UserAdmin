@@ -36,7 +36,7 @@ namespace UserAdminApp.Database {
                 SettingsMailServer settings = Db.SQL<UserAdminApp.Database.SettingsMailServer>("SELECT o FROM UserAdminApp.Database.SettingsMailServer o").First;
                 if (settings == null) {
 
-                    Db.Transaction(() => {
+                    Db.Transact(() => {
                         settings = new SettingsMailServer();
                         settings.Enabled = false;
                         settings.Host = "";

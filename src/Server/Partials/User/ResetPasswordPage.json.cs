@@ -41,7 +41,7 @@ namespace UserAdminApp.Server.Partials.User {
 
             string userID = resetPassword.User.GetObjectID();
 
-            Db.Transaction(() => {
+            Db.Transact(() => {
 
                 SystemUserAdmin.SetPassword(resetPassword.User, this.Password);
                 // Remove resetPassord instance

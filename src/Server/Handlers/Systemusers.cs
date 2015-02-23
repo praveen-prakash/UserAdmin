@@ -69,24 +69,24 @@ namespace UserAdminApp.Server.Handlers {
                 if (UriPermission.IsMemberOfGroup(systemUser, adminGroup)) {
 
                     if (user.WhoIs is Concepts.Ring1.Person) {
-                        Partials.Administrator.EditPersonPage editPersonPage = new Partials.Administrator.EditPersonPage() {
-                            Html = "/useradminapp/partials/administrator/editperson.html",
-                            Uri = request.Uri
-                        };
-                        Db.Scope(() => {
-                            editPersonPage.Data = user;
-                        });
-                        return editPersonPage;
+                        return Db.Scope<string, Concepts.Ring3.SystemUser, Json>((uri, personUser) => {
+                            return new Partials.Administrator.EditPersonPage() {
+                                Html = "/useradminapp/partials/administrator/editperson.html",
+                                Uri = uri,
+                                Data = personUser
+                            };
+                        },
+                        request.Uri, user);
                     }
                     else if (user.WhoIs is Concepts.Ring2.Company) {
-                        Partials.Administrator.EditCompanyPage editCompanyPage = new Partials.Administrator.EditCompanyPage() {
-                            Html = "/useradminapp/partials/administrator/editcompany.html",
-                            Uri = request.Uri
-                        };
-                        Db.Scope(() => {
-                            editCompanyPage.Data = user;
-                        });
-                        return editCompanyPage;
+                        Db.Scope<string, Concepts.Ring3.SystemUser, Json>((uri, companyUser) => {
+                            return new Partials.Administrator.EditCompanyPage() {
+                                Html = "/useradminapp/partials/administrator/editcompany.html",
+                                Uri = uri,
+                                Data = companyUser
+                            };
+                        },
+                        request.Uri, user);
                     }
                 }
                 else if (user == systemUser) {

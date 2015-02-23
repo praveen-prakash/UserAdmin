@@ -31,7 +31,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Delete action) {
 
             // TODO: Warning user with Yes/No dialog
-            Db.Transaction(() => {
+            Db.Transact(() => {
                 SystemUserAdmin.DeleteSystemUserGroup(this.Data as Concepts.Ring3.SystemUserGroup);
             });
             // Use bellow if row is not deleted completely.

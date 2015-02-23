@@ -48,7 +48,6 @@ namespace UserAdminApp.Server.Handlers {
             // Get System user group
             //
             Starcounter.Handle.GET( "/UserAdminApp/admin/usergroups/{?}", (string usergroupid, Request request) => {
-
                 Json page;
                 if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/usergroups/{?}", request, "/useradminapp/redirect.html", out page)) {
                     return page;
@@ -61,14 +60,15 @@ namespace UserAdminApp.Server.Handlers {
                     return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
-                Partials.Administrator.EditUserGroupPage editUserGroupPage = new Partials.Administrator.EditUserGroupPage() {
-                    Html = "/useradminapp/partials/administrator/editusergroup.html",
-                    Uri = request.Uri
-                };
-                Db.Scope(() => {
-                    editUserGroupPage.Data = usergroup;
-                });
-                return editUserGroupPage;
+                return Db.Scope<string, Concepts.Ring3.SystemUserGroup, Json>((uri, ug) => {
+                    Partials.Administrator.EditUserGroupPage editUserGroupPage = new Partials.Administrator.EditUserGroupPage() {
+                        Html = "/useradminapp/partials/administrator/editusergroup.html",
+                        Uri = uri
+                    };
+                    editUserGroupPage.Data = ug;
+                    return editUserGroupPage;
+                }, 
+                request.Uri, usergroup);
             });
         }
     }

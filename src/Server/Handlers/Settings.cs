@@ -29,15 +29,15 @@ namespace UserAdminApp.Server.Handlers {
                     return page;
                 }
 
-                Partials.Administrator.SettingsPage settingsPage = new Partials.Administrator.SettingsPage() {
-                    Html = "/useradminapp/partials/administrator/settings.html",
-                    Uri = request.Uri
-                };
-
-                Db.Scope(() => {
+                return Db.Scope<string, Json>((string uri) => {
+                    Partials.Administrator.SettingsPage settingsPage = new Partials.Administrator.SettingsPage() {
+                        Html = "/useradminapp/partials/administrator/settings.html",
+                        Uri = uri
+                    };
                     settingsPage.Data = UserAdminApp.Database.SettingsMailServer.Settings;
-                });
-                return settingsPage;
+                    return settingsPage;
+                },
+                request.Uri);
             });
 
             //

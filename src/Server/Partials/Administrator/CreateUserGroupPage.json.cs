@@ -8,7 +8,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Save action) {
 
             try {
-                Db.Transaction(() => {
+                Db.Transact(() => {
                     Concepts.Ring3.SystemUserGroup group = new Concepts.Ring3.SystemUserGroup();
                     group.Name = this.Name;
                 });

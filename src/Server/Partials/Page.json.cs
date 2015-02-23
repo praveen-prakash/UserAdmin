@@ -7,8 +7,9 @@ namespace UserAdminApp.Server.Partials {
 
         public bool IsDirtyTest_ {
             get {
-                if (this.Transaction == null) return false;
-                return this.Transaction.IsDirty;
+                var transaction = this.Transaction;
+                if (transaction == null) return false;
+                return transaction.IsDirty;
             }
         }
 
@@ -76,9 +77,9 @@ namespace UserAdminApp.Server.Partials {
         /// </summary>
         /// <returns></returns>
         public virtual bool GetIsDiryFlag() {
-
-            if (this.Transaction != null) {
-                return this.Transaction.IsDirty;
+            var transaction = this.Transaction;
+            if (transaction != null) {
+                return transaction.IsDirty;
             }
             return false;
         }
@@ -88,9 +89,9 @@ namespace UserAdminApp.Server.Partials {
         /// Sets the data to its pristine state.
         /// </summary>
         public void SetPristine() {
-
-            if (this.Transaction != null && this.Transaction.IsDirty) {
-                this.Transaction.Rollback();
+            var transaction = this.Transaction;
+            if (transaction != null && transaction.IsDirty) {
+                transaction.Rollback();
                 this.RefreshDirtyFlags();
                 this.ClearAllPropertyFeedback();
             }
