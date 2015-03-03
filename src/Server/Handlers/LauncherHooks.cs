@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UserAdminApp.Server.Partials;
 using UserAdminApp.Server.Partials.Launcher;
+using PolyjuiceNamespace;
 
 namespace UserAdminApp.Server.Handlers {
     public class LauncherHooks {
@@ -20,17 +21,17 @@ namespace UserAdminApp.Server.Handlers {
                 return resp;
             });
 
-            Starcounter.Handle.GET("/launcher/app-name", () => {
+            Starcounter.Handle.GET("/UserAdminApp/app-name", () => {
                 return new AppName();
-            }, HandlerOptions.ApplicationLevel);
+            });
 
             // App name required for Launchpad
-            Starcounter.Handle.GET("/launcher/app-icon", () => {
+            Starcounter.Handle.GET("/UserAdminApp/app-icon", () => {
                 return new UserAdminApp.Server.Partials.Page() { Html = "/useradminapp/launcher/app-icon.html" };
-            }, HandlerOptions.ApplicationLevel);
+            });
 
             // Menu
-            Starcounter.Handle.GET( "/launcher/menu", () => {
+            Starcounter.Handle.GET("/UserAdminApp/menu", () => {
 
                 UserAdminApp.Server.UserSession userSessionPage = new UserAdminApp.Server.UserSession();
 
@@ -48,15 +49,11 @@ namespace UserAdminApp.Server.Handlers {
                 Program.Sessions.Add(sessionID, userSessionPage);
 
                 return menuPage;
-            }, HandlerOptions.ApplicationLevel);
-
-            Starcounter.Handle.GET("/launcher/search?query={?}", (string query) => {
-                return X.GET<Json>("/UserAdminApp/search=" + query);
-            }, HandlerOptions.ApplicationLevel);
+            });
 
             // TODO:
             // Not sure where to put this.
-            Starcounter.Handle.GET("/UserAdminApp/search={?}", (string query) => {
+            Starcounter.Handle.GET("/UserAdminApp/search/{?}", (string query) => {
                 var result = new UserAdminApp.Server.Partials.Administrator.SearchResult();
                 result.Html = "/useradminapp/launcher/app-search.html";
 
@@ -67,6 +64,11 @@ namespace UserAdminApp.Server.Handlers {
                 }
                 return result;
             });
+
+            Polyjuice.Map("/UserAdminApp/menu", "/polyjuice/menu");
+            Polyjuice.Map("/UserAdminApp/app-name", "/polyjuice/app-name");
+            Polyjuice.Map("/UserAdminApp/app-icon", "/polyjuice/app-icon");
+            Polyjuice.Map("/UserAdminApp/search/@w", "/polyjuice/search?query=@w");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Concepts.Ring3;
+using Concepts.Ring3;
 using Concepts.Ring8.Polyjuice.Permissions;
 using PolyjuiceNamespace;
 using Starcounter;
@@ -31,7 +31,7 @@ namespace UserAdminApp {
             Database.CommitHooks.Register();
             UserAdminApp.Server.Handlers.LauncherHooks.Register();
 
-            Polyjuice.Map("/UserAdminApp/admin/users/@w", "/so/person/@w", null, null);
+            Polyjuice.OntologyMap("/UserAdminApp/admin/users/@w", "/so/person/@w", null, null);
         }
 
         /// <summary>
