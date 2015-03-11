@@ -1,4 +1,5 @@
-﻿using Starcounter;
+﻿using PolyjuiceNamespace;
+using Starcounter;
 using Starcounter.Internal;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,19 @@ using UserAdminApp.Server.Partials.Launcher;
 namespace UserAdminApp.Database {
     public class CommitHooks {
 
+        internal static string Url;
+
         internal static void Register() {
+
+            CommitHooks.Url = "/UserAdminApp/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession";
+
+            //Starcounter.Handle.GET(CommitHooks.Url, (Request request) => {
+            //    return (ushort)System.Net.HttpStatusCode.OK;
+            //});
 
             #region Sign in/out commit hooks
             // User signed in event
-            Starcounter.Handle.POST( "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
+            Starcounter.Handle.POST(CommitHooks.Url, (Request request) => {
 
                 string sessionID = Session.Current.SessionIdString;
                 if (!Program.Sessions.ContainsKey(sessionID)) {
@@ -36,7 +45,7 @@ namespace UserAdminApp.Database {
             });
 
             // User signed out event
-            Starcounter.Handle.DELETE( "/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession", (Request request) => {
+            Starcounter.Handle.DELETE(CommitHooks.Url, (Request request) => {
 
                 bool isAuthorized = UserSession.IsAdmin();
 
@@ -59,7 +68,9 @@ namespace UserAdminApp.Database {
             });
 
             #endregion
-  
+
+            Polyjuice.Map(CommitHooks.Url, "/polyjuice/signin", "POST");
+            Polyjuice.Map(CommitHooks.Url, "/polyjuice/signin", "DELETE");
         }
     }
 }
