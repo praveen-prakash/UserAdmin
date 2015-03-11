@@ -53,19 +53,20 @@ namespace UserAdminApp.Database {
             }
         }
 
-        static public bool IsValidSettings() {
+        static public bool IsValidSettings {
+            get {
+                SettingsMailServer settings = SettingsMailServer.Settings;
 
-            SettingsMailServer settings = SettingsMailServer.Settings;
+                if (string.IsNullOrEmpty(settings.Host)) {
+                    return false;
+                }
 
-            if (string.IsNullOrEmpty(settings.Host)) {
-                return false;
+                if (settings.Port > IPEndPoint.MaxPort || (settings.Port < IPEndPoint.MinPort)) {
+                    return false;
+                }
+
+                return true;
             }
-
-            if (settings.Port > IPEndPoint.MaxPort || (settings.Port < IPEndPoint.MinPort)) {
-                return false;
-            }
-
-            return true;
         }
     }
 }

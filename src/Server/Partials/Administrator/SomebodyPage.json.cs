@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Web;
 using UserAdminApp.Database;
 
 namespace UserAdminApp.Server.Partials.Administrator {
@@ -217,7 +218,15 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
                 Concepts.Ring3.SystemUser systemUser = (Concepts.Ring3.SystemUser)this.Data;
                 // Generate Password Reset token
-                ResetPassword resetPassword = new ResetPassword(systemUser);
+                ResetPassword resetPassword = new ResetPassword() {
+                    User = systemUser, 
+                    Token = HttpUtility.UrlEncode(Guid.NewGuid().ToString()), 
+                    Expire = DateTime.UtcNow.AddMinutes(1440)
+                };
+
+
+
+
 
                 // Get FullName
                 if (systemUser.WhoIs != null) {
