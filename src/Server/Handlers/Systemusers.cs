@@ -21,7 +21,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Create System user
             //
-            Starcounter.Handle.GET( "/UserAdminApp/admin/createuser", (Request request) => {
+            Starcounter.Handle.GET("/UserAdminApp/admin/createuser", (Request request) => {
 
                 Json page;
                 if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/createuser", request, "/useradminapp/redirect.html", out page)) {
@@ -34,7 +34,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Get System users
             //
-            Starcounter.Handle.GET( "/UserAdminApp/admin/users", (Request request) => {
+            Starcounter.Handle.GET("/UserAdminApp/admin/users", (Request request) => {
 
                 Json page;
                 if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/users", request, "/useradminapp/redirect.html", out page)) {
@@ -44,10 +44,17 @@ namespace UserAdminApp.Server.Handlers {
                 return new Partials.Administrator.ListUsersPage() { Html = "/useradminapp/partials/administrator/listusers.html", Uri = request.Uri };
             });
 
+
+            Handle.GET("/UserAdminApp/admin/users/{?}", (string userid, Request request) => {
+
+                return Db.Scope<Json>(() => {
+                    return X.GET<Json>(string.Format("/UserAdminApp/admin/_users/{0}", userid));
+                });
+            });
             //
             // Get System user
             //
-            Starcounter.Handle.GET( "/UserAdminApp/admin/users/{?}", (string userid, Request request) => {
+            Handle.GET("/UserAdminApp/admin/_users/{?}", (string userid, Request request) => {
 
                 Json page;
                 if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/users/{?}", request, "/useradminapp/redirect.html", out page)) {
@@ -111,7 +118,7 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Reset password
             //
-            Starcounter.Handle.GET( "/UserAdminApp/user/resetpassword?{?}", (string query, Request request) => {
+            Starcounter.Handle.GET("/UserAdminApp/user/resetpassword?{?}", (string query, Request request) => {
 
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(query);
                 string token = queryCollection.Get("token");

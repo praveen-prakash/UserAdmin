@@ -21,8 +21,6 @@ namespace UserAdminApp {
 
         static void Main() {
 
-            //Polyjuice.Init();
-            //Polyjuice.OntologyMap("/UserAdminApp/admin/users/@w", "/so/person/@w", null, null);
 
             UriPermission.AssureOneAdminSystemUser(Program.AdminGroupName,"System User Administrator Group");
 
@@ -33,6 +31,8 @@ namespace UserAdminApp {
             UserAdminApp.Server.Handlers.SystemUserGroups.Register();
             Database.CommitHooks.Register();
             UserAdminApp.Server.Handlers.LauncherHooks.Register();
+
+            Polyjuice.OntologyMap("/UserAdminApp/admin/_users/@w", "/so/person/@w", null, null);
         }
 
         /// <summary>
