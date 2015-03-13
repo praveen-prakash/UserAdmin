@@ -18,12 +18,12 @@
             <template repeat="{{item in Items}}">
                 <tr>
                     <td>
-                        <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{item.DbIDString}}"> {{item.Name}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{item.Key}}"> {{item.Name}}</a>
                     </td>
                     <td>
-                        <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{item.BasedOn.DbIDString}}"> {{item.BasedOn.Name}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{item.BasedOn.Key}}"> {{item.BasedOn.Name}}</a>
                     </td>
-                    <td><button onclick="getModel(this).item.Delete$ = true">Delete</button></td>
+                    <td><button onclick="getModel(this).item.Delete$++">Delete</button></td>
                 </tr>
             </template>
 

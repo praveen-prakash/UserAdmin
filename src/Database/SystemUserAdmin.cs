@@ -1,5 +1,5 @@
-﻿using Concepts.Ring1;
-using Concepts.Ring2;
+﻿using Simplified.Ring2;
+using Simplified.Ring3;
 using Starcounter;
 using System;
 using System.Collections.Generic;
@@ -15,70 +15,71 @@ namespace UserAdminApp.Database {
         /// Add Person with a system user
         /// </summary>
         /// <param name="firstName"></param>
-        /// <param name="surname"></param>
+        /// <param name="lastname"></param>
         /// <param name="email"></param>
-        public static Concepts.Ring3.SystemUser AddPerson(string firstName, string surname, string username, string email, string password) {
+        public static Simplified.Ring3.SystemUser AddPerson(string firstName, string lastname, string username, string password) {
 
             if (firstName == null) {
                 throw new ArgumentNullException("firstname");
             }
 
-            if (surname == null) {
-                throw new ArgumentNullException("surname");
+            if (lastname == null) {
+                throw new ArgumentNullException("lastname");
             }
 
             if (username == null) {
                 throw new ArgumentNullException("username");
             }
 
-            if (email == null) {
-                throw new ArgumentNullException("email");
-            }
+            //if (email == null) {
+            //    throw new ArgumentNullException("email");
+            //}
 
             if (string.IsNullOrEmpty(firstName)) {
                 throw new ArgumentException("firstname");
             }
 
-            if (string.IsNullOrEmpty(surname)) {
-                throw new ArgumentException("surname");
+            if (string.IsNullOrEmpty(lastname)) {
+                throw new ArgumentException("lastname");
             }
 
-            if (string.IsNullOrEmpty(email)) {
-                throw new ArgumentException("email");
-            }
+            //if (string.IsNullOrEmpty(email)) {
+            //    throw new ArgumentException("email");
+            //}
 
             // Validation
 
             // Check for duplicated email
-            string emailLow = email.ToLowerInvariant();
+            string usernameLow = username.ToLowerInvariant();
 
-            if (!Utils.IsValidEmail(email)) {
-                throw new ArgumentException("email", "Invalid email address");
-            }
+            //if (!Utils.IsValidEmail(email)) {
+            //    throw new ArgumentException("email", "Invalid email address");
+            //}
 
             // Check if there is any system users that has this email.
-            var dupEmail = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.EMail=? AND o.ToWhat IS Concepts.Ring3.SystemUser", emailLow).First;
-            if (dupEmail != null) {
-                throw new ArgumentException("email", "Duplicated email");
-            }
+            //var dupEmail = Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.EMail=? AND o.ToWhat IS Simplified.Ring3.SystemUser", emailLow).First;
+            //if (dupEmail != null) {
+            //    throw new ArgumentException("email", "Duplicated email");
+            //}
 
             // Check for duplicated username
-            var dupUserName = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username=?", username).First;
+            var dupUserName = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.Username=?", username).First;
             if (dupUserName != null) {
                 throw new ArgumentException("username", "Duplicated username");
             }
 
-            Person person = new Person() { FirstName = firstName, Surname = surname };
-            Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(person);
+            Person person = new Person() { FirstName = firstName, LastName = lastname };
+            Simplified.Ring3.SystemUser systemUser = new Simplified.Ring3.SystemUser();
+            systemUser.WhatIs = person;
             systemUser.Username = username;
             SetPassword(systemUser, password);
 
             // Add ability to also sign in with email
-            EMailAddress emailRel = new EMailAddress();
-            emailRel.SetToWhat(systemUser);
-            emailRel.EMail = emailLow.ToLowerInvariant();
+            //EmailAddress emailRel = new EmailAddress();
+            //emailRel.SetToWhat(systemUser);
+            //emailRel.EMail = emailLow.ToLowerInvariant();
 
-            person.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
+            person.ImageURL = Utils.GetGravatarUrl(usernameLow);
 
             return systemUser;
         }
@@ -118,54 +119,55 @@ namespace UserAdminApp.Database {
             }
 
             // Check if there is any system users that has this email.
-            var dupEmail = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.EMail=? AND o.ToWhat IS Concepts.Ring3.SystemUser", emailLow).First;
+            var dupEmail = Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.EMail=? AND o.ToWhat IS Simplified.Ring3.SystemUser", emailLow).First;
             if (dupEmail != null) {
                 throw new ArgumentException("email", "Duplicated email");
             }
 
             // Check for duplicated username
-            var dupUserName = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username=?", username).First;
+            var dupUserName = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.Username=?", username).First;
             if (dupUserName != null) {
                 throw new ArgumentException("username", "Duplicated username");
             }
 
-            Company company = new Company() { Name = name };
+            Organization company = new Organization() { Name = name };
 
-            Concepts.Ring3.SystemUser systemUser = new Concepts.Ring3.SystemUser(company);
+            Simplified.Ring3.SystemUser systemUser = new Simplified.Ring3.SystemUser();
+            systemUser.WhatIs = company;
             systemUser.Username = username;
             SetPassword(systemUser, password);
 
-            // Add ability to also sign in with email
-            EMailAddress emailRel = new EMailAddress();
-            emailRel.SetToWhat(systemUser);
-            emailRel.EMail = emailLow;
+            //// Add ability to also sign in with email
+            //EmailAddress emailRel = new EmailAddress();
+            //emailRel.SetToWhat(systemUser);
+            //emailRel.EMail = emailLow;
 
             //emailRel = new EMailAddress();
             //emailRel.SetToWhat(company);
             //emailRel.EMail = emailLow;
-            company.ImageURL = Utils.GetGravatarUrl(emailRel.EMail);
+            company.ImageURL = Utils.GetGravatarUrl(emailLow);
         }
 
         /// <summary>
         /// Delete System user
         /// </summary>
         /// <param name="user"></param>
-        public static void DeleteSystemUser(Concepts.Ring3.SystemUser user) {
+        public static void DeleteSystemUser(Simplified.Ring3.SystemUser user) {
 
             if (user == null) {
                 throw new ArgumentNullException("user");
             }
 
             // Remove Email adresses associated to the system user
-            Db.SlowSQL("DELETE FROM Concepts.Ring2.EMailAddress WHERE ToWhat=?", user);
+//            Db.SlowSQL("DELETE FROM Simplified.Ring3.EmailAddress WHERE ToWhat=?", user);
 
             // Remove ResetPassword associated to the system user Sombody
-            Db.SlowSQL("DELETE FROM UserAdminApp.Database.ResetPassword WHERE User=?", user);
+            Db.SlowSQL("DELETE FROM Simplified.Ring6.ResetPassword WHERE User=?", user);
 
             // TODO: Should we also delete the Somebody (Person/Company)?
 
             // Remove system user group member (If system user is member of a system user group)
-            Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroupMember WHERE SystemUser=?", user);
+            Db.SlowSQL("DELETE FROM Simplified.Ring3.SystemUserGroupMember WHERE SystemUser=?", user);
 
             user.Delete();
         }
@@ -174,11 +176,11 @@ namespace UserAdminApp.Database {
         /// Delete System User Group and it's relationships
         /// </summary>
         /// <param name="group"></param>
-        public static void DeleteSystemUserGroup(Concepts.Ring3.SystemUserGroup group) {
+        public static void DeleteSystemUserGroup(Simplified.Ring3.SystemUserGroup group) {
 
 
             // Remove System user member's
-            Db.SlowSQL("DELETE FROM Concepts.Ring3.SystemUserGroupMember WHERE SystemUserGroup=?", group);
+            Db.SlowSQL("DELETE FROM Simplified.Ring3.SystemUserGroupMember WHERE SystemUserGroup=?", group);
 
             group.Delete();
         }
@@ -188,11 +190,13 @@ namespace UserAdminApp.Database {
         /// </summary>
         /// <param name="user"></param>
         /// <param name="group"></param>
-        public static void AddSystemUserToSystemUserGroup(Concepts.Ring3.SystemUser user, Concepts.Ring3.SystemUserGroup group) {
+        public static void AddSystemUserToSystemUserGroup(Simplified.Ring3.SystemUser user, Simplified.Ring3.SystemUserGroup group) {
 
-            Concepts.Ring3.SystemUserGroupMember systemUserGroupMember = new Concepts.Ring3.SystemUserGroupMember();
-            systemUserGroupMember.SetSystemUser(user);
-            systemUserGroupMember.SetToWhat(group);
+            Simplified.Ring3.SystemUserGroupMember systemUserGroupMember = new Simplified.Ring3.SystemUserGroupMember();
+            systemUserGroupMember.WhatIs = user;
+            systemUserGroupMember.ToWhat = group;
+            //systemUserGroupMember.SetSystemUser(user);
+            //systemUserGroupMember.SetToWhat(group);
             //group.AddMember(systemUser);
         }
 
@@ -201,9 +205,14 @@ namespace UserAdminApp.Database {
         /// </summary>
         /// <param name="user"></param>
         /// <param name="group"></param>
-        public static void RemoveSystemUserFromSystemUserGroup(Concepts.Ring3.SystemUser user, Concepts.Ring3.SystemUserGroup group) {
+        public static void RemoveSystemUserFromSystemUserGroup(Simplified.Ring3.SystemUser user, Simplified.Ring3.SystemUserGroup group) {
 
-            group.RemoveMember(user);
+            var removeGroup = Db.SQL<Simplified.Ring3.SystemUserGroupMember>("SELECT o FROM Simplified.Ring3.SystemUserGroupMember o WHERE o.WhatIs=? AND o.ToWhat=?", user, group).First;
+            if (removeGroup != null) {
+                removeGroup.Delete();
+            }
+
+            //group.RemoveMember(user);
         }
 
         /// <summary>
@@ -211,10 +220,10 @@ namespace UserAdminApp.Database {
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        public static void SetPassword(Concepts.Ring3.SystemUser user, string password) {
+        public static void SetPassword(Simplified.Ring3.SystemUser user, string password) {
 
             string hashedPassword;
-            Concepts.Ring8.Polyjuice.SystemUserPassword.GeneratePasswordHash(user.Username.ToLower(), password, out hashedPassword);
+            Helper.GeneratePasswordHash(user.Username.ToLower(), password, out hashedPassword);
             user.Password = hashedPassword;
         }
     }

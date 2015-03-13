@@ -3,6 +3,6 @@
 	"Uri" : "",
 	"Html" : "",
 	"FullName" :"",
-	"Save$" : false,
+	"Save$" : 0,
 	"RedirectUrl" : ""
 }

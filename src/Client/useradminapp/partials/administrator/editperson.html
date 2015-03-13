@@ -20,7 +20,7 @@
         <label for="Username">Username</label>
     </div>
 
-    <div class="launcher-labeled-input">
+<!--    <div class="launcher-labeled-input">
         <input id="EMail$" type='email'  value='{{ EMail$ }}' placeholder='<E-Mail>'>
         <label for="EMail$">E-Mail</label>
 
@@ -29,7 +29,7 @@
                 {{EMail_Feedback.Message}}
             </span>
         </template>
-    </div>
+    </div>-->
 
     <div class="launcher-labeled-input">
         <input id="FirstName$" type='text' value='{{ FirstName$ }}' placeholder='<FirstName>'>
@@ -37,8 +37,8 @@
     </div>
 
     <div class="launcher-labeled-input">
-        <input id="Surname$" type='text' value='{{ Surname$ }}' placeholder='<Surname>'>
-        <label for="Surname$">Surname</label>
+        <input id="LastName$" type='text' value='{{ LastName$ }}' placeholder='<LastName>'>
+        <label for="LastName$">LastName</label>
     </div>
 
     <!-- Member in user groups -->
@@ -55,9 +55,9 @@
             <template repeat="{{item in Groups}}">
                 <tr>
                     <td>
-                        <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{item.DbIDString}}"> {{item.Name}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{item.Key}}"> {{item.Name}}</a>
                     </td>
-                    <td><button onclick="getModel(this).item.Remove$ = true">Remove</button></td>
+                    <td><button onclick="getModel(this).item.Remove$++">Remove</button></td>
                 </tr>
             </template>
         </tbody>
@@ -70,14 +70,14 @@
                     <select value="{{SelectedSystemUserGroupsID$}}">
                         <option value="">None</option>
                         <template repeat="{{ item in SystemUserGroups }}">
-                                <option value="{{item.DbIDString}}">{{item.Name}}</option>
+                                <option value="{{item.Key}}">{{item.Name}}</option>
                         </template>
                     </select>
 
                 </div>
             </td>
             <td>
-                <button  onclick="getModel(this).AddUserToGroup$ = true">Add</button>
+                <button  onclick="getModel(this).AddUserToGroup$++">Add</button>
             </td>
             </tr>
         </tfoot>
@@ -88,11 +88,11 @@
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$ = true">Save</button>
-    <button class="launcher-button"  onclick="getModel(this).Delete$ = true">Delete</button>
-    <button class="launcher-button" disabled?="{{ IsDirty || !ResetPassword_Enabled }}" onclick="getModel(this).ResetPassword$ = true">Reset Password</button>
-    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = true">Undo</button>
-    <button class="launcher-button"  onclick="getModel(this).Close$ = true">Close</button>
+    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$++">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Delete$++">Delete</button>
+    <button class="launcher-button" disabled?="{{ IsDirty || !ResetPassword_Enabled }}" onclick="getModel(this).ResetPassword$++">Reset Password</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$++">Undo</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$++">Close</button>
 
    <link is="puppet-redirect" history url="{{ RedirectUrl }}">
 

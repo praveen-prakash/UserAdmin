@@ -18,8 +18,8 @@
 
 
 	"Message" : "",
-	"Save$" : false,
-	"Close$" : false,
+	"Save$" : 0,
+	"Close$" : 0,
 
 
 	// Inherited from PropertyFeedbackPage
@@ -32,5 +32,5 @@
 	"IsValid" : true,
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
-	"Rollback$" : false
+	"Rollback$" : 0
 }

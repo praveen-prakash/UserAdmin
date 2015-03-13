@@ -46,8 +46,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Commit();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
 
-            this.Save = false;
-            action.Value = false;
+            //this.Save = false;
+            //action.Value = false;
         }
 
         void Handle(Input.Close action) {
@@ -55,8 +55,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Rollback();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
 
-            this.Close = false;
-            action.Value = false;
+            //this.Close = false;
+            //action.Value = false;
         }
 
 

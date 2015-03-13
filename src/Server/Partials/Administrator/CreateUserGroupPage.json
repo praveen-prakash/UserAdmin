@@ -2,10 +2,10 @@
 	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
 	"Uri" : "",
 	"Html" : "",
-	"DbIDString" : "",
+	"Key" : "",
 	"Name$" : "",
-	"Save$" : false,
-	"Close$" : false,
+	"Save$" : 0,
+	"Close$" : 0,
 	"RedirectUrl" : "",
 	"Message" : ""
 }

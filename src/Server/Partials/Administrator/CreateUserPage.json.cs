@@ -17,15 +17,15 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.AssurePropertyMetadata_Name(action.Template.TemplateName, action.Value);
         }
 
-        void Handle(Input.Surname action) {
+        void Handle(Input.LastName action) {
 
             this.AssurePropertyMetadata_Name(action.Template.TemplateName, action.Value);
         }
 
-        void Handle(Input.EMail action) {
+        //void Handle(Input.EMail action) {
 
-            this.AssurePropertyMetadata_Email(action.Template.TemplateName, action.Value);
-        }
+        //    this.AssurePropertyMetadata_Email(action.Template.TemplateName, action.Value);
+        //}
 
         /// <summary>
         /// Save event
@@ -41,7 +41,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             try {
                 Db.Transact(() => {
-                    Database.SystemUserAdmin.AddPerson(this.FirstName, this.Surname, this.Username, this.EMail, this.Password);
+                    Database.SystemUserAdmin.AddPerson(this.FirstName, this.LastName, this.Username, this.Password);
                 });
 
                 this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
@@ -49,15 +49,15 @@ namespace UserAdminApp.Server.Partials.Administrator {
             catch (Exception e) {
                 this.Message = e.Message;
             }
-            this.Save = false;
-            action.Value = false;
+//            this.Save = false;
+//            action.Value = false;
         }
 
         void Handle(Input.Close action) {
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
-            this.Close = false;
-            action.Value = false;
+//            this.Close = false;
+//            action.Value = false;
         }
 
 
@@ -70,8 +70,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             AssurePropertyMetadata_Name("Username$", this.Username);
             AssurePropertyMetadata_Name("FirstName$", this.FirstName);
-            AssurePropertyMetadata_Name("Surname$", this.Surname);
-            AssurePropertyMetadata_Email("EMail$", this.EMail);
+            AssurePropertyMetadata_Name("LastName$", this.LastName);
+//            AssurePropertyMetadata_Email("EMail$", this.EMail);
         }
 
         protected void AssurePropertyMetadata_Name(string propertyName, string value) {
@@ -90,23 +90,23 @@ namespace UserAdminApp.Server.Partials.Administrator {
             }
 
         }
-        protected void AssurePropertyMetadata_Email(string propertyName, string value) {
+        //protected void AssurePropertyMetadata_Email(string propertyName, string value) {
 
 
-            string message;
-            this.Validate_Email(value, out message);
-            if (message != null) {
-                PropertyMetadataItem item = new PropertyMetadataItem();
-                item.Message = message;
-                item.ErrorLevel = 1;
-                item.PropertyName = propertyName;
-                this.AddPropertyFeedback(item);
-            }
-            else {
-                this.RemovePropertyFeedback(propertyName);
-            }
+        //    string message;
+        //    this.Validate_Email(value, out message);
+        //    if (message != null) {
+        //        PropertyMetadataItem item = new PropertyMetadataItem();
+        //        item.Message = message;
+        //        item.ErrorLevel = 1;
+        //        item.PropertyName = propertyName;
+        //        this.AddPropertyFeedback(item);
+        //    }
+        //    else {
+        //        this.RemovePropertyFeedback(propertyName);
+        //    }
 
-        }
+        //}
         #endregion
 
         #region Validate Properties

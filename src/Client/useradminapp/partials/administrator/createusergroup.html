@@ -15,8 +15,8 @@
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$ = true">Save</button>
-    <button class="launcher-button"  onclick="getModel(this).Close$ = true">Close</button>
+    <button class="launcher-button" style="background-color:#11653B" onclick="getModel(this).Save$++">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$++">Close</button>
 
    <link is="puppet-redirect" history url="{{ RedirectUrl }}">
 

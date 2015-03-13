@@ -1,3 +1,5 @@
+using Simplified.Ring3;
+using Simplified.Ring6;
 using Starcounter;
 using System;
 using System.Collections;
@@ -15,12 +17,12 @@ namespace UserAdminApp.Server.Partials.Administrator {
         public IEnumerable SystemUserGroups_ {
             get {
 
-                List<Concepts.Ring3.SystemUserGroup> notmemberofgroups = new List<Concepts.Ring3.SystemUserGroup>();
+                List<Simplified.Ring3.SystemUserGroup> notmemberofgroups = new List<Simplified.Ring3.SystemUserGroup>();
 
-                var groups = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o");
+                var groups = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o");
                 foreach (var group in groups) {
 
-                    var memberOfGroup = Db.SQL<Concepts.Ring3.SystemUserGroupMember>("SELECT o FROM Concepts.Ring3.SystemUserGroupMember o WHERE o.SystemUserGroup=? AND o.SystemUser=?", group, this.Data).First;
+                    var memberOfGroup = Db.SQL<Simplified.Ring3.SystemUserGroupMember>("SELECT o FROM Simplified.Ring3.SystemUserGroupMember o WHERE o.SystemUserGroup=? AND o.SystemUser=?", group, this.Data).First;
                     if (memberOfGroup == null) {
                         notmemberofgroups.Add(group);
                     }
@@ -38,16 +40,19 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 return;
             }
 
-            Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", this.SelectedSystemUserGroupID_).First;
+            Simplified.Ring3.SystemUserGroup group = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID=?", this.SelectedSystemUserGroupID_).First;
 
-            Concepts.Ring3.SystemUserGroupMember systemUserGroupMember = new Concepts.Ring3.SystemUserGroupMember();
-            systemUserGroupMember.SetSystemUser(this.Data as Concepts.Ring3.SystemUser);
-            systemUserGroupMember.SetToWhat(group);
+            Simplified.Ring3.SystemUserGroupMember systemUserGroupMember = new Simplified.Ring3.SystemUserGroupMember();
+
+            systemUserGroupMember.WhatIs = this.Data as Simplified.Ring3.SystemUser;
+            systemUserGroupMember.ToWhat = group;
+            //systemUserGroupMember.SetSystemUser(this.Data as Simplified.Ring3.SystemUser);
+            //systemUserGroupMember.SetToWhat(group);
 
             this.SelectedSystemUserGroupID_ = null;
 
-            this.AddUserToGroup = false;
-            action.Value = false;
+//            this.AddUserToGroup = false;
+//            action.Value = false;
         }
 
         public bool ResetPassword_Enabled_ {
@@ -59,82 +64,85 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <summary>
         /// EMailAddress
         /// </summary>
-        private Concepts.Ring2.EMailAddress EMailAddress {
+        private Simplified.Ring3.EmailAddress EMailAddress {
             get {
-                Concepts.Ring3.SystemUser user = this.Data as Concepts.Ring3.SystemUser;
+                Simplified.Ring3.SystemUser user = this.Data as Simplified.Ring3.SystemUser;
                 if (user == null) return null;
-                return Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.ToWhat=?", user).First;
+                return Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.ToWhat=?", user).First;
             }
         }
 
         /// <summary>
         /// UserEmail
+        /// 
+        ///"$EMail$" : { "Bind" : "UserEmail" },
+        ///"EMail$" : "",
+        ///"EMail$_Feedback" : {},
         /// </summary>
-        public string UserEmail {
-            get {
+        //public string UserEmail {
+        //    get {
+        //        Simplified.Ring3.SystemUser systemUser = this.Data as Simplified.Ring3.SystemUser;
+        //        if (systemUser == null) return string.Empty;
 
-                Concepts.Ring3.SystemUser systemUser = this.Data as Concepts.Ring3.SystemUser;
-                if (systemUser == null) return string.Empty;
+        //        if (this.EMailAddress == null) return string.Empty;
+        //        return this.EMailAddress.EMail;
+        //    }
+        //    set {
+        //        Simplified.Ring3.SystemUser systemUser = this.Data as Simplified.Ring3.SystemUser;
+        //        if (systemUser == null) return;
 
-                if (this.EMailAddress == null) return string.Empty;
-                return this.EMailAddress.EMail;
-            }
-            set {
-                Concepts.Ring3.SystemUser systemUser = this.Data as Concepts.Ring3.SystemUser;
-                if (systemUser == null) return;
+        //        Simplified.Ring3.EmailAddress eMailAddress = this.EMailAddress;
+        //        if (eMailAddress == null) {
+        //            if (!string.IsNullOrEmpty(value)) {
+        //                // Create email
+        //                this.Transaction.Scope(() => {
+        //                    Simplified.Ring3.EmailAddress emailRel = new Simplified.Ring3.EmailAddress();
+        //                    emailRel.SetToWhat(systemUser);
+        //                    emailRel.EMail = value.ToLowerInvariant();
 
-                Concepts.Ring2.EMailAddress eMailAddress = this.EMailAddress;
-                if (eMailAddress == null) {
-                    if (!string.IsNullOrEmpty(value)) {
-                        // Create email
-                        this.Transaction.Scope(() => {
-                            Concepts.Ring2.EMailAddress emailRel = new Concepts.Ring2.EMailAddress();
-                            emailRel.SetToWhat(systemUser);
-                            emailRel.EMail = value.ToLowerInvariant();
+        //                    // Update Gravatar image
+        //                    if (systemUser.WhoIs is Simplified.Ring1.Somebody) {
+        //                        ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(emailRel.EMail);
+        //                        //this.ImageURL = ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL;
+        //                    }
 
-                            // Update Gravatar image
-                            if (systemUser.WhoIs is Concepts.Ring1.Somebody) {
-                                ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(emailRel.EMail);
-                                //this.ImageURL = ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL;
-                            }
+        //                });
+        //            }
+        //        }
+        //        else {
+        //            if (string.IsNullOrEmpty(value)) {
+        //                // Delete email
+        //                this.Transaction.Scope(() => {
+        //                    eMailAddress.Delete();
+        //                });
+        //            }
+        //            else {
+        //                // Update email
+        //                this.Transaction.Scope(() => {
+        //                    eMailAddress.EMail = value.ToLowerInvariant();
 
-                        });
-                    }
-                }
-                else {
-                    if (string.IsNullOrEmpty(value)) {
-                        // Delete email
-                        this.Transaction.Scope(() => {
-                            eMailAddress.Delete();
-                        });
-                    }
-                    else {
-                        // Update email
-                        this.Transaction.Scope(() => {
-                            eMailAddress.EMail = value.ToLowerInvariant();
-
-                            // Update Gravatar image
-                            if (systemUser.WhoIs is Concepts.Ring1.Somebody) {
-                                ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(eMailAddress.EMail);
-                                //this.ImageURL = ((Concepts.Ring1.Somebody)systemUser.WhoIs).ImageURL;
-                            }
-                        });
-                    }
-                }
-            }
-        }
+        //                    // Update Gravatar image
+        //                    if (systemUser.WhoIs is Simplified.Ring1.Somebody) {
+        //                        ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(eMailAddress.EMail);
+        //                        //this.ImageURL = ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL;
+        //                    }
+        //                });
+        //            }
+        //        }
+        //    }
+        //}
 
         #region View-model Handlers
 
-        void Handle(Input.EMail action) {
+        //void Handle(Input.EMail action) {
 
-            if (!UserAdminApp.Database.Utils.IsValidEmail(action.Value)) {
-                this.AddPropertyFeedback("EMail_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "Invalid e-mail adress");
-            }
-            else {
-                this.RemovePropertyFeedback("EMail_Feedback");
-            }
-        }
+        //    if (!UserAdminApp.Database.Utils.IsValidEmail(action.Value)) {
+        //        this.AddPropertyFeedback("EMail_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "Invalid e-mail adress");
+        //    }
+        //    else {
+        //        this.RemovePropertyFeedback("EMail_Feedback");
+        //    }
+        //}
 
 
         /// <summary>
@@ -153,11 +161,17 @@ namespace UserAdminApp.Server.Partials.Administrator {
         void Handle(Input.Delete action) {
             var transaction = this.Transaction;
 
+            SystemUser systemUser = Helper.GetCurrentSystemUser();
+            if (systemUser.Equals (this.Data)) {
+                // TODO: Show error message "Can not delete yourself"
+                return;
+            }
+
             // TODO: Warn user with Yes/No dialog
             transaction.Rollback();
 
             transaction.Scope(() => {
-                SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
+                SystemUserAdmin.DeleteSystemUser(this.Data as Simplified.Ring3.SystemUser);
             });
 
             transaction.Commit();
@@ -165,8 +179,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
 
-            this.Delete = false;
-            action.Value = false;
+//            this.Delete = false;
+//            action.Value = false;
         }
 
         /// <summary>
@@ -178,8 +192,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Commit();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
 
-            this.Save = false;
-            action.Value = false;
+            //this.Save = false;
+            //action.Value = false;
         }
 
         /// <summary>
@@ -191,8 +205,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Rollback();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
 
-            this.Close = false;
-            action.Value = false;
+            //this.Close = false;
+            //action.Value = false;
         }
 
         #endregion
@@ -201,7 +215,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             string link = null;
             string fullName = string.Empty;
-            Concepts.Ring2.EMailAddress eMailAddress = null;
+            Simplified.Ring3.EmailAddress eMailAddress = null;
 
             if (UserAdminApp.Database.SettingsMailServer.Settings.Enabled == false) {
                 this.Message = "Mail Server not enabled in the settings.";
@@ -216,11 +230,11 @@ namespace UserAdminApp.Server.Partials.Administrator {
             var transaction = this.Transaction;
             transaction.Scope(() => {
 
-                Concepts.Ring3.SystemUser systemUser = (Concepts.Ring3.SystemUser)this.Data;
+                Simplified.Ring3.SystemUser systemUser = (Simplified.Ring3.SystemUser)this.Data;
                 // Generate Password Reset token
                 ResetPassword resetPassword = new ResetPassword() {
-                    User = systemUser, 
-                    Token = HttpUtility.UrlEncode(Guid.NewGuid().ToString()), 
+                    User = systemUser,
+                    Token = HttpUtility.UrlEncode(Guid.NewGuid().ToString()),
                     Expire = DateTime.UtcNow.AddMinutes(1440)
                 };
 
@@ -247,7 +261,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
                 link = uri.ToString();
 
-                eMailAddress = Db.SQL<Concepts.Ring2.EMailAddress>("SELECT o FROM Concepts.Ring2.EMailAddress o WHERE o.ToWhat=?", systemUser).First;
+                eMailAddress = Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.ToWhat=?", systemUser).First;
                 if (eMailAddress == null) {
                     this.Message = "User dosent have any email configured";
                     return;
@@ -274,8 +288,13 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Remove action) {
 
-            Concepts.Ring3.SystemUserGroup group = this.Data as Concepts.Ring3.SystemUserGroup;
-            group.RemoveMember(this.Parent.Parent.Data as Concepts.Ring3.SystemUser);
+            Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
+            Simplified.Ring3.SystemUser user = this.Parent.Parent.Data as Simplified.Ring3.SystemUser;
+            var removeGroup = Db.SQL<Simplified.Ring3.SystemUserGroupMember>("SELECT o FROM Simplified.Ring3.SystemUserGroupMember o WHERE o.WhatIs=? AND o.ToWhat=?", user, group).First;
+            if (removeGroup != null) {
+                removeGroup.Delete();
+            }
+            //group.RemoveMember(this.Parent.Parent.Data as Simplified.Ring3.SystemUser);
 
             // Use bellow if row is not deleted completely.
             // this.Remove = false;

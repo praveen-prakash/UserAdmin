@@ -1,5 +1,4 @@
-﻿using Concepts.Ring8.Polyjuice.App;
-using Starcounter;
+﻿using Starcounter;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -23,7 +22,7 @@ namespace UserAdminApp.Server.Handlers {
             Starcounter.Handle.GET( "/UserAdminApp/admin/createusergroup", (Request request) => {
 
                 Json page;
-                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/createusergroup", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdminApp/admin/createusergroup", request, "/useradminapp/redirect.html", out page)) {
                     return page;
                 }
 
@@ -36,7 +35,7 @@ namespace UserAdminApp.Server.Handlers {
             Starcounter.Handle.GET( "/UserAdminApp/admin/usergroups", (Request request) => {
 
                 Json page;
-                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/usergroups", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdminApp/admin/usergroups", request, "/useradminapp/redirect.html", out page)) {
                     return page;
                 }
 
@@ -49,18 +48,18 @@ namespace UserAdminApp.Server.Handlers {
             //
             Starcounter.Handle.GET( "/UserAdminApp/admin/usergroups/{?}", (string usergroupid, Request request) => {
                 Json page;
-                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/usergroups/{?}", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdminApp/admin/usergroups/{?}", request, "/useradminapp/redirect.html", out page)) {
                     return page;
                 }
 
-                Concepts.Ring3.SystemUserGroup usergroup = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", usergroupid).First;
+                Simplified.Ring3.SystemUserGroup usergroup = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID=?", usergroupid).First;
 
                 if (usergroup == null) {
                     // TODO: Return a "User Group not found" page
                     return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
-                return Db.Scope<string, Concepts.Ring3.SystemUserGroup, Json>((uri, ug) => {
+                return Db.Scope<string, Simplified.Ring3.SystemUserGroup, Json>((uri, ug) => {
                     Partials.Administrator.EditUserGroupPage editUserGroupPage = new Partials.Administrator.EditUserGroupPage() {
                         Html = "/useradminapp/partials/administrator/editusergroup.html",
                         Uri = uri

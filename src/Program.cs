@@ -1,6 +1,6 @@
-using Concepts.Ring3;
-using Concepts.Ring8.Polyjuice.Permissions;
 using PolyjuiceNamespace;
+using Simplified.Ring3;
+using Simplified.Ring5;
 using Starcounter;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace UserAdminApp {
         static void Main() {
 
 
-            UriPermission.AssureOneAdminSystemUser(Program.AdminGroupName,"System User Administrator Group");
+            Helper.AssureOneAdminSystemUser(Program.AdminGroupName, "System User Administrator Group");
 
             Program.SetupPermissions();
 
@@ -42,16 +42,16 @@ namespace UserAdminApp {
         /// </summary>
         static private void SetupPermissions() {
 
-            SystemUserGroup adminGroup = Db.SQL<SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
-            UriPermission.AssureUriPermission("/UserAdminApp/admin/users", adminGroup);
-            UriPermission.AssureUriPermission("/UserAdminApp/admin/users/{?}", adminGroup);
-            UriPermission.AssureUriPermission("/UserAdminApp/admin/createuser", adminGroup);
+            SystemUserGroup adminGroup = Db.SQL<SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
+            Helper.AssureUriPermission("/UserAdminApp/admin/users", adminGroup);
+            Helper.AssureUriPermission("/UserAdminApp/admin/users/{?}", adminGroup);
+            Helper.AssureUriPermission("/UserAdminApp/admin/createuser", adminGroup);
 
-            UriPermission.AssureUriPermission("/UserAdminApp/admin/usergroups", adminGroup);
-            UriPermission.AssureUriPermission("/UserAdminApp/admin/usergroups/{?}", adminGroup);
-            UriPermission.AssureUriPermission("/UserAdminApp/admin/createusergroup", adminGroup);
+            Helper.AssureUriPermission("/UserAdminApp/admin/usergroups", adminGroup);
+            Helper.AssureUriPermission("/UserAdminApp/admin/usergroups/{?}", adminGroup);
+            Helper.AssureUriPermission("/UserAdminApp/admin/createusergroup", adminGroup);
 
-            UriPermission.AssureUriPermission("/UserAdminApp/admin/settings", adminGroup);
+            Helper.AssureUriPermission("/UserAdminApp/admin/settings", adminGroup);
         }
     }
 }

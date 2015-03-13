@@ -156,8 +156,8 @@ namespace UserAdminApp.Server.Partials {
         /// <param name="action"></param>
         void Handle(Input.Rollback action) {
             this.SetPristine();
-            this.Rollback = false;
-            action.Value = false;
+            //this.Rollback = false;
+            //action.Value = false;
         }
 
         #endregion

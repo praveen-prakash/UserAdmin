@@ -1,11 +1,13 @@
 <link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html">
-<link rel="import" href="vendor/sgb-property-metadata/sgb-property-metadata.html">
+<link rel="import" href="/vendor/sgb-property-metadata/sgb-property-metadata.html">
 
 <link rel="stylesheet" href="/css/useradmin.css">
 
 <template>
 
     <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
+
+    {{PropertyMetadataItems.Items}}
 
     <H1>Create User</H1>
 
@@ -14,10 +16,10 @@
         <label for="Username$">Username</label>
     </div>
 
-    <div class="launcher-labeled-input">
+<!--    <div class="launcher-labeled-input">
         <input id="EMail$" type='email' value='{{ EMail$ }}' update-on="input" placeholder='<E-Mail>'>
         <label for="EMail$">E-Mail</label>
-    </div>
+    </div>-->
 
     <div class="launcher-labeled-input">
         <input id="FirstName$" type='text' value='{{ FirstName$ }}' update-on="input" placeholder='<FirstName>'>
@@ -25,8 +27,8 @@
     </div>
 
     <div class="launcher-labeled-input">
-        <input id="Surname$" type='text' value='{{ Surname$ }}' update-on="input" placeholder='<Surname>'>
-        <label for="Surname$">Surname</label>
+        <input id="LastName$" type='text' value='{{ LastName$ }}' update-on="input" placeholder='<LastName>'>
+        <label for="LastName$">LastName</label>
     </div>
 
     <div class="launcher-labeled-input">
@@ -41,8 +43,8 @@
         <p>{{Message}}</p>
     </template>
 
-    <button class="launcher-button" disabled?="{{ IsInvalid }}" style="background-color:#11653B" onclick="getModel(this).Save$ = true">Save</button>
-    <button class="launcher-button"  onclick="getModel(this).Close$ = true">Close</button>
+    <button class="launcher-button" disabled?="{{ IsInvalid }}" style="background-color:#11653B" onclick="getModel(this).Save$++">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$++">Close</button>
 
    <link is="puppet-redirect" history url="{{ RedirectUrl }}">
 

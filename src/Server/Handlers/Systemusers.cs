@@ -1,5 +1,5 @@
-﻿using Concepts.Ring8.Polyjuice.App;
-using Concepts.Ring8.Polyjuice.Permissions;
+﻿using Simplified.Ring2;
+using Simplified.Ring6;
 using Starcounter;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace UserAdminApp.Server.Handlers {
             Starcounter.Handle.GET("/UserAdminApp/admin/createuser", (Request request) => {
 
                 Json page;
-                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/createuser", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdminApp/admin/createuser", request, "/useradminapp/redirect.html", out page)) {
                     return page;
                 }
 
@@ -37,7 +37,7 @@ namespace UserAdminApp.Server.Handlers {
             Starcounter.Handle.GET("/UserAdminApp/admin/users", (Request request) => {
 
                 Json page;
-                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/users", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdminApp/admin/users", request, "/useradminapp/redirect.html", out page)) {
                     return page;
                 }
 
@@ -57,26 +57,26 @@ namespace UserAdminApp.Server.Handlers {
             Handle.GET("/UserAdminApp/admin/_users/{?}", (string userid, Request request) => {
 
                 Json page;
-                if (!UriPermissionHelper.TryNavigateTo("/UserAdminApp/admin/users/{?}", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdminApp/admin/users/{?}", request, "/useradminapp/redirect.html", out page)) {
                     return page;
                 }
 
                 // Get system user
-                Concepts.Ring3.SystemUser user = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.ObjectID=?", userid).First;
+                Simplified.Ring3.SystemUser user = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.ObjectID=?", userid).First;
                 if (user == null) {
                     // TODO: Return a "User not found" page
                     return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
-                Concepts.Ring3.SystemUser systemUser = UriPermissionHelper.GetCurrentSystemUser();
-                Concepts.Ring3.SystemUserGroup adminGroup = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
+                Simplified.Ring3.SystemUser systemUser = Helper.GetCurrentSystemUser();
+                Simplified.Ring3.SystemUserGroup adminGroup = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
 
 
                 // Check if current user has permission to get this user instance
-                if (UriPermission.IsMemberOfGroup(systemUser, adminGroup)) {
+                if (Helper.IsMemberOfGroup(systemUser, adminGroup)) {
 
-                    if (user.WhoIs is Concepts.Ring1.Person) {
-                        return Db.Scope<string, Concepts.Ring3.SystemUser, Json>((uri, personUser) => {
+                    if (user.WhoIs is Person) {
+                        return Db.Scope<string, Simplified.Ring3.SystemUser, Json>((uri, personUser) => {
                             return new Partials.Administrator.EditPersonPage() {
                                 Html = "/useradminapp/partials/administrator/editperson.html",
                                 Uri = uri,
@@ -85,8 +85,8 @@ namespace UserAdminApp.Server.Handlers {
                         },
                         request.Uri, user);
                     }
-                    else if (user.WhoIs is Concepts.Ring2.Company) {
-                        Db.Scope<string, Concepts.Ring3.SystemUser, Json>((uri, companyUser) => {
+                    else if (user.WhoIs is Organization) {
+                        Db.Scope<string, Simplified.Ring3.SystemUser, Json>((uri, companyUser) => {
                             return new Partials.Administrator.EditCompanyPage() {
                                 Html = "/useradminapp/partials/administrator/editcompany.html",
                                 Uri = uri,
@@ -127,7 +127,7 @@ namespace UserAdminApp.Server.Handlers {
                 }
 
                 // Retrive the resetPassword instance
-                ResetPassword resetPassword = Db.SQL<UserAdminApp.Database.ResetPassword>("SELECT o FROM UserAdminApp.Database.ResetPassword o WHERE o.Token=? AND o.Expire>?", token, DateTime.UtcNow).First;
+                ResetPassword resetPassword = Db.SQL<Simplified.Ring6.ResetPassword>("SELECT o FROM Simplified.Ring6.ResetPassword o WHERE o.Token=? AND o.Expire>?", token, DateTime.UtcNow).First;
 
                 if (resetPassword == null) {
                     // TODO: Show message "Reset token already used or expired"
@@ -139,7 +139,7 @@ namespace UserAdminApp.Server.Handlers {
                     return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
-                Concepts.Ring3.SystemUser systemUser = resetPassword.User;
+                Simplified.Ring3.SystemUser systemUser = resetPassword.User;
 
                 Partials.User.ResetPasswordPage page = new Partials.User.ResetPasswordPage() {
                     Html = "/useradminapp/partials/user/resetpassword.html",

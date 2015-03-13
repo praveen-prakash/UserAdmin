@@ -1,5 +1,4 @@
-using Concepts.Ring1;
-using Concepts.Ring3;
+using Simplified.Ring3;
 using Starcounter;
 using System.Collections;
 using UserAdminApp.Database;
@@ -12,7 +11,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         public IEnumerable Users {
 
             get {
-                return Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o");
+                return Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o");
             }
         }
     }
@@ -23,7 +22,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         public string Kind {
             get {
 
-                Concepts.Ring3.SystemUser user = this.Data as Concepts.Ring3.SystemUser;
+                Simplified.Ring3.SystemUser user = this.Data as Simplified.Ring3.SystemUser;
                 if (user != null) {
                     if (user.WhoIs != null) {
                         return user.WhoIs.GetType().Name;
@@ -38,9 +37,15 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Delete action) {
 
+            SystemUser systemUser = Helper.GetCurrentSystemUser();
+            if (systemUser.Equals(this.Data)) {
+                // TODO: Show error message "Can not delete yourself"
+                return;
+            }
+
             // TODO: Warning user with Yes/No dialog
             Db.Transact(() => {
-                SystemUserAdmin.DeleteSystemUser(this.Data as Concepts.Ring3.SystemUser);
+                SystemUserAdmin.DeleteSystemUser(this.Data as Simplified.Ring3.SystemUser);
             });
             // Use bellow if row is not deleted completely.
             // this.Delete = false;

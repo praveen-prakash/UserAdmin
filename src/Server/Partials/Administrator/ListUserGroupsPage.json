@@ -4,13 +4,13 @@
 	"Html" : "",
 	"$Items" : { "Bind":"Groups" },
 	"Items" : [{
-		"DbIDString" : "",
+		"Key" : "",
 		"Name" : "",
 		"$BasedOn" : { "Bind" :"BasedOn_" },
 		"BasedOn": {
-			"DbIDString" : "",
+			"Key" : "",
 			"Name": ""
 		},
-		"Delete$" : false
+		"Delete$" : 0
 	}]
 }

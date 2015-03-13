@@ -2,16 +2,15 @@
 	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
 	"Uri" : "",
 	"Html" : "",
-	"DbIDString" : "",
+	"Key" : "",
 
 	"Username$" : "",
-	"EMail$" : "",
 	"FirstName$" : "",
-	"Surname$" : "",
+	"LastName$" : "",
 	"Password$" : "",
 
-	"Save$" : false,
-	"Close$" : false,
+	"Save$" : 0,
+	"Close$" : 0,
 	"RedirectUrl" : "",
 	"Message" : "",
 
@@ -26,5 +25,5 @@
 	"IsValid" : true,
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
-	"Rollback$" : false
+	"Rollback$" : 0
 }

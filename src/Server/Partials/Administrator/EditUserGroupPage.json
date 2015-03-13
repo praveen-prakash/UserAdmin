@@ -2,32 +2,32 @@
 	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
 	"Uri" : "",
 	"Html" : "",
-	"DbIDString" : "",
+	"Key" : "",
 	"Name$" : "",
 	"Name_Feedback" : {},
 	"$SelectedBasedOnGroupID$" : { "Bind" : "SelectedBasedOnGroupID_" },
 	"SelectedBasedOnGroupID$" : "",
 	"$UserGroups" : { "Bind" : "Groups" },
 	"UserGroups" : [{ 
-		"DbIDString" : "", 
+		"Key" : "", 
 		"Name" : ""
 	}],
 	"Members" : [{ 
-		"DbIDString" : "",
+		"Key" : "",
 		"Username" : "",
 		"$FullName" :  { "Bind":"WhoIs.FullName" },
 		"FullName" : "",
-		"Remove$": false
+		"Remove$": 0
 	}],
 	"AddUserName$" : "",
-	"AddUser$" :  false,
+	"AddUser$" :  0,
 	"AddUser_Feedback" : {},
 
 	"Message" : "",
 	"RedirectUrl" : "",
-	"Delete$": false,
-	"Save$": false,
-	"Close$": false,
+	"Delete$": 0,
+	"Save$": 0,
+	"Close$": 0,
 	
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
@@ -38,5 +38,5 @@
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
 
-	"Rollback$" : false
+	"Rollback$" : 0
 }

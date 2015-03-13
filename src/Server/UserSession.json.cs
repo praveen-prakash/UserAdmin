@@ -1,6 +1,3 @@
-using Concepts.Ring3;
-using Concepts.Ring8.Polyjuice.App;
-using Concepts.Ring8.Polyjuice.Permissions;
 using PolyjuiceNamespace;
 using Starcounter;
 using System.Web;
@@ -20,9 +17,9 @@ namespace UserAdminApp.Server {
         /// <returns></returns>
         static public bool IsAdmin() {
 
-            Concepts.Ring3.SystemUserGroup adminGroup = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
-            Concepts.Ring3.SystemUser user = UriPermissionHelper.GetCurrentSystemUser();
-            return UriPermission.IsMemberOfGroup(user, adminGroup);
+            Simplified.Ring3.SystemUserGroup adminGroup = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
+            Simplified.Ring3.SystemUser user = Helper.GetCurrentSystemUser();
+            return Helper.IsMemberOfGroup(user, adminGroup);
         }
     }
 }

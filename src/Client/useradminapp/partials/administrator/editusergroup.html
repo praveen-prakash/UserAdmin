@@ -22,7 +22,7 @@
         <select value="{{SelectedBasedOnGroupID$}}">
             <option value="">None</option>
             <template repeat="{{ item in UserGroups }}">
-                    <option value="{{item.DbIDString}}">{{item.Name}}</option>
+                    <option value="{{item.Key}}">{{item.Name}}</option>
             </template>
         </select>
     </div>
@@ -45,9 +45,9 @@
             <template repeat="{{item in Members}}">
                 <tr>
                     <td>
-                        <a href="/launcher/workspace/UserAdminApp/admin/users/{{item.DbIDString}}"> {{item.FullName}}</a>
+                        <a href="/launcher/workspace/UserAdminApp/admin/users/{{item.Key}}"> {{item.FullName}}</a>
                     </td>
-                    <td><button onclick="getModel(this).item.Remove$ = true">Remove</button></td>
+                    <td><button onclick="getModel(this).item.Remove$++">Remove</button></td>
                 </tr>
             </template>
         </tbody>
@@ -65,16 +65,16 @@
                 </template>
             </td>
             <td>
-                <button  onclick="getModel(this).AddUser$ = true">Add User</button>
+                <button  onclick="getModel(this).AddUser$++">Add User</button>
             </td>
             </tr>
         </tfoot>
     </table>
 
-    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$ = true">Save</button>
-    <button class="launcher-button"  onclick="getModel(this).Delete$ = true">Delete</button>
-    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$ = true">Undo</button>
-    <button class="launcher-button"  onclick="getModel(this).Close$ = true">Close</button>
+    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$++">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Delete$++">Delete</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$++">Undo</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$++">Close</button>
 
    <link is="puppet-redirect" history url="{{ RedirectUrl }}">
 

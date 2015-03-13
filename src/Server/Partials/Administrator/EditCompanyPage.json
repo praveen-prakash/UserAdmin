@@ -2,7 +2,7 @@
 	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
 	"Uri" : "",
 	"Html" : "",
-	"DbIDString" : "",
+	"Key" : "",
 	"Username" : "",
 	"$EMail$" : { "Bind" : "UserEmail" },
 	"EMail$" : "",
@@ -12,9 +12,9 @@
 	"$FullName" : { "Bind": "WhoIs.FullName"},
 	"FullName" : "",
 	"Groups" : [{ 
-		"DbIDString" : "", 
+		"Key" : "", 
 		"Name" : "",
-		"Remove$":false
+		"Remove$":0
 	}],
 	"Message" : "",
 	"RedirectUrl" : "",
@@ -23,17 +23,17 @@
 	"SelectedSystemUserGroupsID$" : "",
 	"$SystemUserGroups" : { "Bind" : "SystemUserGroups_" },
 	"SystemUserGroups" : [{ 
-		"DbIDString" : "", 
+		"Key" : "", 
 		"Name" : "" 
 	}],
-	"AddUserToGroup$" : false,
+	"AddUserToGroup$" : 0,
 
-	"ResetPassword$" : false,
+	"ResetPassword$" : 0,
 	"$ResetPassword_Enabled" : { "Bind": "ResetPassword_Enabled_"},
 	"ResetPassword_Enabled" : false,
-	"Delete$":false,
-	"Save$":false,
-	"Close$":false,
+	"Delete$":0,
+	"Save$":0,
+	"Close$":0,
 
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
@@ -44,7 +44,7 @@
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
 
-	"Rollback$" : false,
+	"Rollback$" : 0,
 
 	"$Name$" : { "Bind": "WhoIs.Name"},
 	"Name$" : ""

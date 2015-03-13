@@ -12,7 +12,7 @@ using UserAdminApp.Database;
 namespace UserAdminApp.Server.Partials.Administrator {
 
     [EditUserGroupPage_json]
-    partial class EditUserGroupPage : Page, IBound<Concepts.Ring3.SystemUserGroup> {
+    partial class EditUserGroupPage : Page, IBound<Simplified.Ring3.SystemUserGroup> {
 
         #region Properties
 
@@ -26,7 +26,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
                 if (this.Data.Parent == null) return null;
 
-                Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", this.Data.Parent.GetObjectID()).First;
+                Simplified.Ring3.SystemUserGroup group = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID=?", this.Data.Parent.GetObjectID()).First;
                 if (group == null) return null;
 
                 return group.GetObjectID();
@@ -37,7 +37,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                     this.Data.Parent = null;
                 }
 
-                Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", value).First;
+                Simplified.Ring3.SystemUserGroup group = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID=?", value).First;
 
                 this.Data.Parent = group;
 
@@ -52,7 +52,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
                 // TODO: do not show groups that this group is inhereted
 
-                return Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID<>? ORDER BY o.Name", ((Concepts.Ring3.SystemUserGroup)this.Data).GetObjectID());
+                return Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID<>? ORDER BY o.Name", ((Simplified.Ring3.SystemUserGroup)this.Data).GetObjectID());
             }
         }
 
@@ -67,7 +67,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="username"></param>
         /// <param name="systemUser"></param>
         /// <returns></returns>
-        private bool ValidateUserToAdd(string username, out Concepts.Ring3.SystemUser systemUser) {
+        private bool ValidateUserToAdd(string username, out Simplified.Ring3.SystemUser systemUser) {
 
             systemUser = null;
 
@@ -76,14 +76,14 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 return false;
             }
 
-            systemUser = Db.SQL<Concepts.Ring3.SystemUser>("SELECT o FROM Concepts.Ring3.SystemUser o WHERE o.Username=?", username).First;
+            systemUser = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.Username=?", username).First;
             if (systemUser == null) {
                 this.AddPropertyFeedback("AddUser_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "User not found");
                 return false;
             }
 
             // Check if user is alread a member of this sytem user group
-            Concepts.Ring3.SystemUserGroup group = this.Data as Concepts.Ring3.SystemUserGroup;
+            Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
 
             foreach (var member in group.Members) {
                 if (member.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase)) {
@@ -104,7 +104,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.SelectedBasedOnGroupID action) {
 
-            Concepts.Ring3.SystemUserGroup group = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.ObjectID=?", action.Value).First;
+            Simplified.Ring3.SystemUserGroup group = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID=?", action.Value).First;
 
             // Check for circular references?
             while (group != null) {
@@ -129,7 +129,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.Name action) {
 
-            var result = Db.SQL<Concepts.Ring3.SystemUserGroup>("SELECT o FROM Concepts.Ring3.SystemUserGroup o WHERE o.Name=? AND o<>?", action.Value, this.Data).First;
+            var result = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=? AND o<>?", action.Value, this.Data).First;
             if (result != null) {
                 this.AddPropertyFeedback("Name_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "System group with that name already exists");
             }
@@ -144,14 +144,14 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.AddUser action) {
 
-            this.AddUser = false;
-            action.Value = false;
-            Concepts.Ring3.SystemUser systemUser;
+            //this.AddUser = false;
+            //action.Value = false;
+            Simplified.Ring3.SystemUser systemUser;
             if (!this.ValidateUserToAdd(this.AddUserName, out systemUser)) {
                 return;
             }
 
-            Concepts.Ring3.SystemUserGroup group = this.Data as Concepts.Ring3.SystemUserGroup;
+            Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
 
             SystemUserAdmin.AddSystemUserToSystemUserGroup(systemUser, group);
 
@@ -164,7 +164,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.AddUserName action) {
 
-            Concepts.Ring3.SystemUser systemUser;
+            Simplified.Ring3.SystemUser systemUser;
             this.ValidateUserToAdd(action.Value, out systemUser);
         }
 
@@ -177,14 +177,14 @@ namespace UserAdminApp.Server.Partials.Administrator {
             // TODO: Warn user with Yes/No dialog
             var transaction = this.Transaction;
             transaction.Scope(() => {
-                SystemUserAdmin.DeleteSystemUserGroup(this.Data as Concepts.Ring3.SystemUserGroup);
+                SystemUserAdmin.DeleteSystemUserGroup(this.Data as Simplified.Ring3.SystemUserGroup);
             });
             transaction.Commit();
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
 
-            this.Delete = false;
-            action.Value = false;
+            //this.Delete = false;
+            //action.Value = false;
         }
 
         /// <summary>
@@ -196,8 +196,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Commit();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
 
-            this.Save = false;
-            action.Value = false;
+            //this.Save = false;
+            //action.Value = false;
         }
 
         /// <summary>
@@ -209,8 +209,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
             this.Transaction.Rollback();
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
 
-            this.Close = false;
-            action.Value = false;
+            //this.Close = false;
+            //action.Value = false;
         }
 
         #endregion
@@ -224,12 +224,12 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// </summary>
         /// <param name="action"></param>
         void Handle(Input.Remove action) {
-            Concepts.Ring3.SystemUserGroup group = this.Parent.Parent.Data as Concepts.Ring3.SystemUserGroup;
-            Concepts.Ring3.SystemUser systemUser = this.Data as Concepts.Ring3.SystemUser;
+            Simplified.Ring3.SystemUserGroup group = this.Parent.Parent.Data as Simplified.Ring3.SystemUserGroup;
+            Simplified.Ring3.SystemUser systemUser = this.Data as Simplified.Ring3.SystemUser;
             SystemUserAdmin.RemoveSystemUserFromSystemUserGroup(systemUser, group);
 
-            this.Remove = false;
-            action.Value = false;
+            //this.Remove = false;
+            //action.Value = false;
         }
     }
 }

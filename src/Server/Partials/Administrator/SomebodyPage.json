@@ -2,27 +2,24 @@
 	"$":{"Namespace":"UserAdminApp.Server.Partials.Administrator"},
 	"Uri" : "",
 	"Html" : "",
-	"DbIDString" : "",
+	"Key" : "",
 	"Username" : "",
-	"$EMail$" : { "Bind" : "UserEmail" },
-	"EMail$" : "",
-	"EMail$_Feedback" : {},
 	"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
 	"ImageURL" : "",
 	"$FullName" : { "Bind": "WhoIs.FullName"},
 	"FullName" : "",
 	"Groups" : [{ 
-		"DbIDString" : "", 
+		"Key" : "", 
 		"Name" : "",
-		"Remove$":false
+		"Remove$":0
 	}],
 	"Message" : "",
 	"RedirectUrl" : "",
 
-	"AddUserToGroup$" : false,
+	"AddUserToGroup$" : 0,
 
 	"ResetPassword$" : null,
-	"Delete$":false,
-	"Save$":false,
-	"Close$":false
+	"Delete$":0,
+	"Save$":0,
+	"Close$":0
 }
