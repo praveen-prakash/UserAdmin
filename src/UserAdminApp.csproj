@@ -146,21 +146,21 @@
     <Compile Include="Server\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Client\useradminapp\launcher\adminmenu.html" />
-    <Content Include="Client\css\useradmin.css" />
-    <Content Include="Client\useradminapp\partials\administrator\editusergroup.html" />
-    <Content Include="Client\useradminapp\partials\administrator\listusergroups.html" />
-    <Content Include="Client\useradminapp\partials\administrator\createusergroup.html" />
-    <Content Include="Client\useradminapp\partials\administrator\settings.html" />
-    <Content Include="Client\useradminapp\partials\administrator\editcompany.html" />
-    <Content Include="Client\useradminapp\partials\administrator\createuser.html" />
-    <Content Include="Client\useradminapp\redirect.html" />
-    <Content Include="Client\useradminapp\partials\user\resetpassword.html" />
-    <Content Include="Client\useradminapp\launcher\app-icon.html" />
-    <Content Include="Client\useradminapp\launcher\app-search.html" />
-    <Content Include="Client\useradminapp\launcher\UserAdmin.png" />
-    <Content Include="Client\useradminapp\partials\administrator\editperson.html" />
-    <Content Include="Client\useradminapp\partials\administrator\listusers.html" />
+    <Content Include="wwwroot\useradminapp\launcher\adminmenu.html" />
+    <Content Include="wwwroot\css\useradmin.css" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\editusergroup.html" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\listusergroups.html" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\createusergroup.html" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\settings.html" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\editcompany.html" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\createuser.html" />
+    <Content Include="wwwroot\useradminapp\redirect.html" />
+    <Content Include="wwwroot\useradminapp\partials\user\resetpassword.html" />
+    <Content Include="wwwroot\useradminapp\launcher\app-icon.html" />
+    <Content Include="wwwroot\useradminapp\launcher\app-search.html" />
+    <Content Include="wwwroot\useradminapp\launcher\UserAdmin.png" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\editperson.html" />
+    <Content Include="wwwroot\useradminapp\partials\administrator\listusers.html" />
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\UserSession.json">

@@ -1,4 +1,5 @@
 using PolyjuiceNamespace;
+using Simplified.Ring1;
 using Simplified.Ring3;
 using Simplified.Ring5;
 using Starcounter;
@@ -32,7 +33,24 @@ namespace UserAdminApp {
             Database.CommitHooks.Register();
             UserAdminApp.Server.Handlers.LauncherHooks.Register();
 
-            Polyjuice.OntologyMap("/UserAdminApp/admin/_users/@w", "/so/person/@w", null, null);
+            //Polyjuice.OntologyMap("/UserAdminApp/admin/users/@w", "/so/somebody/@w", null, null);
+
+            Polyjuice.OntologyMap("/UserAdminApp/admin/users/@w", "/so/person/@w",
+            (String fromSo) => {
+                var user = Db.SQL<SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.ObjectID=?", fromSo).First;
+                if (user != null) {
+                    return user.WhatIs.Key;
+                }
+                return null;
+            },
+            (String fromSo) => {
+                var user = Db.SQL<SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.WhatIs.ObjectID=?", fromSo).First;
+                if (user != null) {
+                    return user.Key;
+                }
+                return null;
+            });
+
         }
 
         /// <summary>

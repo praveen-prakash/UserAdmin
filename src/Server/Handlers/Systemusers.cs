@@ -65,7 +65,8 @@ namespace UserAdminApp.Server.Handlers {
                 Simplified.Ring3.SystemUser user = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.ObjectID=?", userid).First;
                 if (user == null) {
                     // TODO: Return a "User not found" page
-                    return (ushort)System.Net.HttpStatusCode.NotFound;
+                    return null;
+                    //return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
                 Simplified.Ring3.SystemUser systemUser = Helper.GetCurrentSystemUser();
