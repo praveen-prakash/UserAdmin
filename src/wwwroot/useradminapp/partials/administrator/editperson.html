@@ -1,4 +1,5 @@
 <link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html">
+<link rel="import" href="/vendor/sgb-property-metadata/sgb-property-metadata.html">
 
 <link rel="stylesheet" href="/css/useradmin.css">
 
@@ -11,6 +12,8 @@
 
 
 <template>
+
+        <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
 
     <img  src="{{ImageURL}}" />
     <H1> {{FullName}}</H1>

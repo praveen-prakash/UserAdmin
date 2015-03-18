@@ -1,21 +1,21 @@
 <link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html">
+<link rel="import" href="/vendor/sgb-property-metadata/sgb-property-metadata.html">
 
 <link rel="stylesheet" href="/css/useradmin.css">
 
 <template>
 
+    <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
+
     <h1>System User Group ({{ Name$ }})</h1>
 
     <div class="launcher-labeled-input">
-        <input id="Name$" type='text'  value='{{ Name$ }}' placeholder='<Name>'>
+        <input id="Name$" type='text' value='{{ Name$ }}' placeholder='<Name>'>
         <label for="Name$">Name</label>
     </div>
 
-    <template if="{{Name_Feedback.TypeNo>=0}}">
-        <span class="isa_{{Name_Feedback.Type}}">
-            {{Name_Feedback.Message}}
-        </span>
-    </template>
+
+
 
     <div class="launcher-labeled-input">
         <label for="BasedOn">Based On</label>
@@ -56,10 +56,10 @@
             <tr>
             <td>
                 <div class="launcher-labeled-input">
-                    <input id="Text1" type='text'  value='{{ AddUserName$ }}' placeholder='<Add Username>'>
+                    <input id="AddUserName$" type='text' value='{{ AddUserName$ }}' placeholder='<Username>'>
                 </div>
-                <template if="{{AddUser_Feedback.TypeNo>=0}}">
-                    <span class="isa_{{AddUser_Feedback.Type}}">
+                <template if="{{AddUser_Feedback}}">
+                    <span class="isa_Error}}">
                         {{AddUser_Feedback.Message}}
                     </span>
                 </template>

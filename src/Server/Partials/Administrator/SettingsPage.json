@@ -16,11 +16,9 @@
 	"Username$" : "",
 	"Password$" : "",
 
-
 	"Message" : "",
 	"Save$" : 0,
 	"Close$" : 0,
-
 
 	// Inherited from PropertyFeedbackPage
 	"PropertyMetadataItems" : { "$" : { "Reuse" : "PropertyMetadataItems" } },

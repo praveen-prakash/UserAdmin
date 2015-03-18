@@ -4,7 +4,6 @@
 	"Html" : "",
 	"Key" : "",
 	"Name$" : "",
-	"Name_Feedback" : {},
 	"$SelectedBasedOnGroupID$" : { "Bind" : "SelectedBasedOnGroupID_" },
 	"SelectedBasedOnGroupID$" : "",
 	"$UserGroups" : { "Bind" : "Groups" },
@@ -29,6 +28,8 @@
 	"Save$": 0,
 	"Close$": 0,
 	
+	// Inherited from PropertyMetadataItem
+	"PropertyMetadataItems" : { "$" : { "Reuse" : "PropertyMetadataItems" } },
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
 	"$IsPristine" : { "Bind" : "IsPristine_" },
@@ -37,6 +38,5 @@
 	"IsValid" : true,
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
-
 	"Rollback$" : 0
 }

@@ -35,6 +35,11 @@
 	"Save$":0,
 	"Close$":0,
 
+	"$Name$" : { "Bind": "WhoIs.Name"},
+	"Name$" : "",
+
+	// Inherited from PropertyMetadataItem
+	"PropertyMetadataItems" : { "$" : { "Reuse" : "PropertyMetadataItems" } },
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
 	"$IsPristine" : { "Bind" : "IsPristine_" },
@@ -44,8 +49,5 @@
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
 
-	"Rollback$" : 0,
-
-	"$Name$" : { "Bind": "WhoIs.Name"},
-	"Name$" : ""
+	"Rollback$" : 0
 }

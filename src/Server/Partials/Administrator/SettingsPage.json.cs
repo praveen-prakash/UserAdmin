@@ -16,10 +16,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
     [SettingsPage_json]
     partial class SettingsPage : PropertyMetadataPage {
 
-        protected override void HasChanged(Starcounter.Templates.TValue property) {
-            base.HasChanged(property);
-        }
-
         void Handle(Input.SitePort action) {
 
             this.AssurePropertyMetadata_SitePort(action.Template.TemplateName, action.Value);
@@ -43,20 +39,20 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 return;
             }
 
-            this.Transaction.Commit();
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+            if (this.Transaction.IsDirty) {
+                this.Transaction.Commit();
+            }
 
-            //this.Save = false;
-            //action.Value = false;
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
         }
 
         void Handle(Input.Close action) {
 
-            this.Transaction.Rollback();
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+            if (this.Transaction.IsDirty) {
+                this.Transaction.Rollback();
+            }
 
-            //this.Close = false;
-            //action.Value = false;
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
         }
 
 
@@ -84,7 +80,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
             else {
                 this.RemovePropertyFeedback(propertyName);
             }
-
         }
 
         protected void AssurePropertyMetadata_SitePort(string propertyName, long value) {
@@ -99,7 +94,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
             else {
                 this.RemovePropertyFeedback(propertyName);
             }
-
         }
 
         private PropertyMetadataItem CreatePropertyMetadata(string propertyName, string message) {
@@ -125,12 +119,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             message = null;
 
-            //long port;
-            //if (long.TryParse(value, out port) == false) {
-            //    message = "Invalid port numnber";
-            //    return false;
-            //}
-
             if (value > IPEndPoint.MaxPort || (value < IPEndPoint.MinPort)) {
                 message = "Invalid port number";
                 return false;
@@ -153,7 +141,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 message = "Invalid Site name";
                 return false;
             }
-
             return true;
         }
 
