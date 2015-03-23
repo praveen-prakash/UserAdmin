@@ -1,3 +1,4 @@
+using Smorgasbord.PropertyMetadata;
 using Starcounter;
 using System;
 using System.Collections;
@@ -12,9 +13,14 @@ using UserAdminApp.Database;
 namespace UserAdminApp.Server.Partials.Administrator {
 
     [EditUserGroupPage_json]
-    partial class EditUserGroupPage : Page, IBound<Simplified.Ring3.SystemUserGroup> {
+    partial class EditUserGroupPage : PropertyMetadataPage, IBound<Simplified.Ring3.SystemUserGroup> {
 
         #region Properties
+
+        void Handle(Input.Name action) {
+
+            this.AssurePropertyMetadata_Name(action.Template.TemplateName, action.Value);
+        }
 
         #region Set Based On System User group
 
@@ -22,6 +28,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// Selected System User group (dropdown)
         /// </summary>
         public string SelectedBasedOnGroupID_ {
+
             get {
 
                 if (this.Data.Parent == null) return null;
@@ -38,9 +45,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 }
 
                 Simplified.Ring3.SystemUserGroup group = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID=?", value).First;
-
                 this.Data.Parent = group;
-
             }
         }
 
@@ -51,7 +56,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
             get {
 
                 // TODO: do not show groups that this group is inhereted
-
                 return Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.ObjectID<>? ORDER BY o.Name", ((Simplified.Ring3.SystemUserGroup)this.Data).GetObjectID());
             }
         }
@@ -59,42 +63,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
         #endregion
 
         #endregion
-
-
-        /// <summary>
-        /// Validate username, Show Feedback to user
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="systemUser"></param>
-        /// <returns></returns>
-        private bool ValidateUserToAdd(string username, out Simplified.Ring3.SystemUser systemUser) {
-
-            systemUser = null;
-
-            if (string.IsNullOrEmpty(username)) {
-                this.RemovePropertyFeedback("AddUser_Feedback");
-                return false;
-            }
-
-            systemUser = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.Username=?", username).First;
-            if (systemUser == null) {
-                this.AddPropertyFeedback("AddUser_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "User not found");
-                return false;
-            }
-
-            // Check if user is alread a member of this sytem user group
-            Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
-
-            foreach (var member in group.Members) {
-                if (member.Username.Equals(username, StringComparison.InvariantCultureIgnoreCase)) {
-                    this.AddPropertyFeedback("AddUser_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "User is already member of the group");
-                    return false;
-                }
-            }
-
-            this.RemovePropertyFeedback("AddUser_Feedback");
-            return true;
-        }
 
         #region View-model Handlers
 
@@ -124,48 +92,29 @@ namespace UserAdminApp.Server.Partials.Administrator {
         }
 
         /// <summary>
-        /// System Group name changed
-        /// </summary>
-        /// <param name="action"></param>
-        void Handle(Input.Name action) {
-
-            var result = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=? AND o<>?", action.Value, this.Data).First;
-            if (result != null) {
-                this.AddPropertyFeedback("Name_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "System group with that name already exists");
-            }
-            else {
-                this.RemovePropertyFeedback("Name_Feedback");
-            }
-        }
-
-        /// <summary>
         /// AddUser operation invoked
         /// </summary>
         /// <param name="action"></param>
         void Handle(Input.AddUser action) {
 
-            //this.AddUser = false;
-            //action.Value = false;
-            Simplified.Ring3.SystemUser systemUser;
-            if (!this.ValidateUserToAdd(this.AddUserName, out systemUser)) {
+
+            this.AssurePropertyMetadata_AddUserName("AddUserName$", this.AddUserName);
+            if (this.AddUser_Feedback != null) {
                 return;
             }
 
-            Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
+            Simplified.Ring3.SystemUser systemUser = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.Username=?", this.AddUserName).First;
+            if (systemUser == null) {
+                PropertyMetadataItem item = new PropertyMetadataItem();
+                item.Message = "User not found";
+                item.ErrorLevel = 1;
+                item.PropertyName = "AddUser$";
+                this.AddUser_Feedback = item;
+                return;
+            }
 
-            SystemUserAdmin.AddSystemUserToSystemUserGroup(systemUser, group);
-
+            SystemUserAdmin.AddSystemUserToSystemUserGroup(systemUser, this.Data);
             this.AddUserName = string.Empty;
-        }
-
-        /// <summary>
-        /// AddUsername was changed
-        /// </summary>
-        /// <param name="action"></param>
-        void Handle(Input.AddUserName action) {
-
-            Simplified.Ring3.SystemUser systemUser;
-            this.ValidateUserToAdd(action.Value, out systemUser);
         }
 
         /// <summary>
@@ -179,12 +128,12 @@ namespace UserAdminApp.Server.Partials.Administrator {
             transaction.Scope(() => {
                 SystemUserAdmin.DeleteSystemUserGroup(this.Data as Simplified.Ring3.SystemUserGroup);
             });
-            transaction.Commit();
+
+            if (transaction.IsDirty) {
+                transaction.Commit();
+            }
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
-
-            //this.Delete = false;
-            //action.Value = false;
         }
 
         /// <summary>
@@ -193,11 +142,17 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.Save action) {
 
-            this.Transaction.Commit();
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+            this.AssurePropertiesMetadata();
 
-            //this.Save = false;
-            //action.Value = false;
+            if (this.IsInvalid) {
+                return;
+            }
+
+            if (this.Transaction.IsDirty) {
+                this.Transaction.Commit();
+            }
+
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
         }
 
         /// <summary>
@@ -206,11 +161,114 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.Close action) {
 
-            this.Transaction.Rollback();
+            if (this.Transaction.IsDirty) {
+                this.Transaction.Rollback();
+            }
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+        }
 
-            //this.Close = false;
-            //action.Value = false;
+        #endregion
+
+
+        #region Validate Properties (Create Property metadata)
+
+        /// <summary>
+        /// Assure metadata for all fields
+        /// </summary>
+        virtual protected void AssurePropertiesMetadata() {
+
+            AssurePropertyMetadata_Name("Name$", this.Name);
+        }
+
+        protected void AssurePropertyMetadata_Name(string propertyName, string value) {
+
+            string message;
+            this.Validate_Name(value, out message);
+            if (message != null) {
+                PropertyMetadataItem item = new PropertyMetadataItem();
+                item.Message = message;
+                item.ErrorLevel = 1;
+                item.PropertyName = propertyName;
+                this.AddPropertyFeedback(item);
+            }
+            else {
+                this.RemovePropertyFeedback(propertyName);
+            }
+        }
+
+        protected void AssurePropertyMetadata_AddUserName(string propertyName, string value) {
+
+            string message;
+            this.Validate_AddUserName(value, out message);
+            if (message != null) {
+                PropertyMetadataItem item = new PropertyMetadataItem();
+                item.Message = message;
+                item.ErrorLevel = 1;
+                item.PropertyName = propertyName;
+                this.AddUser_Feedback = item;
+            }
+            else {
+                this.AddUser_Feedback = null;
+            }
+        }
+
+        #endregion
+
+        #region Validate Properties
+
+        /// <summary>
+        /// Validate name
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        private bool Validate_Name(string value, out string message) {
+
+            message = null;
+            if (value == null || string.IsNullOrEmpty(value.Trim())) {
+                message = "Field can not be empty";
+                return false;
+            }
+
+            var result = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=? AND o<>?", value, this.Data).First;
+            if (result != null) {
+                message = "System group with that name already exists";
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Validate name
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        private bool Validate_AddUserName(string value, out string message) {
+
+            message = null;
+            if (value == null || string.IsNullOrEmpty(value.Trim())) {
+                message = "Field can not be empty";
+                return false;
+            }
+
+            Simplified.Ring3.SystemUser systemUser = Db.SQL<Simplified.Ring3.SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.Username=?", value).First;
+            if (systemUser == null) {
+                message = "User not found";
+                return false;
+            }
+
+            // Check if user is alread a member of this sytem user group
+            Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
+
+            foreach (var member in group.Members) {
+                if (member.Username.Equals(value, StringComparison.InvariantCultureIgnoreCase)) {
+                    message = "User is already member of the group";
+                    return false;
+                }
+            }
+            return true;
         }
 
         #endregion
@@ -227,9 +285,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
             Simplified.Ring3.SystemUserGroup group = this.Parent.Parent.Data as Simplified.Ring3.SystemUserGroup;
             Simplified.Ring3.SystemUser systemUser = this.Data as Simplified.Ring3.SystemUser;
             SystemUserAdmin.RemoveSystemUserFromSystemUserGroup(systemUser, group);
-
-            //this.Remove = false;
-            //action.Value = false;
         }
     }
 }

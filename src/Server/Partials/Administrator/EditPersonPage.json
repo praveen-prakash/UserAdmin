@@ -32,6 +32,13 @@
 	"Save$":0,
 	"Close$":0,
 
+	"$FirstName$" : { "Bind": "WhoIs.FirstName"},
+	"FirstName$" : "",
+	"$LastName$" : { "Bind": "WhoIs.LastName"},
+	"LastName$" : "",
+
+	// Inherited from PropertyMetadataItem
+	"PropertyMetadataItems" : { "$" : { "Reuse" : "PropertyMetadataItems" } },
 	"$IsDirty" : { "Bind" : "IsDirty_" },
 	"IsDirty" : false,
 	"$IsPristine" : { "Bind" : "IsPristine_" },
@@ -40,11 +47,5 @@
 	"IsValid" : true,
 	"$IsInvalid" : { "Bind" : "IsInvalid_" },
 	"IsInvalid" : false,
-
-	"Rollback$" : 0,
-
-	"$FirstName$" : { "Bind": "WhoIs.FirstName"},
-	"FirstName$" : "",
-	"$LastName$" : { "Bind": "WhoIs.LastName"},
-	"LastName$" : ""
+	"Rollback$" : 0
 }

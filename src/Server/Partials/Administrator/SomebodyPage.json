@@ -18,7 +18,7 @@
 
 	"AddUserToGroup$" : 0,
 
-	"ResetPassword$" : null,
+	"ResetPassword$" : 0,
 	"Delete$":0,
 	"Save$":0,
 	"Close$":0

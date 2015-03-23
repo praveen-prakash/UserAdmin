@@ -1,5 +1,6 @@
 using Simplified.Ring3;
 using Simplified.Ring6;
+using Smorgasbord.PropertyMetadata;
 using Starcounter;
 using System;
 using System.Collections;
@@ -11,10 +12,11 @@ using UserAdminApp.Database;
 namespace UserAdminApp.Server.Partials.Administrator {
 
     [SomebodyPage_json]
-    partial class SomebodyPage : Page {
+    partial class SomebodyPage : PropertyMetadataPage, IBound<Simplified.Ring3.SystemUser> {
 
         public string SelectedSystemUserGroupID_;
         public IEnumerable SystemUserGroups_ {
+
             get {
 
                 List<Simplified.Ring3.SystemUserGroup> notmemberofgroups = new List<Simplified.Ring3.SystemUserGroup>();
@@ -46,104 +48,29 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             systemUserGroupMember.WhatIs = this.Data as Simplified.Ring3.SystemUser;
             systemUserGroupMember.ToWhat = group;
-            //systemUserGroupMember.SetSystemUser(this.Data as Simplified.Ring3.SystemUser);
-            //systemUserGroupMember.SetToWhat(group);
 
             this.SelectedSystemUserGroupID_ = null;
-
-//            this.AddUserToGroup = false;
-//            action.Value = false;
         }
 
         public bool ResetPassword_Enabled_ {
+
             get {
-                return UserAdminApp.Database.SettingsMailServer.Settings.Enabled;
+                return UserAdminApp.Database.SettingsMailServer.Settings.Enabled && Database.Utils.IsValidEmail(this.Data.Username);
             }
         }
 
         /// <summary>
         /// EMailAddress
         /// </summary>
-        private Simplified.Ring3.EmailAddress EMailAddress {
-            get {
-                Simplified.Ring3.SystemUser user = this.Data as Simplified.Ring3.SystemUser;
-                if (user == null) return null;
-                return Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.ToWhat=?", user).First;
-            }
-        }
-
-        /// <summary>
-        /// UserEmail
-        /// 
-        ///"$EMail$" : { "Bind" : "UserEmail" },
-        ///"EMail$" : "",
-        ///"EMail$_Feedback" : {},
-        /// </summary>
-        //public string UserEmail {
+        //private Simplified.Ring3.EmailAddress EMailAddress {
         //    get {
-        //        Simplified.Ring3.SystemUser systemUser = this.Data as Simplified.Ring3.SystemUser;
-        //        if (systemUser == null) return string.Empty;
-
-        //        if (this.EMailAddress == null) return string.Empty;
-        //        return this.EMailAddress.EMail;
-        //    }
-        //    set {
-        //        Simplified.Ring3.SystemUser systemUser = this.Data as Simplified.Ring3.SystemUser;
-        //        if (systemUser == null) return;
-
-        //        Simplified.Ring3.EmailAddress eMailAddress = this.EMailAddress;
-        //        if (eMailAddress == null) {
-        //            if (!string.IsNullOrEmpty(value)) {
-        //                // Create email
-        //                this.Transaction.Scope(() => {
-        //                    Simplified.Ring3.EmailAddress emailRel = new Simplified.Ring3.EmailAddress();
-        //                    emailRel.SetToWhat(systemUser);
-        //                    emailRel.EMail = value.ToLowerInvariant();
-
-        //                    // Update Gravatar image
-        //                    if (systemUser.WhoIs is Simplified.Ring1.Somebody) {
-        //                        ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(emailRel.EMail);
-        //                        //this.ImageURL = ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL;
-        //                    }
-
-        //                });
-        //            }
-        //        }
-        //        else {
-        //            if (string.IsNullOrEmpty(value)) {
-        //                // Delete email
-        //                this.Transaction.Scope(() => {
-        //                    eMailAddress.Delete();
-        //                });
-        //            }
-        //            else {
-        //                // Update email
-        //                this.Transaction.Scope(() => {
-        //                    eMailAddress.EMail = value.ToLowerInvariant();
-
-        //                    // Update Gravatar image
-        //                    if (systemUser.WhoIs is Simplified.Ring1.Somebody) {
-        //                        ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL = UserAdminApp.Database.Utils.GetGravatarUrl(eMailAddress.EMail);
-        //                        //this.ImageURL = ((Simplified.Ring1.Somebody)systemUser.WhoIs).ImageURL;
-        //                    }
-        //                });
-        //            }
-        //        }
+        //        Simplified.Ring3.SystemUser user = this.Data as Simplified.Ring3.SystemUser;
+        //        if (user == null) return null;
+        //        return Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.ToWhat=?", user).First;
         //    }
         //}
 
         #region View-model Handlers
-
-        //void Handle(Input.EMail action) {
-
-        //    if (!UserAdminApp.Database.Utils.IsValidEmail(action.Value)) {
-        //        this.AddPropertyFeedback("EMail_Feedback", PropertyFeedback.PropertyFeedbackType.Error, "Invalid e-mail adress");
-        //    }
-        //    else {
-        //        this.RemovePropertyFeedback("EMail_Feedback");
-        //    }
-        //}
-
 
         /// <summary>
         /// Reset Password
@@ -151,7 +78,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.ResetPassword action) {
 
-            this.ResetPassword();
+            this.ResetUserPassword();
         }
 
         /// <summary>
@@ -159,6 +86,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// </summary>
         /// <param name="action"></param>
         void Handle(Input.Delete action) {
+
             var transaction = this.Transaction;
 
             SystemUser systemUser = Helper.GetCurrentSystemUser();
@@ -176,11 +104,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             transaction.Commit();
 
-
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
-
-//            this.Delete = false;
-//            action.Value = false;
         }
 
         /// <summary>
@@ -189,11 +113,17 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.Save action) {
 
-            this.Transaction.Commit();
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+            this.AssurePropertyFeedbacks();
 
-            //this.Save = false;
-            //action.Value = false;
+            if (this.IsInvalid) {
+                return;
+            }
+
+            if (this.Transaction.IsDirty) {
+                this.Transaction.Commit();
+            }
+
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
         }
 
         /// <summary>
@@ -202,20 +132,21 @@ namespace UserAdminApp.Server.Partials.Administrator {
         /// <param name="action"></param>
         void Handle(Input.Close action) {
 
-            this.Transaction.Rollback();
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+            if (this.Transaction.IsDirty) {
+                this.Transaction.Rollback();
+            }
 
-            //this.Close = false;
-            //action.Value = false;
+            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
         }
 
         #endregion
 
-        public void ResetPassword() {
+        public void ResetUserPassword() {
 
             string link = null;
             string fullName = string.Empty;
-            Simplified.Ring3.EmailAddress eMailAddress = null;
+            string email = string.Empty;
+            //Simplified.Ring3.EmailAddress eMailAddress = null;
 
             if (UserAdminApp.Database.SettingsMailServer.Settings.Enabled == false) {
                 this.Message = "Mail Server not enabled in the settings.";
@@ -227,20 +158,23 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 return;
             }
 
+            if (!Database.Utils.IsValidEmail(this.Data.Username)) {
+                this.Message = "Username is not an email address";
+                return;
+            }
+
+            email = this.Data.Username;
+
             var transaction = this.Transaction;
             transaction.Scope(() => {
 
-                Simplified.Ring3.SystemUser systemUser = (Simplified.Ring3.SystemUser)this.Data;
+                Simplified.Ring3.SystemUser systemUser = this.Data;
                 // Generate Password Reset token
                 ResetPassword resetPassword = new ResetPassword() {
                     User = systemUser,
                     Token = HttpUtility.UrlEncode(Guid.NewGuid().ToString()),
                     Expire = DateTime.UtcNow.AddMinutes(1440)
                 };
-
-
-
-
 
                 // Get FullName
                 if (systemUser.WhoIs != null) {
@@ -261,24 +195,28 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
                 link = uri.ToString();
 
-                eMailAddress = Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.ToWhat=?", systemUser).First;
-                if (eMailAddress == null) {
-                    this.Message = "User dosent have any email configured";
-                    return;
-                }
+                //eMailAddress = Db.SQL<Simplified.Ring3.EmailAddress>("SELECT o FROM Simplified.Ring3.EmailAddress o WHERE o.ToWhat=?", systemUser).First;
+                //if (eMailAddress == null) {
+                //    this.Message = "User dosent have any email configured";
+                //    return;
+                //}
 
             });
 
             transaction.Commit();
 
             try {
-                this.Message = string.Format("Sending mail sent to {0}...", eMailAddress.EMail);
-                Utils.sendResetPasswordMail(fullName, eMailAddress.EMail, link);
+                this.Message = string.Format("Sending mail sent to {0}...", email);
+                Utils.sendResetPasswordMail(fullName, email, link);
                 this.Message = "Mail sent.";
             }
             catch (Exception e) {
                 this.Message = e.Message;
             }
+        }
+
+        virtual protected void AssurePropertyFeedbacks() {
+
         }
 
     }
@@ -294,11 +232,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
             if (removeGroup != null) {
                 removeGroup.Delete();
             }
-            //group.RemoveMember(this.Parent.Parent.Data as Simplified.Ring3.SystemUser);
-
-            // Use bellow if row is not deleted completely.
-            // this.Remove = false;
-            // action.Value = false;
         }
     }
 }

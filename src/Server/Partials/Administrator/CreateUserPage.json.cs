@@ -6,7 +6,6 @@ using System.Collections;
 namespace UserAdminApp.Server.Partials.Administrator {
     partial class CreateUserPage : PropertyMetadataPage {
 
-
         void Handle(Input.Username action) {
 
             this.AssurePropertyMetadata_Name(action.Template.TemplateName, action.Value);
@@ -21,11 +20,6 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             this.AssurePropertyMetadata_Name(action.Template.TemplateName, action.Value);
         }
-
-        //void Handle(Input.EMail action) {
-
-        //    this.AssurePropertyMetadata_Email(action.Template.TemplateName, action.Value);
-        //}
 
         /// <summary>
         /// Save event
@@ -49,17 +43,12 @@ namespace UserAdminApp.Server.Partials.Administrator {
             catch (Exception e) {
                 this.Message = e.Message;
             }
-//            this.Save = false;
-//            action.Value = false;
         }
 
         void Handle(Input.Close action) {
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
-//            this.Close = false;
-//            action.Value = false;
         }
-
 
         #region Validate Properties (Create Property metadata)
 
@@ -88,25 +77,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
             else {
                 this.RemovePropertyFeedback(propertyName);
             }
-
         }
-        //protected void AssurePropertyMetadata_Email(string propertyName, string value) {
 
-
-        //    string message;
-        //    this.Validate_Email(value, out message);
-        //    if (message != null) {
-        //        PropertyMetadataItem item = new PropertyMetadataItem();
-        //        item.Message = message;
-        //        item.ErrorLevel = 1;
-        //        item.PropertyName = propertyName;
-        //        this.AddPropertyFeedback(item);
-        //    }
-        //    else {
-        //        this.RemovePropertyFeedback(propertyName);
-        //    }
-
-        //}
         #endregion
 
         #region Validate Properties
@@ -141,12 +113,8 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 message = "Invalid email address";
                 return false;
             }
-        
             return true;
         }
-
-
         #endregion
-
     }
 }

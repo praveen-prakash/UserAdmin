@@ -50,9 +50,6 @@ namespace UserAdminApp.Server.Partials.User {
             });
 
             this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users/" + userID;
-
-            //this.Save = false;
-            //action.Value = false;
         }
 
         private bool CheckPasswordMatch(string pw1, string pw2) {
