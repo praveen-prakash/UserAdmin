@@ -43,7 +43,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Transaction.Commit();
             }
 
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdminApp/admin/users";
         }
 
         void Handle(Input.Close action) {
@@ -52,7 +52,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Transaction.Rollback();
             }
 
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdminApp/admin/users";
         }
 
 

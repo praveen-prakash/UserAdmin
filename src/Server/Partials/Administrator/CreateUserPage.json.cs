@@ -38,7 +38,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                     Database.SystemUserAdmin.AddPerson(this.FirstName, this.LastName, this.Username, this.Password);
                 });
 
-                this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+                this.RedirectUrl = "/UserAdminApp/admin/users";
             }
             catch (Exception e) {
                 this.Message = e.Message;
@@ -47,7 +47,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Close action) {
 
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdminApp/admin/users";
         }
 
         #region Validate Properties (Create Property metadata)

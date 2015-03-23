@@ -24,7 +24,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                     Simplified.Ring3.SystemUserGroup group = new Simplified.Ring3.SystemUserGroup();
                     group.Name = this.Name;
                 });
-                this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+                this.RedirectUrl = "/UserAdminApp/admin/usergroups";
 
             }
             catch (Exception e) {
@@ -34,7 +34,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Close action) {
 
-            this.RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp/admin/usergroups";
+            this.RedirectUrl = "/UserAdminApp/admin/usergroups";
         }
 
         #region Validate Properties (Create Property metadata)

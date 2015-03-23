@@ -210,9 +210,6 @@ namespace UserAdminApp {
 
         }
 
-
-        static public string LauncherWorkSpacePath = "/launcher/workspace"; // NOTE: If you change this you also need to change the links in the HTML files.
-
         static public bool TryNavigateTo(string url, Request request, string html, out Json returnPage) {
 
             returnPage = null;
@@ -222,7 +219,7 @@ namespace UserAdminApp {
             SystemUser systemUser = Helper.GetCurrentSystemUser();
             if (systemUser == null) {
                 // Ask user to sign in.
-                returnPage = Helper.GetSignInPage(Helper.LauncherWorkSpacePath + request.Uri, html);
+                returnPage = Helper.GetSignInPage(request.Uri, html);
                 return false;
             }
 
@@ -242,7 +239,7 @@ namespace UserAdminApp {
         /// <param name="query"></param>
         /// <returns></returns>
         static public Json GetSignInPage(string referer, string html) {
-            return GetRedirectPage(Helper.LauncherWorkSpacePath + "/signinapp/signinuser?" + HttpUtility.UrlEncode("originurl" + "=" + referer), html);
+            return GetRedirectPage("/signinapp/signinuser?" + HttpUtility.UrlEncode("originurl" + "=" + referer), html);
         }
 
         /// <summary>

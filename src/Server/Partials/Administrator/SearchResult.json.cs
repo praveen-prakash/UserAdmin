@@ -9,7 +9,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             public string UserUri {
 
                 get {
-                    return "/launcher/workspace/UserAdminApp/admin/users/" + Data.GetObjectID();
+                    return "/UserAdminApp/admin/users/" + Data.GetObjectID();
                 }
             }
         }
@@ -19,7 +19,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             public string GroupUri {
 
                 get {
-                    return "/launcher/workspace/UserAdminApp/admin/usergroups/" + Data.GetObjectID();
+                    return "/UserAdminApp/admin/usergroups/" + Data.GetObjectID();
                 }
             }
         }

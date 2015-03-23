@@ -107,7 +107,7 @@ namespace UserAdminApp.Server.Handlers {
                     // User has no permission, redirect to app's root page
                     return new RedirectPage() {
                         Html = "/useradminapp/redirect.html",
-                        RedirectUrl = Program.LauncherWorkSpacePath + "/UserAdminApp"
+                        RedirectUrl = "/UserAdminApp"
                     };
 
                 }

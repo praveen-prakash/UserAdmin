@@ -15,7 +15,6 @@ using UserAdminApp.Server;
 namespace UserAdminApp {
     public class Program {
 
-        static public string LauncherWorkSpacePath = "/launcher/workspace"; // NOTE: If you change this you also need to change the links in the HTML files.
         internal static string AdminGroupName = "Admin (System Users)";
 
         internal static Dictionary<string, UserAdminApp.Server.UserSession> Sessions = new Dictionary<string, UserAdminApp.Server.UserSession>();

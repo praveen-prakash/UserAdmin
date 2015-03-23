@@ -24,16 +24,16 @@
        
                     <td>
                         <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
-                        <a href="/launcher/workspace/UserAdminApp/admin/users/{{item.Key}}"> {{item.Username}}</a>
+                        <a href="/UserAdminApp/admin/users/{{item.Key}}"> {{item.Username}}</a>
                     </td>
                     <td>
-                        <a href="/launcher/workspace/UserAdminApp/admin/users/{{item.Key}}">{{item.FullName}}</a>
+                        <a href="/UserAdminApp/admin/users/{{item.Key}}">{{item.FullName}}</a>
                     </td>
                     <td>{{item.Type}}</td>
                     <td>
                         <template repeat="{{group, groupIndex in item.Groups}}">
                             <template if="{{groupIndex > 0}}">,&nbsp;</template>
-                                <a href="/launcher/workspace/UserAdminApp/admin/usergroups/{{group.Key}}">{{group.Name}}</a>
+                                <a href="/UserAdminApp/admin/usergroups/{{group.Key}}">{{group.Name}}</a>
                         </template>                        
                     </td>
 
@@ -45,5 +45,5 @@
 
     </table>
 
-    <a href="/launcher/workspace/UserAdminApp/admin/createuser">Create User</a>
+    <a href="/UserAdminApp/admin/createuser">Create User</a>
 </template>
