@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserAdminApp", "UserAdminApp.csproj", "{EA683FF4-7931-4461-BA30-F33E3E815638}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplified", "..\..\Simplified\Simplified.csproj", "{26DF60EA-3A8C-455C-8A0C-2FD39703FC89}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smorgasbord.PropertyMetadata", "..\..\..\Smorgasbord-Development\PropertyMetadata\Smorgasbord.PropertyMetadata.csproj", "{2FD5B1EF-A242-4D99-BB8B-8114A0277A07}"
 EndProject
 Global
@@ -17,10 +15,6 @@ Global
 		{EA683FF4-7931-4461-BA30-F33E3E815638}.Debug|x64.Build.0 = Debug|x64
 		{EA683FF4-7931-4461-BA30-F33E3E815638}.Release|x64.ActiveCfg = Release|x64
 		{EA683FF4-7931-4461-BA30-F33E3E815638}.Release|x64.Build.0 = Release|x64
-		{26DF60EA-3A8C-455C-8A0C-2FD39703FC89}.Debug|x64.ActiveCfg = Debug|x64
-		{26DF60EA-3A8C-455C-8A0C-2FD39703FC89}.Debug|x64.Build.0 = Debug|x64
-		{26DF60EA-3A8C-455C-8A0C-2FD39703FC89}.Release|x64.ActiveCfg = Release|x64
-		{26DF60EA-3A8C-455C-8A0C-2FD39703FC89}.Release|x64.Build.0 = Release|x64
 		{2FD5B1EF-A242-4D99-BB8B-8114A0277A07}.Debug|x64.ActiveCfg = Debug|x64
 		{2FD5B1EF-A242-4D99-BB8B-8114A0277A07}.Debug|x64.Build.0 = Debug|x64
 		{2FD5B1EF-A242-4D99-BB8B-8114A0277A07}.Release|x64.ActiveCfg = Release|x64
