@@ -38,34 +38,6 @@ namespace UserAdminApp.Server.Handlers {
                 },
                 request.Uri);
             });
-
-            //
-            // Settings
-            //
-            //Starcounter.Handle.GET(Program.Port, "/UserAdminApp/clean", (Request request) => {
-
-            //    if (!UserSession.IsAuthorized()) {
-            //        return UserSession.GetSignInPage(Program.LauncherWorkSpacePath + request.Uri);
-            //    }
-
-            //    Db.Transaction(() => {
-
-            //        Db.SlowSQL("DELETE FROM Concepts.Ring1.Person");
-
-            //        Db.SlowSQL("DELETE FROM Concepts.Ring2.Company");
-            //        Db.SlowSQL("DELETE FROM Simplified.Ring3.EmailAddress");
-
-            //        Db.SlowSQL("DELETE FROM Simplified.Ring3.SystemUserGroup");
-            //        Db.SlowSQL("DELETE FROM Simplified.Ring3.SystemUserGroupMember");
-            //        Db.SlowSQL("DELETE FROM Simplified.Ring3.SystemUser");
-
-            //        Db.SlowSQL("DELETE FROM Simplified.Ring6.ResetPassword");
-            //        Db.SlowSQL("DELETE FROM UserAdminApp.Database.SettingsMailServer");
-            //    });
-
-
-            //    return 200;
-            //});
         }
     }
 }
