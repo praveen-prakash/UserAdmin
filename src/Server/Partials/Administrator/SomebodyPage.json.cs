@@ -190,7 +190,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 uri.Host = UserAdminApp.Database.SettingsMailServer.Settings.SiteHost;
                 uri.Port = (int)UserAdminApp.Database.SettingsMailServer.Settings.SitePort;
 
-                uri.Path = "launcher/workspace/UserAdminApp/user/resetpassword";
+                uri.Path = "UserAdminApp/user/resetpassword";
                 uri.Query = "token=" + resetPassword.Token;
 
                 link = uri.ToString();
