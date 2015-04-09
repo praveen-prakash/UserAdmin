@@ -138,7 +138,7 @@ namespace UserAdminApp {
         /// <summary>
         /// Assure that there is at least one system user beloning to the admin group 
         /// </summary>
-        static public void AssureOneAdminSystemUser(string adminGroupName, string description) {
+        /*static public void AssureOneAdminSystemUser(string adminGroupName, string description) {
 
             SystemUserGroup adminGroup = Db.SQL<SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=?", adminGroupName).First;
 
@@ -208,7 +208,7 @@ namespace UserAdminApp {
                 //SystemUserAdmin.AddSystemUserToSystemUserGroup(systemUser, adminGroup);
             });
 
-        }
+        }*/
 
         static public bool TryNavigateTo(string url, Request request, string html, out Json returnPage) {
 

@@ -22,7 +22,7 @@ namespace UserAdminApp {
         static void Main() {
 
 
-            Helper.AssureOneAdminSystemUser(Program.AdminGroupName, "System User Administrator Group");
+            //Helper.AssureOneAdminSystemUser(Program.AdminGroupName, "System User Administrator Group");
 
             Program.SetupPermissions();
 
