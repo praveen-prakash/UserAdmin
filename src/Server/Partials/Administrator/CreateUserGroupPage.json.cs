@@ -3,7 +3,7 @@ using Starcounter;
 using System;
 using System.Collections;
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
     partial class CreateUserGroupPage : PropertyMetadataPage {
 
         void Handle(Input.Name action) {
@@ -24,7 +24,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                     Simplified.Ring3.SystemUserGroup group = new Simplified.Ring3.SystemUserGroup();
                     group.Name = this.Name;
                 });
-                this.RedirectUrl = "/UserAdminApp/admin/usergroups";
+                this.RedirectUrl = "/UserAdmin/admin/usergroups";
 
             }
             catch (Exception e) {
@@ -34,7 +34,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Close action) {
 
-            this.RedirectUrl = "/UserAdminApp/admin/usergroups";
+            this.RedirectUrl = "/UserAdmin/admin/usergroups";
         }
 
         #region Validate Properties (Create Property metadata)

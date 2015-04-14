@@ -3,7 +3,7 @@ using Starcounter;
 using System;
 using System.Collections;
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
     partial class CreateUserPage : PropertyMetadataPage {
 
         void Handle(Input.Username action) {
@@ -38,7 +38,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                     Database.SystemUserAdmin.AddPerson(this.FirstName, this.LastName, this.Username, this.Password);
                 });
 
-                this.RedirectUrl = "/UserAdminApp/admin/users";
+                this.RedirectUrl = "/UserAdmin/admin/users";
             }
             catch (Exception e) {
                 this.Message = e.Message;
@@ -47,7 +47,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
         void Handle(Input.Close action) {
 
-            this.RedirectUrl = "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdmin/admin/users";
         }
 
         #region Validate Properties (Create Property metadata)

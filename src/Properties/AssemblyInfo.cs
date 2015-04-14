@@ -6,11 +6,11 @@ using Starcounter.Internal;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UserAdminApp")]
+[assembly: AssemblyTitle("UserAdmin")]
 [assembly: AssemblyDescription("System user administration application for the Launcher powered by Starcounter")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Polyjuice")]
-[assembly: AssemblyProduct("UserAdminApp")]
+[assembly: AssemblyProduct("UserAdmin")]
 [assembly: AssemblyCopyright("Copyright 2014 Polyjuice")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

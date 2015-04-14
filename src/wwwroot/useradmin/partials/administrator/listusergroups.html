@@ -18,10 +18,10 @@
             <template repeat="{{item in Items}}">
                 <tr>
                     <td>
-                        <a href="/UserAdminApp/admin/usergroups/{{item.Key}}"> {{item.Name}}</a>
+                        <a href="/UserAdmin/admin/usergroups/{{item.Key}}"> {{item.Name}}</a>
                     </td>
                     <td>
-                        <a href="/UserAdminApp/admin/usergroups/{{item.BasedOn.Key}}"> {{item.BasedOn.Name}}</a>
+                        <a href="/UserAdmin/admin/usergroups/{{item.BasedOn.Key}}"> {{item.BasedOn.Name}}</a>
                     </td>
                     <td><button onclick="getModel(this).item.Delete$++">Delete</button></td>
                 </tr>
@@ -31,5 +31,5 @@
 
     </table>
 
-    <a href="/UserAdminApp/admin/createusergroup">Create User group</a>
+    <a href="/UserAdmin/admin/createusergroup">Create User group</a>
 </template>

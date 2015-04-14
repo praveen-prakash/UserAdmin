@@ -1,5 +1,5 @@
 {
-	"$":{"Namespace":"UserAdminApp.Server.Partials.User"},
+	"$":{"Namespace":"UserAdmin.Server.Partials.User"},
 	"Uri" : "",
 	"Html" : "",
 	"FullName" :"",

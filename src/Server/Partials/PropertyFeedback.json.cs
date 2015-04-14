@@ -1,7 +1,7 @@
 using Starcounter;
 using System;
 
-namespace UserAdminApp.Server.Partials {
+namespace UserAdmin.Server.Partials {
     partial class PropertyFeedback : Json {
 
         [FlagsAttribute]

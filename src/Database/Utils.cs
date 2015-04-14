@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UserAdminApp.Database {
+namespace UserAdmin.Database {
 
     public class Utils {
 

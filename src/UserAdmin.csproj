@@ -9,8 +9,8 @@
     <ProjectGuid>{EA683FF4-7931-4461-BA30-F33E3E815638}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UserAdminApp</RootNamespace>
-    <AssemblyName>UserAdminApp</AssemblyName>
+    <RootNamespace>UserAdmin</RootNamespace>
+    <AssemblyName>UserAdmin</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -149,21 +149,21 @@
     <Compile Include="Server\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\useradminapp\launcher\adminmenu.html" />
+    <Content Include="wwwroot\useradmin\launcher\adminmenu.html" />
     <Content Include="wwwroot\css\useradmin.css" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\editusergroup.html" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\listusergroups.html" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\createusergroup.html" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\settings.html" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\editcompany.html" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\createuser.html" />
-    <Content Include="wwwroot\useradminapp\redirect.html" />
-    <Content Include="wwwroot\useradminapp\partials\user\resetpassword.html" />
-    <Content Include="wwwroot\useradminapp\launcher\app-icon.html" />
-    <Content Include="wwwroot\useradminapp\launcher\app-search.html" />
-    <Content Include="wwwroot\useradminapp\launcher\UserAdmin.png" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\editperson.html" />
-    <Content Include="wwwroot\useradminapp\partials\administrator\listusers.html" />
+    <Content Include="wwwroot\useradmin\partials\administrator\editusergroup.html" />
+    <Content Include="wwwroot\useradmin\partials\administrator\listusergroups.html" />
+    <Content Include="wwwroot\useradmin\partials\administrator\createusergroup.html" />
+    <Content Include="wwwroot\useradmin\partials\administrator\settings.html" />
+    <Content Include="wwwroot\useradmin\partials\administrator\editcompany.html" />
+    <Content Include="wwwroot\useradmin\partials\administrator\createuser.html" />
+    <Content Include="wwwroot\useradmin\redirect.html" />
+    <Content Include="wwwroot\useradmin\partials\user\resetpassword.html" />
+    <Content Include="wwwroot\useradmin\launcher\app-icon.html" />
+    <Content Include="wwwroot\useradmin\launcher\app-search.html" />
+    <Content Include="wwwroot\useradmin\launcher\UserAdmin.png" />
+    <Content Include="wwwroot\useradmin\partials\administrator\editperson.html" />
+    <Content Include="wwwroot\useradmin\partials\administrator\listusers.html" />
   </ItemGroup>
   <ItemGroup>
     <TypedJSON Include="Server\UserSession.json">
@@ -277,7 +277,7 @@
     <Folder Include="Server\Partials\Owner\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Smorgasbord-Development\PropertyMetadata\Smorgasbord.PropertyMetadata.csproj">
+    <ProjectReference Include="..\..\PropertyMetadata\Smorgasbord.PropertyMetadata.csproj">
       <Project>{2fd5b1ef-a242-4d99-bb8b-8114a0277a07}</Project>
       <Name>Smorgasbord.PropertyMetadata</Name>
     </ProjectReference>

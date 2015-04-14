@@ -7,9 +7,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Web;
-using UserAdminApp.Database;
+using UserAdmin.Database;
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
 
     [SomebodyPage_json]
     partial class SomebodyPage : PropertyMetadataPage, IBound<Simplified.Ring3.SystemUser> {
@@ -55,7 +55,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
         public bool ResetPassword_Enabled_ {
 
             get {
-                return UserAdminApp.Database.SettingsMailServer.Settings.Enabled && Database.Utils.IsValidEmail(this.Data.Username);
+                return UserAdmin.Database.SettingsMailServer.Settings.Enabled && Database.Utils.IsValidEmail(this.Data.Username);
             }
         }
 
@@ -104,7 +104,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
 
             transaction.Commit();
 
-            this.RedirectUrl = "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdmin/admin/users";
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Transaction.Commit();
             }
 
-            this.RedirectUrl = "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdmin/admin/users";
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Transaction.Rollback();
             }
 
-            this.RedirectUrl = "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdmin/admin/users";
         }
 
         #endregion
@@ -148,12 +148,12 @@ namespace UserAdminApp.Server.Partials.Administrator {
             string email = string.Empty;
             //Simplified.Ring3.EmailAddress eMailAddress = null;
 
-            if (UserAdminApp.Database.SettingsMailServer.Settings.Enabled == false) {
+            if (UserAdmin.Database.SettingsMailServer.Settings.Enabled == false) {
                 this.Message = "Mail Server not enabled in the settings.";
                 return;
             }
 
-            if (string.IsNullOrEmpty(UserAdminApp.Database.SettingsMailServer.Settings.SiteHost)) {
+            if (string.IsNullOrEmpty(UserAdmin.Database.SettingsMailServer.Settings.SiteHost)) {
                 this.Message = "Invalid settings, check site host name / port";
                 return;
             }
@@ -187,10 +187,10 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 // Build reset password link
                 UriBuilder uri = new UriBuilder();
 
-                uri.Host = UserAdminApp.Database.SettingsMailServer.Settings.SiteHost;
-                uri.Port = (int)UserAdminApp.Database.SettingsMailServer.Settings.SitePort;
+                uri.Host = UserAdmin.Database.SettingsMailServer.Settings.SiteHost;
+                uri.Port = (int)UserAdmin.Database.SettingsMailServer.Settings.SitePort;
 
-                uri.Path = "UserAdminApp/user/resetpassword";
+                uri.Path = "UserAdmin/user/resetpassword";
                 uri.Query = "token=" + resetPassword.Token;
 
                 link = uri.ToString();

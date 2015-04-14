@@ -1,8 +1,8 @@
 using Starcounter;
 using System.Collections;
-using UserAdminApp.Database;
+using UserAdmin.Database;
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
 
     [EditCompanyPage_json]
     partial class EditCompanyPage : SomebodyPage {

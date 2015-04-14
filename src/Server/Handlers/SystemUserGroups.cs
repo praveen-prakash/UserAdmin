@@ -7,11 +7,11 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using UserAdminApp.Database;
-using UserAdminApp.Server.Partials;
+using UserAdmin.Database;
+using UserAdmin.Server.Partials;
 
 
-namespace UserAdminApp.Server.Handlers {
+namespace UserAdmin.Server.Handlers {
     public class SystemUserGroups {
 
         public static void Register() {
@@ -19,36 +19,36 @@ namespace UserAdminApp.Server.Handlers {
             //
             // Create System User group
             //
-            Starcounter.Handle.GET( "/UserAdminApp/admin/createusergroup", (Request request) => {
+            Starcounter.Handle.GET( "/UserAdmin/admin/createusergroup", (Request request) => {
 
                 Json page;
-                if (!Helper.TryNavigateTo("/UserAdminApp/admin/createusergroup", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdmin/admin/createusergroup", request, "/useradmin/redirect.html", out page)) {
                     return page;
                 }
 
-                return new Partials.Administrator.CreateUserGroupPage() { Html = "/useradminapp/partials/administrator/createusergroup.html", Uri = request.Uri };
+                return new Partials.Administrator.CreateUserGroupPage() { Html = "/useradmin/partials/administrator/createusergroup.html", Uri = request.Uri };
             });
 
             //
             // Get System user groups
             //
-            Starcounter.Handle.GET( "/UserAdminApp/admin/usergroups", (Request request) => {
+            Starcounter.Handle.GET( "/UserAdmin/admin/usergroups", (Request request) => {
 
                 Json page;
-                if (!Helper.TryNavigateTo("/UserAdminApp/admin/usergroups", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdmin/admin/usergroups", request, "/useradmin/redirect.html", out page)) {
                     return page;
                 }
 
-                return new Partials.Administrator.ListUserGroupsPage() { Html = "/useradminapp/partials/administrator/listusergroups.html", Uri = request.Uri };
+                return new Partials.Administrator.ListUserGroupsPage() { Html = "/useradmin/partials/administrator/listusergroups.html", Uri = request.Uri };
 
             });
 
             //
             // Get System user group
             //
-            Starcounter.Handle.GET( "/UserAdminApp/admin/usergroups/{?}", (string usergroupid, Request request) => {
+            Starcounter.Handle.GET( "/UserAdmin/admin/usergroups/{?}", (string usergroupid, Request request) => {
                 Json page;
-                if (!Helper.TryNavigateTo("/UserAdminApp/admin/usergroups/{?}", request, "/useradminapp/redirect.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdmin/admin/usergroups/{?}", request, "/useradmin/redirect.html", out page)) {
                     return page;
                 }
 
@@ -61,7 +61,7 @@ namespace UserAdminApp.Server.Handlers {
 
                 return Db.Scope<string, Simplified.Ring3.SystemUserGroup, Json>((uri, ug) => {
                     Partials.Administrator.EditUserGroupPage editUserGroupPage = new Partials.Administrator.EditUserGroupPage() {
-                        Html = "/useradminapp/partials/administrator/editusergroup.html",
+                        Html = "/useradmin/partials/administrator/editusergroup.html",
                         Uri = uri
                     };
                     editUserGroupPage.Data = ug;

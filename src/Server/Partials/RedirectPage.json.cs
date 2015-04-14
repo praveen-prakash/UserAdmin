@@ -1,6 +1,6 @@
 using Starcounter;
 
-namespace UserAdminApp.Server.Partials {
+namespace UserAdmin.Server.Partials {
     partial class RedirectPage : Page {
     }
 }

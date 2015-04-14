@@ -8,16 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserAdminApp.Database;
-using UserAdminApp.Server;
+using UserAdmin.Database;
+using UserAdmin.Server;
 
 
-namespace UserAdminApp {
+namespace UserAdmin {
     public class Program {
 
         internal static string AdminGroupName = "Admin (System Users)";
 
-        internal static Dictionary<string, UserAdminApp.Server.UserSession> Sessions = new Dictionary<string, UserAdminApp.Server.UserSession>();
+        internal static Dictionary<string, UserAdmin.Server.UserSession> Sessions = new Dictionary<string, UserAdmin.Server.UserSession>();
 
         static void Main() {
 
@@ -26,15 +26,15 @@ namespace UserAdminApp {
 
             Program.SetupPermissions();
 
-            UserAdminApp.Server.Handlers.Settings.Register();
-            UserAdminApp.Server.Handlers.SystemUsers.Register();
-            UserAdminApp.Server.Handlers.SystemUserGroups.Register();
+            UserAdmin.Server.Handlers.Settings.Register();
+            UserAdmin.Server.Handlers.SystemUsers.Register();
+            UserAdmin.Server.Handlers.SystemUserGroups.Register();
             Database.CommitHooks.Register();
-            UserAdminApp.Server.Handlers.LauncherHooks.Register();
+            UserAdmin.Server.Handlers.LauncherHooks.Register();
 
-            //Polyjuice.OntologyMap("/UserAdminApp/admin/users/@w", "/so/somebody/@w", null, null);
+            //Polyjuice.OntologyMap("/UserAdmin/admin/users/@w", "/so/somebody/@w", null, null);
 
-            Polyjuice.OntologyMap("/UserAdminApp/admin/users/@w", "/so/person/@w",
+            Polyjuice.OntologyMap("/UserAdmin/admin/users/@w", "/so/person/@w",
             (String fromSo) => {
                 var user = Db.SQL<SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.ObjectID=?", fromSo).First;
                 if (user != null) {
@@ -60,15 +60,15 @@ namespace UserAdminApp {
         static private void SetupPermissions() {
 
             SystemUserGroup adminGroup = Db.SQL<SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
-            Helper.AssureUriPermission("/UserAdminApp/admin/users", adminGroup);
-            Helper.AssureUriPermission("/UserAdminApp/admin/users/{?}", adminGroup);
-            Helper.AssureUriPermission("/UserAdminApp/admin/createuser", adminGroup);
+            Helper.AssureUriPermission("/UserAdmin/admin/users", adminGroup);
+            Helper.AssureUriPermission("/UserAdmin/admin/users/{?}", adminGroup);
+            Helper.AssureUriPermission("/UserAdmin/admin/createuser", adminGroup);
 
-            Helper.AssureUriPermission("/UserAdminApp/admin/usergroups", adminGroup);
-            Helper.AssureUriPermission("/UserAdminApp/admin/usergroups/{?}", adminGroup);
-            Helper.AssureUriPermission("/UserAdminApp/admin/createusergroup", adminGroup);
+            Helper.AssureUriPermission("/UserAdmin/admin/usergroups", adminGroup);
+            Helper.AssureUriPermission("/UserAdmin/admin/usergroups/{?}", adminGroup);
+            Helper.AssureUriPermission("/UserAdmin/admin/createusergroup", adminGroup);
 
-            Helper.AssureUriPermission("/UserAdminApp/admin/settings", adminGroup);
+            Helper.AssureUriPermission("/UserAdmin/admin/settings", adminGroup);
         }
     }
 }

@@ -5,12 +5,12 @@ using System.Collections;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
-using UserAdminApp.Database;
+using UserAdmin.Database;
 
 // FORGOT PASSWORD:
 // http://www.asp.net/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
 
     [EditUserGroupPage_json]
     partial class EditUserGroupPage : PropertyMetadataPage, IBound<Simplified.Ring3.SystemUserGroup> {
@@ -133,7 +133,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 transaction.Commit();
             }
 
-            this.RedirectUrl = "/UserAdminApp/admin/usergroups";
+            this.RedirectUrl = "/UserAdmin/admin/usergroups";
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Transaction.Commit();
             }
 
-            this.RedirectUrl = "/UserAdminApp/admin/usergroups";
+            this.RedirectUrl = "/UserAdmin/admin/usergroups";
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             if (this.Transaction.IsDirty) {
                 this.Transaction.Rollback();
             }
-            this.RedirectUrl = "/UserAdminApp/admin/usergroups";
+            this.RedirectUrl = "/UserAdmin/admin/usergroups";
         }
 
         #endregion

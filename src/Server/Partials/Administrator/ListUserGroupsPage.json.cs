@@ -1,8 +1,8 @@
 using Starcounter;
 using System.Collections;
-using UserAdminApp.Database;
+using UserAdmin.Database;
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
 
     [ListUserGroupsPage_json]
     partial class ListUserGroupsPage : Page {

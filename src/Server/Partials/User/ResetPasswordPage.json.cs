@@ -1,9 +1,9 @@
 using Simplified.Ring6;
 using Starcounter;
 using System;
-using UserAdminApp.Database;
+using UserAdmin.Database;
 
-namespace UserAdminApp.Server.Partials.User {
+namespace UserAdmin.Server.Partials.User {
 
     [ResetPasswordPage_json]
     partial class ResetPasswordPage : Page {
@@ -49,7 +49,7 @@ namespace UserAdminApp.Server.Partials.User {
                 resetPassword.Delete();
             });
 
-            this.RedirectUrl = "/UserAdminApp/admin/users/" + userID;
+            this.RedirectUrl = "/UserAdmin/admin/users/" + userID;
         }
 
         private bool CheckPasswordMatch(string pw1, string pw2) {

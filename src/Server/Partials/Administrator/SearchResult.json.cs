@@ -1,6 +1,6 @@
 using Starcounter;
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
     [SearchResult_json]
     partial class SearchResult : Page {
 
@@ -9,7 +9,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             public string UserUri {
 
                 get {
-                    return "/UserAdminApp/admin/users/" + Data.GetObjectID();
+                    return "/UserAdmin/admin/users/" + Data.GetObjectID();
                 }
             }
         }
@@ -19,7 +19,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
             public string GroupUri {
 
                 get {
-                    return "/UserAdminApp/admin/usergroups/" + Data.GetObjectID();
+                    return "/UserAdmin/admin/usergroups/" + Data.GetObjectID();
                 }
             }
         }

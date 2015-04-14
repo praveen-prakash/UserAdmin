@@ -9,9 +9,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using UserAdminApp.Server.Partials;
+using UserAdmin.Server.Partials;
 
-namespace UserAdminApp {
+namespace UserAdmin {
     public class Helper {
 
         static public bool CanGetUri(SystemUser user, string uri, Request request) {

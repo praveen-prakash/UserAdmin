@@ -2,7 +2,7 @@ using Starcounter;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UserAdminApp.Server.Partials {
+namespace UserAdmin.Server.Partials {
     partial class Page : Json {
 
         public bool IsDirtyTest_ {

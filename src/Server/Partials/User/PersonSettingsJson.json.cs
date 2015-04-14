@@ -1,6 +1,6 @@
 using Starcounter;
 
-namespace UserAdminApp.Server.Partials.User {
+namespace UserAdmin.Server.Partials.User {
     partial class PersonSettingsJson : Page {
     }
 }

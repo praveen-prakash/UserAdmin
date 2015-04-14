@@ -1,5 +1,5 @@
 {
-	"$":{"Namespace":"UserAdminApp.Server.Partials.Launcher"},
+	"$":{"Namespace":"UserAdmin.Server.Partials.Launcher"},
 	"Uri" : "",
 	"Html" : "",
 	"IsAdministrator" : false

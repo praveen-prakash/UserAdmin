@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserAdminApp.Server;
+using UserAdmin.Server;
 
-namespace UserAdminApp.Database {
+namespace UserAdmin.Database {
     public class SystemUserAdmin {
 
         /// <summary>

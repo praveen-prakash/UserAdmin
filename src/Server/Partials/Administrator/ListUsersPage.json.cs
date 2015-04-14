@@ -1,9 +1,9 @@
 using Simplified.Ring3;
 using Starcounter;
 using System.Collections;
-using UserAdminApp.Database;
+using UserAdmin.Database;
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
 
     [ListUsersPage_json]
     partial class ListUsersPage : Page {

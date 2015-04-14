@@ -7,7 +7,7 @@ using Starcounter;
 using System.Web;
 using System.Net;
 using Starcounter.Internal;
-namespace UserAdminApp.Database {
+namespace UserAdmin.Database {
 
     //[Database]
     //public class Settings {
@@ -33,7 +33,7 @@ namespace UserAdminApp.Database {
 
             get {
 
-                SettingsMailServer settings = Db.SQL<UserAdminApp.Database.SettingsMailServer>("SELECT o FROM UserAdminApp.Database.SettingsMailServer o").First;
+                SettingsMailServer settings = Db.SQL<UserAdmin.Database.SettingsMailServer>("SELECT o FROM UserAdmin.Database.SettingsMailServer o").First;
                 if (settings == null) {
 
                     Db.Transact(() => {

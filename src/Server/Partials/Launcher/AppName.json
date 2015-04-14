@@ -1,4 +1,4 @@
 {
- name: "UserAdminApp",
+ name: "UserAdmin",
  description: "User Administraton Application based on Sociery Objects"
 }

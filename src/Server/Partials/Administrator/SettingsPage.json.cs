@@ -5,13 +5,13 @@ using System.Collections;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
-using UserAdminApp.Database;
+using UserAdmin.Database;
 
 
 // FORGOT PASSWORD:
 // http://www.asp.net/identity/overview/features-api/account-confirmation-and-password-recovery-with-aspnet-identity
 
-namespace UserAdminApp.Server.Partials.Administrator {
+namespace UserAdmin.Server.Partials.Administrator {
 
     [SettingsPage_json]
     partial class SettingsPage : PropertyMetadataPage {
@@ -43,7 +43,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Transaction.Commit();
             }
 
-            this.RedirectUrl = "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdmin/admin/users";
         }
 
         void Handle(Input.Close action) {
@@ -52,7 +52,7 @@ namespace UserAdminApp.Server.Partials.Administrator {
                 this.Transaction.Rollback();
             }
 
-            this.RedirectUrl = "/UserAdminApp/admin/users";
+            this.RedirectUrl = "/UserAdmin/admin/users";
         }
 
 

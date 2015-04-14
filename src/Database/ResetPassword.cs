@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Starcounter;
 using System.Web;
-namespace UserAdminApp.Database {
+namespace UserAdmin.Database {
 
     //[Database]
     //public class ResetPassword {

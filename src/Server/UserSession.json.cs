@@ -1,13 +1,13 @@
 using PolyjuiceNamespace;
 using Starcounter;
 using System.Web;
-using UserAdminApp.Database;
-using UserAdminApp.Server.Partials;
+using UserAdmin.Database;
+using UserAdmin.Server.Partials;
 
-namespace UserAdminApp.Server {
+namespace UserAdmin.Server {
 
     [UserSession_json]
-    partial class UserSession : UserAdminApp.Server.Partials.Page {
+    partial class UserSession : UserAdmin.Server.Partials.Page {
 
         internal object Menu;
 

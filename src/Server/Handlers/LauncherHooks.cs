@@ -4,39 +4,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserAdminApp.Server.Partials;
-using UserAdminApp.Server.Partials.Launcher;
+using UserAdmin.Server.Partials;
+using UserAdmin.Server.Partials.Launcher;
 using PolyjuiceNamespace;
 
-namespace UserAdminApp.Server.Handlers {
+namespace UserAdmin.Server.Handlers {
     public class LauncherHooks {
 
         public static void Register() {
 
 
             // Workspace root (Launchpad)
-            Starcounter.Handle.GET( "/UserAdminApp", () => {
+            Starcounter.Handle.GET( "/UserAdmin", () => {
                 Starcounter.Response resp;
-                Starcounter.X.GET("/UserAdminApp/admin/users", out resp);
+                Starcounter.X.GET("/UserAdmin/admin/users", out resp);
                 return resp;
             });
 
-            Starcounter.Handle.GET("/UserAdminApp/app-name", () => {
+            Starcounter.Handle.GET("/UserAdmin/app-name", () => {
                 return new AppName();
             });
 
             // App name required for Launchpad
-            Starcounter.Handle.GET("/UserAdminApp/app-icon", () => {
-                return new UserAdminApp.Server.Partials.Page() { Html = "/useradminapp/launcher/app-icon.html" };
+            Starcounter.Handle.GET("/UserAdmin/app-icon", () => {
+                return new UserAdmin.Server.Partials.Page() { Html = "/useradmin/launcher/app-icon.html" };
             });
 
             // Menu
-            Starcounter.Handle.GET("/UserAdminApp/menu", () => {
+            Starcounter.Handle.GET("/UserAdmin/menu", () => {
 
-                UserAdminApp.Server.UserSession userSessionPage = new UserAdminApp.Server.UserSession();
+                UserAdmin.Server.UserSession userSessionPage = new UserAdmin.Server.UserSession();
 
                 var menuPage = new AdminMenu() {
-                    Html = "/useradminapp/launcher/adminmenu.html",
+                    Html = "/useradmin/launcher/adminmenu.html",
                     IsAdministrator = UserSession.IsAdmin()
                 };
 
@@ -53,9 +53,9 @@ namespace UserAdminApp.Server.Handlers {
 
             // TODO:
             // Not sure where to put this.
-            Starcounter.Handle.GET("/UserAdminApp/search/{?}", (string query) => {
-                var result = new UserAdminApp.Server.Partials.Administrator.SearchResult();
-                result.Html = "/useradminapp/launcher/app-search.html";
+            Starcounter.Handle.GET("/UserAdmin/search/{?}", (string query) => {
+                var result = new UserAdmin.Server.Partials.Administrator.SearchResult();
+                result.Html = "/useradmin/launcher/app-search.html";
 
                 // If not authorized we don't return any results.
                 if (!string.IsNullOrEmpty(query) && UserSession.IsAdmin()) {
@@ -65,10 +65,10 @@ namespace UserAdminApp.Server.Handlers {
                 return result;
             });
 
-            Polyjuice.Map("/UserAdminApp/menu", "/polyjuice/menu");
-            Polyjuice.Map("/UserAdminApp/app-name", "/polyjuice/app-name");
-            Polyjuice.Map("/UserAdminApp/app-icon", "/polyjuice/app-icon");
-            Polyjuice.Map("/UserAdminApp/search/@w", "/polyjuice/search?query=@w");
+            Polyjuice.Map("/UserAdmin/menu", "/polyjuice/menu");
+            Polyjuice.Map("/UserAdmin/app-name", "/polyjuice/app-name");
+            Polyjuice.Map("/UserAdmin/app-icon", "/polyjuice/app-icon");
+            Polyjuice.Map("/UserAdmin/search/@w", "/polyjuice/search?query=@w");
         }
     }
 }

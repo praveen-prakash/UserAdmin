@@ -6,17 +6,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UserAdminApp.Server;
-using UserAdminApp.Server.Partials.Launcher;
+using UserAdmin.Server;
+using UserAdmin.Server.Partials.Launcher;
 
-namespace UserAdminApp.Database {
+namespace UserAdmin.Database {
     public class CommitHooks {
 
         internal static string Url;
 
         internal static void Register() {
 
-            CommitHooks.Url = "/UserAdminApp/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession";
+            CommitHooks.Url = "/UserAdmin/__db/__" + StarcounterEnvironment.DatabaseNameLower + "/societyobjects/systemusersession";
 
             //Starcounter.Handle.GET(CommitHooks.Url, (Request request) => {
             //    return (ushort)System.Net.HttpStatusCode.OK;
