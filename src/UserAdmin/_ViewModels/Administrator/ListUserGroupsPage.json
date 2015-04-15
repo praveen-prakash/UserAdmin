@@ -1,0 +1,18 @@
+{
+    "$": { "Namespace": "UserAdmin" },
+    "Uri": "",
+    "Html": "",
+    "$Items": { "Bind": "Groups" },
+    "Items": [
+        {
+            "Key": "",
+            "Name": "",
+            "$BasedOn": { "Bind": "BasedOn_" },
+            "BasedOn": {
+                "Key": "",
+                "Name": ""
+            },
+            "Delete$": 0
+        }
+    ]
+}
