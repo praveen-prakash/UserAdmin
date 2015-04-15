@@ -89,49 +89,49 @@
     <Compile Include="Api\SystemUsersHandlers.cs" />
     <Compile Include="Api\CommitHooks.cs" />
     <Compile Include="Database\Settings.cs" />
-    <Compile Include="Delpers\SystemUserAdmin.cs" />
-    <Compile Include="Delpers\Helper.cs" />
-    <Compile Include="Delpers\Utils.cs" />
+    <Compile Include="Helpers\SystemUserAdmin.cs" />
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\Utils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Partials\Administrator\CreateUserGroupPage.json.cs">
+    <Compile Include="ViewModels\Administrator\CreateUserGroupPage.json.cs">
       <DependentUpon>CreateUserGroupPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\CreateUserPage.json.cs">
+    <Compile Include="ViewModels\Administrator\CreateUserPage.json.cs">
       <DependentUpon>CreateUserPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\EditCompanyPage.json.cs">
+    <Compile Include="ViewModels\Administrator\EditCompanyPage.json.cs">
       <DependentUpon>EditCompanyPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\EditPersonPage.json.cs">
+    <Compile Include="ViewModels\Administrator\EditPersonPage.json.cs">
       <DependentUpon>EditPersonPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\EditUserGroupPage.json.cs">
+    <Compile Include="ViewModels\Administrator\EditUserGroupPage.json.cs">
       <DependentUpon>EditUserGroupPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\ListUserGroupsPage.json.cs">
+    <Compile Include="ViewModels\Administrator\ListUserGroupsPage.json.cs">
       <DependentUpon>ListUserGroupsPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\ListUsersPage.json.cs">
+    <Compile Include="ViewModels\Administrator\ListUsersPage.json.cs">
       <DependentUpon>ListUsersPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\SearchResultPage.json.cs">
+    <Compile Include="ViewModels\Administrator\SearchResultPage.json.cs">
       <DependentUpon>SearchResultPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\SettingsPage.json.cs">
+    <Compile Include="ViewModels\Administrator\SettingsPage.json.cs">
       <DependentUpon>SettingsPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Administrator\SomebodyPage.json.cs">
+    <Compile Include="ViewModels\Administrator\SomebodyPage.json.cs">
       <DependentUpon>SomebodyPage.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\Launcher\AdminMenu.json.cs">
+    <Compile Include="ViewModels\Launcher\AdminMenu.json.cs">
       <DependentUpon>AdminMenu.json</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Partials\RedirectPage.json.cs">
+    <Compile Include="ViewModels\RedirectPage.json.cs">
       <DependentUpon>RedirectPage.json</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\Partials\User\ResetPasswordPage.json.cs">
+    <Compile Include="ViewModels\User\ResetPasswordPage.json.cs">
       <DependentUpon>ResetPasswordPage.json</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -177,10 +177,10 @@
     <Folder Include="wwwroot\sys\" />
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\RedirectPage.json">
+    <TypedJSON Include="ViewModels\RedirectPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
-    <TypedJSON Include="ViewModels\Partials\User\ResetPasswordPage.json">
+    <TypedJSON Include="ViewModels\User\ResetPasswordPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
     <TypedJSON Include="ViewModels\UserSessionPage.json">
@@ -188,62 +188,62 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\CreateUserGroupPage.json">
+    <TypedJSON Include="ViewModels\Administrator\CreateUserGroupPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\CreateUserPage.json">
+    <TypedJSON Include="ViewModels\Administrator\CreateUserPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\EditCompanyPage.json">
+    <TypedJSON Include="ViewModels\Administrator\EditCompanyPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\EditPersonPage.json">
+    <TypedJSON Include="ViewModels\Administrator\EditPersonPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\EditUserGroupPage.json">
+    <TypedJSON Include="ViewModels\Administrator\EditUserGroupPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\ListUserGroupsPage.json">
+    <TypedJSON Include="ViewModels\Administrator\ListUserGroupsPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\ListUsersPage.json">
+    <TypedJSON Include="ViewModels\Administrator\ListUsersPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\SearchResultPage.json">
+    <TypedJSON Include="ViewModels\Administrator\SearchResultPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\SettingsPage.json">
+    <TypedJSON Include="ViewModels\Administrator\SettingsPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Administrator\SomebodyPage.json">
+    <TypedJSON Include="ViewModels\Administrator\SomebodyPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Launcher\AdminMenu.json">
+    <TypedJSON Include="ViewModels\Launcher\AdminMenu.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\Partials\Launcher\AppName.json">
+    <TypedJSON Include="ViewModels\Launcher\AppName.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
