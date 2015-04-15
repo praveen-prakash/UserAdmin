@@ -1,0 +1,21 @@
+{
+	"$":{"Namespace":"UserAdmin.Partials.Administrator"},
+	"Uri" : "",
+	"Html" : "",
+	"$Items" : { "Bind":"Users" },
+	"Items" : [{
+		"Key" : "",
+		"Username" : "", 
+		"$FullName" :  { "Bind":"WhoIs.FullName" },
+		"FullName" : "",
+		"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
+		"ImageURL" : "",
+		"$Type" :  { "Bind":"Kind" },
+		"Type" : "",
+		"Groups" : [{
+			"Key" : "",
+			"Name": ""
+		}],
+		"Delete$" : 0
+	}]
+}

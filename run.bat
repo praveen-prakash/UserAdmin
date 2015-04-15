@@ -1,2 +1,2 @@
 @echo off
-star --resourcedir="%~dp0src\wwwroot" "%~dp0src\bin\Debug\UserAdmin.exe"
+star --resourcedir="%~dp0src\UserAdmin\wwwroot" "%~dp0bin\Debug\UserAdmin.exe"

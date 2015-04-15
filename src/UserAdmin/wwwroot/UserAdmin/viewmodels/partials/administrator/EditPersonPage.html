@@ -1,0 +1,102 @@
+<link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html" />
+<link rel="import" href="/sys/sgb-property-metadata/sgb-property-metadata.html" />
+
+<link rel="stylesheet" href="/UserAdmin/css/useradmin.css" />
+
+<style>
+    img {
+        vertical-align: text-top;
+        margin-right: 10px;
+    }
+</style>
+
+
+<template>
+
+        <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
+
+    <img  src="{{ImageURL}}" />
+    <H1> {{FullName}}</H1>
+
+    <div class="launcher-labeled-input">
+        <input id="Username" type='text' readonly value='{{ Username }}' placeholder='<Username>'>
+        <label for="Username">Username</label>
+    </div>
+
+<!--    <div class="launcher-labeled-input">
+        <input id="EMail$" type='email'  value='{{ EMail$ }}' placeholder='<E-Mail>'>
+        <label for="EMail$">E-Mail</label>
+
+        <template if="{{EMail_Feedback.TypeNo>=0}}">
+            <span class="isa_{{EMail_Feedback.Type}}">
+                {{EMail_Feedback.Message}}
+            </span>
+        </template>
+    </div>-->
+
+    <div class="launcher-labeled-input">
+        <input id="FirstName$" type='text' value='{{ FirstName$ }}' placeholder='<FirstName>'>
+        <label for="FirstName$">FirstName</label>
+    </div>
+
+    <div class="launcher-labeled-input">
+        <input id="LastName$" type='text' value='{{ LastName$ }}' placeholder='<LastName>'>
+        <label for="LastName$">LastName</label>
+    </div>
+
+    <!-- Member in user groups -->
+    <h3>Member in</h3>
+    <table class="gridtable" >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <template repeat="{{item in Groups}}">
+                <tr>
+                    <td>
+                        <a href="/UserAdmin/admin/usergroups/{{item.Key}}"> {{item.Name}}</a>
+                    </td>
+                    <td><button onclick="getModel(this).item.Remove$++">Remove</button></td>
+                </tr>
+            </template>
+        </tbody>
+
+        <tfoot>
+            <tr>
+            <td>
+                <div class="launcher-labeled-input">
+                    <label for="AddToGroup">Add System Group</label>
+                    <select value="{{SelectedSystemUserGroupsID$}}">
+                        <option value="">None</option>
+                        <template repeat="{{ item in SystemUserGroups }}">
+                                <option value="{{item.Key}}">{{item.Name}}</option>
+                        </template>
+                    </select>
+
+                </div>
+            </td>
+            <td>
+                <button  onclick="getModel(this).AddUserToGroup$++">Add</button>
+            </td>
+            </tr>
+        </tfoot>
+
+    </table>
+
+    <template if="{{Message}}">
+        <p>{{Message}}</p>
+    </template>
+
+    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$++">Save</button>
+    <button class="launcher-button"  onclick="getModel(this).Delete$++">Delete</button>
+    <button class="launcher-button" disabled?="{{ IsDirty || !ResetPassword_Enabled }}" onclick="getModel(this).ResetPassword$++">Reset Password</button>
+    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$++">Undo</button>
+    <button class="launcher-button"  onclick="getModel(this).Close$++">Close</button>
+
+   <link is="puppet-redirect" history url="{{ RedirectUrl }}">
+
+</template>

@@ -1,0 +1,51 @@
+{
+	"$":{"Namespace":"UserAdmin.Partials.Administrator"},
+	"Uri" : "",
+	"Html" : "",
+	"Key" : "",
+	"Username" : "",
+	"$ImageURL" : { "Bind": "WhoIs.ImageURL"},
+	"ImageURL" : "",
+	"$FullName" : { "Bind": "WhoIs.FullName"},
+	"FullName" : "",
+	"Groups" : [{ 
+		"Key" : "", 
+		"Name" : "",
+		"Remove$":0
+	}],
+	"Message" : "",
+	"RedirectUrl" : "",
+
+	"$SelectedSystemUserGroupsID$" : { "Bind" : "SelectedSystemUserGroupID_" },
+	"SelectedSystemUserGroupsID$" : "",
+	"$SystemUserGroups" : { "Bind" : "SystemUserGroups_" },
+	"SystemUserGroups" : [{ 
+		"Key" : "", 
+		"Name" : "" 
+	}],
+	"AddUserToGroup$" : 0,
+
+	"ResetPassword$" : 0,
+	"$ResetPassword_Enabled" : { "Bind": "ResetPassword_Enabled_"},
+	"ResetPassword_Enabled" : false,
+	"Delete$":0,
+	"Save$":0,
+	"Close$":0,
+
+	"$FirstName$" : { "Bind": "WhoIs.FirstName"},
+	"FirstName$" : "",
+	"$LastName$" : { "Bind": "WhoIs.LastName"},
+	"LastName$" : "",
+
+	// Inherited from PropertyMetadataItem
+	"PropertyMetadataItems" : { "$" : { "Reuse" : "PropertyMetadataItems" } },
+	"$IsDirty" : { "Bind" : "IsDirty_" },
+	"IsDirty" : false,
+	"$IsPristine" : { "Bind" : "IsPristine_" },
+	"IsPristine" : true,
+	"$IsValid" : { "Bind" : "IsValid_" },
+	"IsValid" : true,
+	"$IsInvalid" : { "Bind" : "IsInvalid_" },
+	"IsInvalid" : false,
+	"Rollback$" : 0
+}
