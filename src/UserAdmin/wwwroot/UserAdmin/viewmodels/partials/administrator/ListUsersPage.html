@@ -1,12 +1,8 @@
-<link rel="stylesheet" href="/UserAdmin/css/useradmin.css" />
-
+<link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
 
 <template>
-
-
-    <H1>System users</H1>
-
-    <table class="gridtable" >
+    <H2>System users</H2>
+    <table class="table" >
         <thead>
             <tr>
                 <th>Sign-in name</th>
@@ -16,12 +12,9 @@
                 <th>Action</th>
             </tr>
         </thead>
-
         <tbody>
-
             <template repeat="{{item in Items}}">
                 <tr>
-       
                     <td>
                         <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
                         <a href="/UserAdmin/admin/users/{{item.Key}}"> {{item.Username}}</a>
@@ -33,17 +26,15 @@
                     <td>
                         <template repeat="{{group, groupIndex in item.Groups}}">
                             <template if="{{groupIndex > 0}}">,&nbsp;</template>
-                                <a href="/UserAdmin/admin/usergroups/{{group.Key}}">{{group.Name}}</a>
+                            <a href="/UserAdmin/admin/usergroups/{{group.Key}}">{{group.Name}}</a>
                         </template>                        
                     </td>
-
-                    <td><button onclick="getModel(this).item.Delete$++">Delete</button></td>
+                    <td>
+                        <button onclick="getModel(this).item.Delete$++" class="btn btn-default btn-xs">Delete</button>
+                    </td>
                 </tr>
             </template>
-
         </tbody>
-
     </table>
-
-    <a href="/UserAdmin/admin/createuser">Create User</a>
+    <a class="btn btn-primary btn-sm" href="/UserAdmin/admin/createuser">Create User</a>
 </template>

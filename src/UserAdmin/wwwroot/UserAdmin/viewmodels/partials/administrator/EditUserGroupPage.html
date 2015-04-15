@@ -1,81 +1,75 @@
 <link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html" />
 <link rel="import" href="/sys/sgb-property-metadata/sgb-property-metadata.html" />
-
-<link rel="stylesheet" href="/UserAdmin/css/useradmin.css" />
+<link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
 
 <template>
-
     <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
-
-    <h1>System User Group ({{ Name$ }})</h1>
-
-    <div class="launcher-labeled-input">
-        <input id="Name$" type='text' value='{{ Name$ }}' placeholder='<Name>'>
-        <label for="Name$">Name</label>
+    <h2>System User Group ({{ Name$ }})</h2>
+    <div class="form-horizontal">
+        <label class="control-label" for="Name$">Name</label>
     </div>
-
-
-
-
-    <div class="launcher-labeled-input">
-        <label for="BasedOn">Based On</label>
-        <select value="{{SelectedBasedOnGroupID$}}">
+    <div>
+        <input id="Name$" type="text" value="{{ Name$ }}" upd update-on="input" placeholder="Name" class="form-control" />
+    </div>
+    <div class="form-horizontal">
+        <label class="control-label" for="BasedOn">Based On</label>
+    </div>
+    <div>
+        <select value="{{SelectedBasedOnGroupID$}}" id="BasedOn" class="form-control">
             <option value="">None</option>
             <template repeat="{{ item in UserGroups }}">
-                    <option value="{{item.Key}}">{{item.Name}}</option>
+                <option value="{{item.Key}}">{{item.Name}}</option>
             </template>
         </select>
     </div>
-
     <template if="{{Message}}">
         <p>{{Message}}</p>
     </template>
-
     <h3>Members</h3>
-
-    <table class="gridtable" >
+    <table class="table" >
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Action</th>
             </tr>
         </thead>
-
         <tbody>
             <template repeat="{{item in Members}}">
                 <tr>
                     <td>
                         <a href="/UserAdmin/admin/users/{{item.Key}}"> {{item.FullName}}</a>
                     </td>
-                    <td><button onclick="getModel(this).item.Remove$++">Remove</button></td>
+                    <td>
+                        <button class="btn btn-default btn-xs" onclick="getModel(this).item.Remove$++">Remove</button>
+                    </td>
                 </tr>
             </template>
         </tbody>
-
-        <tfoot>
-            <tr>
-            <td>
-                <div class="launcher-labeled-input">
-                    <input id="AddUserName$" type='text' value='{{ AddUserName$ }}' placeholder='<Username>'>
-                </div>
-                <template if="{{AddUser_Feedback}}">
-                    <span class="isa_Error}}">
-                        {{AddUser_Feedback.Message}}
-                    </span>
-                </template>
-            </td>
-            <td>
-                <button  onclick="getModel(this).AddUser$++">Add User</button>
-            </td>
-            </tr>
-        </tfoot>
     </table>
-
-    <button class="launcher-button" style="background-color:#11653B" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$++">Save</button>
-    <button class="launcher-button"  onclick="getModel(this).Delete$++">Delete</button>
-    <button class="launcher-button" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$++">Undo</button>
-    <button class="launcher-button"  onclick="getModel(this).Close$++">Close</button>
-
-   <link is="puppet-redirect" history url="{{ RedirectUrl }}">
-
+    <div>
+        <template if="{{AddUser_Feedback}}">
+            <span class="isa_Error}}">
+                {{AddUser_Feedback.Message}}
+            </span>
+        </template>
+    </div>
+    <div>
+        <input id="AddUserName$" type="text" value="{{ AddUserName$ }}" placeholder="Username" class="form-control" />
+    </div>
+    <div>
+        <button class="btn btn-default btn-sm" onclick="getModel(this).AddUser$++">Add User</button>
+    </div>
+    <div>
+        <button class="btn btn-primary" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$++">Save</button>
+    </div>
+    <div>
+        <button class="btn btn-default" onclick="getModel(this).Delete$++">Delete</button>
+    </div>
+    <div>
+        <button class="btn btn-default" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$++">Undo</button>
+    </div>
+    <div>
+        <button class="btn btn-default" onclick="getModel(this).Close$++">Close</button>
+    </div>
+   <link is="puppet-redirect" history url="{{ RedirectUrl }}" />
 </template>

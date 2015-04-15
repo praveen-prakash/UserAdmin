@@ -1,10 +1,8 @@
-<link rel="stylesheet" href="/UserAdmin/css/useradmin.css" />
+<link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
 
 <template>
-
-    <H1>System user groups</H1>
-
-    <table class="gridtable" >
+    <H2>System user groups</H2>
+    <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -12,24 +10,21 @@
                 <th>Action</th>
             </tr>
         </thead>
-
         <tbody>
-
             <template repeat="{{item in Items}}">
                 <tr>
                     <td>
-                        <a href="/UserAdmin/admin/usergroups/{{item.Key}}"> {{item.Name}}</a>
+                        <a href="/UserAdmin/admin/usergroups/{{item.Key}}">{{item.Name}}</a>
                     </td>
                     <td>
-                        <a href="/UserAdmin/admin/usergroups/{{item.BasedOn.Key}}"> {{item.BasedOn.Name}}</a>
+                        <a href="/UserAdmin/admin/usergroups/{{item.BasedOn.Key}}">{{item.BasedOn.Name}}</a>
                     </td>
-                    <td><button onclick="getModel(this).item.Delete$++">Delete</button></td>
+                    <td>
+                        <button class="btn btn-xs btn-default" onclick="getModel(this).item.Delete$++">Delete</button>
+                    </td>
                 </tr>
             </template>
-
         </tbody>
-
     </table>
-
-    <a href="/UserAdmin/admin/createusergroup">Create User group</a>
+    <a class="btn btn-primary" href="/UserAdmin/admin/createusergroup">Create User group</a>
 </template>
