@@ -148,7 +148,7 @@
     <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\SettingsPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\EditCompanyPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\CreateUserPage.html" />
-    <Content Include="wwwroot\UserAdmin\RedirectPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\RedirectPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\partials\user\ResetPasswordPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\launcher\AppIconPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\launcher\AppSearchPage.html" />
