@@ -236,7 +236,7 @@ namespace UserAdmin {
         /// <param name="query"></param>
         /// <returns></returns>
         static public Json GetSignInPage(string referer, string html) {
-            return GetRedirectPage("/signinapp/signinuser?" + HttpUtility.UrlEncode("originurl" + "=" + referer), html);
+            return GetRedirectPage("/signin/signinuser?" + HttpUtility.UrlEncode("originurl" + "=" + referer), html);
         }
 
         /// <summary>
