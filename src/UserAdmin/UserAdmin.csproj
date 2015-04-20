@@ -248,7 +248,7 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\PropertyMetadata\Smorgasbord.PropertyMetadata.csproj">
+    <ProjectReference Include="..\..\..\..\Smorgasbord-Development\PropertyMetadata\Smorgasbord.PropertyMetadata.csproj">
       <Project>{2fd5b1ef-a242-4d99-bb8b-8114a0277a07}</Project>
       <Name>Smorgasbord.PropertyMetadata</Name>
     </ProjectReference>
