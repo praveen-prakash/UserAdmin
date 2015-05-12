@@ -40,7 +40,7 @@ namespace UserAdmin {
 
             Handle.GET("/useradmin/admin/users/{?}", (string userid, Request request) => {
                 return Db.Scope<Json>(() => {
-                    return X.GET<Json>(string.Format("/UserAdmin/admin/_users/{0}", userid));
+                    return Self.GET<Json>(string.Format("/UserAdmin/admin/_users/{0}", userid));
                 });
             });
 
