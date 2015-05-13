@@ -13,5 +13,8 @@
     "sys",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "sgb-property-metadata": "Smorgasbord-Development/sgb-property-metadata"
+  }
 }
