@@ -12,9 +12,7 @@ namespace UserAdmin {
 
             // Workspace root (Launchpad)
             Starcounter.Handle.GET("/useradmin", () => {
-                Starcounter.Response resp;
-                Starcounter.Self.GET("/useradmin/admin/users", out resp);
-                return resp;
+                return Self.GET("/useradmin/admin/users");
             });
 
             Starcounter.Handle.GET("/useradmin/app-name", () => {
