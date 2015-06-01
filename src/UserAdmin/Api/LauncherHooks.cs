@@ -35,14 +35,7 @@ namespace UserAdmin {
                 };
 
                 userSessionPage.Menu = menuPage;
-
-                string sessionID = Session.Current.SessionIdString;
-
-                if (Program.Sessions.ContainsKey(sessionID)) {
-                    Program.Sessions.Remove(sessionID);
-                }
-
-                Program.Sessions.Add(sessionID, userSessionPage);
+                userSessionPage.Session = Session.Current;
 
                 return menuPage;
             });

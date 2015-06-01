@@ -22,20 +22,23 @@ namespace UserAdmin {
 
             #region Sign in/out commit hooks
             // User signed in event
-            Starcounter.Handle.POST(CommitHooks.Url, (Request request) => {
-
+            Handle.POST(CommitHooks.Url, (Request request) => {
                 string sessionID = Session.Current.SessionIdString;
-                if (!Program.Sessions.ContainsKey(sessionID)) {
-                    return new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.InternalServerError, Body = "Failed to get the signin app Session" };
+                UserSessionPage page = Session.Current.Data as UserSessionPage;
+
+                if (page == null) {
+                    return new Response() { 
+                        StatusCode = (ushort)System.Net.HttpStatusCode.InternalServerError, 
+                        Body = "Failed to get the signin app Session"
+                    };
                 }
-                UserSessionPage admin = Program.Sessions[sessionID];
 
                 bool isAuthorized = UserSessionPage.IsAdmin();
 
                 // Hide or show menu choice 
                 //Admin admin = Admin.AdminPage;
-                if (admin.Menu != null) {
-                    AdminMenu menu = admin.Menu as AdminMenu;
+                if (page.Menu != null) {
+                    AdminMenu menu = page.Menu as AdminMenu;
                     menu.IsAdministrator = isAuthorized;
                 }
 
@@ -43,20 +46,21 @@ namespace UserAdmin {
             });
 
             // User signed out event
-            Starcounter.Handle.DELETE(CommitHooks.Url, (Request request) => {
-
+            Handle.DELETE(CommitHooks.Url, (Request request) => {
                 bool isAuthorized = UserSessionPage.IsAdmin();
+                UserSessionPage page = Session.Current.Data as UserSessionPage;
 
-                string sessionID = Session.Current.SessionIdString;
-                if (!Program.Sessions.ContainsKey(sessionID)) {
-                    return new Response() { StatusCode = (ushort)System.Net.HttpStatusCode.InternalServerError, Body = "Failed to get the signin app Session" };
+                if (page == null) {
+                    return new Response() { 
+                        StatusCode = (ushort)System.Net.HttpStatusCode.InternalServerError, 
+                        Body = "Failed to get the signin app Session"
+                    };
                 }
-                UserSessionPage admin = Program.Sessions[sessionID];
 
                 // Hide or show menu choice 
                 //Admin admin = Admin.AdminPage;
-                if (admin.Menu != null) {
-                    AdminMenu menu = admin.Menu as AdminMenu;
+                if (page.Menu != null) {
+                    AdminMenu menu = page.Menu as AdminMenu;
                     menu.IsAdministrator = isAuthorized;
                     menu.RedirectUrl = "/";
                 }

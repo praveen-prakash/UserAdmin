@@ -12,7 +12,6 @@ using Simplified.Ring5;
 namespace UserAdmin {
     public class Program {
         internal static string AdminGroupName = "Admin (System Users)";
-        internal static Dictionary<string, UserAdmin.UserSessionPage> Sessions = new Dictionary<string, UserAdmin.UserSessionPage>();
 
         static void Main() {
             Program.SetupPermissions();
