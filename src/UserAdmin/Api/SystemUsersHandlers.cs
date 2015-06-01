@@ -15,6 +15,10 @@ namespace UserAdmin {
 
         public static void Register() {
 
+            Handle.GET("/useradmin/accessdenied", () => {
+                return new AccessDeniedPage();
+            });
+
             // Create System user
             Starcounter.Handle.GET("/useradmin/admin/createuser", (Request request) => {
 

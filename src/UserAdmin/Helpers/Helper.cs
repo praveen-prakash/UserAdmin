@@ -223,7 +223,7 @@ namespace UserAdmin {
             // Check user permission
             if (!Helper.CanGetUri(systemUser, url, request)) {
                 // User has no permission, redirect to app's root page
-                returnPage = Helper.GetRedirectPage("/", html);
+                returnPage = Helper.GetRedirectPage("/useradmin/accessdenied", html);
                 return false;
             }
 
