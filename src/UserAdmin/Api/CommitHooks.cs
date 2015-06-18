@@ -10,6 +10,8 @@ using Simplified.Ring5;
 
 namespace UserAdmin {
     public class CommitHooks {
+        private static bool oldIsAdmin = false;
+
         internal static void Register() {
             Hook<SystemUserSession>.CommitInsert += (s, a) => {
                 RefreshSignInState();
@@ -25,7 +27,7 @@ namespace UserAdmin {
         }
 
         private static void RefreshSignInState() {
-            bool isAuthorized = UserSessionPage.IsAdmin();
+            bool isAdmin = UserSessionPage.IsAdmin();
             UserSessionPage page = Session.Current.Data as UserSessionPage;
 
             if (page == null) {
@@ -35,11 +37,13 @@ namespace UserAdmin {
             if (page.Menu != null) {
                 AdminMenu menu = page.Menu as AdminMenu;
 
-                menu.IsAdministrator = isAuthorized;
+                menu.IsAdministrator = isAdmin;
 
-                if (!isAuthorized) {
+                if (!isAdmin && oldIsAdmin) {
                     menu.RedirectUrl = "/";
                 }
+
+                oldIsAdmin = isAdmin;
             }
         }
     }
