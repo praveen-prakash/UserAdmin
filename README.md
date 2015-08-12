@@ -1,4 +1,4 @@
-UserAdmin
+User Admin
 ============
 
-System user administration application for the Launcher powered by Starcounter
+Sample user administration. Create **system users** and **system user groups**. Change passwords.
