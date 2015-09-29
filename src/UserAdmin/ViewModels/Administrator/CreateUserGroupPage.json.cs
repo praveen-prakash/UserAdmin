@@ -1,13 +1,13 @@
-using Smorgasbord.PropertyMetadata;
-using Starcounter;
 using System;
 using System.Collections;
+using Starcounter;
+using Smorgasbord.PropertyMetadata;
+using Simplified.Ring3;
 
 namespace UserAdmin {
     partial class CreateUserGroupPage : PropertyMetadataPage {
 
         void Handle(Input.Name action) {
-
             this.AssurePropertyMetadata_Name(action.Template.TemplateName, action.Value);
         }
 
@@ -21,19 +21,19 @@ namespace UserAdmin {
 
             try {
                 Db.Transact(() => {
-                    Simplified.Ring3.SystemUserGroup group = new Simplified.Ring3.SystemUserGroup();
-                    group.Name = this.Name;
+                    new SystemUserGroup() { 
+                        Name = this.Name
+                    };
                 });
+
                 this.RedirectUrl = "/UserAdmin/admin/usergroups";
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 this.Message = e.Message;
             }
         }
 
         void Handle(Input.Close action) {
-
             this.RedirectUrl = "/UserAdmin/admin/usergroups";
         }
 

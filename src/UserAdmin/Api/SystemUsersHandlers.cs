@@ -1,29 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using Starcounter;
 using Simplified.Ring2;
+using Simplified.Ring3;
 using Simplified.Ring6;
 
 namespace UserAdmin {
     public class SystemUsersHandlers {
 
         public static void Register() {
+            string redirectPageHtml = "/useradmin/viewmodels/RedirectPage.html";
 
             Handle.GET("/useradmin/accessdenied", () => {
                 return new AccessDeniedPage();
             });
 
             // Create System user
-            Starcounter.Handle.GET("/useradmin/admin/createuser", (Request request) => {
+            Handle.GET("/useradmin/admin/createuser", (Request request) => {
 
                 Json page;
-                if (!Helper.TryNavigateTo("/UserAdmin/admin/createuser", request, "/useradmin/viewmodels/RedirectPage.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdmin/admin/createuser", request, redirectPageHtml, out page)) {
                     return page;
                 }
 
@@ -31,10 +28,10 @@ namespace UserAdmin {
             });
 
             // Get System users
-            Starcounter.Handle.GET("/useradmin/admin/users", (Request request) => {
+            Handle.GET("/useradmin/admin/users", (Request request) => {
 
                 Json page;
-                if (!Helper.TryNavigateTo("/useradmin/admin/users", request, "/useradmin/viewmodels/RedirectPage.html", out page)) {
+                if (!Helper.TryNavigateTo("/useradmin/admin/users", request, redirectPageHtml, out page)) {
                     return page;
                 }
 
@@ -52,7 +49,7 @@ namespace UserAdmin {
             Handle.GET("/useradmin/admin/_users/{?}", (string userid, Request request) => {
                 Json page;
 
-                if (!Helper.TryNavigateTo("/UserAdmin/admin/users/{?}", request, "/useradmin/viewmodels/RedirectPage.html", out page)) {
+                if (!Helper.TryNavigateTo("/UserAdmin/admin/users/{?}", request, redirectPageHtml, out page)) {
                     return page;
                 }
 
@@ -65,8 +62,8 @@ namespace UserAdmin {
                     //return (ushort)System.Net.HttpStatusCode.NotFound;
                 }
 
-                Simplified.Ring3.SystemUser systemUser = Helper.GetCurrentSystemUser();
-                Simplified.Ring3.SystemUserGroup adminGroup = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name = ?", Program.AdminGroupName).First;
+                SystemUser systemUser = Helper.GetCurrentSystemUser();
+                SystemUserGroup adminGroup = Db.SQL<Simplified.Ring3.SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name = ?", Program.AdminGroupName).First;
 
                 // Check if current user has permission to get this user instance
                 if (Helper.IsMemberOfGroup(systemUser, adminGroup)) {
@@ -80,8 +77,7 @@ namespace UserAdmin {
                             };
                         },
                         request.Uri, user);
-                    }
-                    else if (user.WhoIs is Organization) {
+                    } else if (user.WhoIs is Organization) {
                         Db.Scope<string, Simplified.Ring3.SystemUser, Json>((uri, companyUser) => {
                             return new EditCompanyPage() {
                                 Html = "/UserAdmin/viewmodels/partials/administrator/EditCompanyPage.html",
@@ -91,17 +87,15 @@ namespace UserAdmin {
                         },
                         request.Uri, user);
                     }
-                }
-                else if (user == systemUser) {
+                } else if (user == systemUser) {
                     // User can edit it's self
-                }
-                else {
+                } else {
                     // No rights
                     // User trying to view another's users data
 
                     // User has no permission, redirect to app's root page
                     return new RedirectPage() {
-                        Html = "/useradmin/viewmodels/RedirectPage.html",
+                        Html = redirectPageHtml,
                         RedirectUrl = "/useradmin"
                     };
                 }
@@ -110,7 +104,7 @@ namespace UserAdmin {
             });
 
             // Reset password
-            Starcounter.Handle.GET("/useradmin/user/resetpassword?{?}", (string query, Request request) => {
+            Handle.GET("/useradmin/user/resetpassword?{?}", (string query, Request request) => {
                 NameValueCollection queryCollection = HttpUtility.ParseQueryString(query);
                 string token = queryCollection.Get("token");
                 

@@ -1,11 +1,5 @@
-﻿using PolyjuiceNamespace;
+﻿using System;
 using Starcounter;
-using Starcounter.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Simplified.Ring5;
 
 namespace UserAdmin {

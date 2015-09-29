@@ -1,40 +1,45 @@
 <link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
 
 <template>
-    <H2>System users</H2>
-    <table class="table" >
-        <thead>
-            <tr>
-                <th>Sign-in name</th>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Member in</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <template repeat="{{item in Items}}">
+    <template is="dom-bind">
+        <h2>System users</h2>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
-                        <a href="/UserAdmin/admin/users/{{item.Key}}"> {{item.Username}}</a>
-                    </td>
-                    <td>
-                        <a href="/UserAdmin/admin/users/{{item.Key}}">{{item.FullName}}</a>
-                    </td>
-                    <td>{{item.Type}}</td>
-                    <td>
-                        <template repeat="{{group, groupIndex in item.Groups}}">
-                            <template if="{{groupIndex > 0}}">,&nbsp;</template>
-                            <a href="/UserAdmin/admin/usergroups/{{group.Key}}">{{group.Name}}</a>
-                        </template>                        
-                    </td>
-                    <td>
-                        <button onclick="getModel(this).item.Delete$++" class="btn btn-default btn-xs">Delete</button>
-                    </td>
+                    <th>Sign-in name</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Member in</th>
+                    <th>Action</th>
                 </tr>
-            </template>
-        </tbody>
-    </table>
-    <a class="btn btn-primary btn-sm" href="/UserAdmin/admin/createuser">Create User</a>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Items}}">
+                    <tr>
+                        <td>
+                            <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
+                            <a href="{{item.Url}}">{{item.Username}}</a>
+                        </td>
+                        <td>
+                            <a href="{{item.Url}}">{{item.FullName}}</a>
+                        </td>
+                        <td>{{item.Type}}</td>
+                        <td>
+                            <template is="dom-repeat" items="{{item.Groups}}" as="group" index-as="groupIndex">
+                                <template is="dom-if" if="{{groupIndex}}">
+                                    ,&nbsp;
+                                </template>
+                                <a href="{{group.Url}}">{{group.Name}}</a>
+                            </template>
+                        </td>
+                        <td>
+                            <button onclick="++this.value;" class="btn btn-default btn-xs" value="{{item.Delete$::click}}">Delete</button>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <a class="btn btn-primary btn-sm" href="/UserAdmin/admin/createuser">Create User</a>
+        <dom-bind-notifier observed-object="{{model}}" path="model" deep></dom-bind-notifier>
+    </template>
 </template>

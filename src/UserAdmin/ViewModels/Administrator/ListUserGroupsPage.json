@@ -8,9 +8,11 @@
             "Key": "",
             "Name": "",
             "$BasedOn": { "Bind": "BasedOn_" },
+            "Url": "",
             "BasedOn": {
                 "Key": "",
-                "Name": ""
+                "Name": "",
+                "Url": ""
             },
             "Delete$": 0
         }

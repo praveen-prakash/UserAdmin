@@ -13,10 +13,12 @@
             "ImageURL": "",
             "$Type": { "Bind": "Kind" },
             "Type": "",
+            "Url": "",
             "Groups": [
                 {
                     "Key": "",
-                    "Name": ""
+                    "Name": "",
+                    "Url": ""
                 }
             ],
             "Delete$": 0

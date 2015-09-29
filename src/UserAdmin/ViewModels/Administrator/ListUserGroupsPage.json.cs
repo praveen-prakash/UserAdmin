@@ -32,5 +32,18 @@ namespace UserAdmin {
                 SystemUserAdmin.DeleteSystemUserGroup(this.Data as Simplified.Ring3.SystemUserGroup);
             });
         }
+
+        protected override void OnData() {
+            base.OnData();
+            this.Url = string.Format("/useradmin/admin/usergroups/{0}", this.Key);
+        }
+    }
+
+    [ListUserGroupsPage_json.Items.BasedOn]
+    partial class SystemUserGroupsItemBasedOn : Json {
+        protected override void OnData() {
+            base.OnData();
+            this.Url = string.Format("/useradmin/admin/usergroups/{0}", this.Key);
+        }
     }
 }

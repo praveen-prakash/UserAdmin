@@ -1,4 +1,5 @@
 {
     "name": "UserAdmin",
-    "description": "User Administraton Application based on Sociery Objects"
+    "description": "User Administraton Application based on Sociery Objects",
+    "html": "/UserAdmin/viewmodels/launcher/AppIconPage.html"
 }

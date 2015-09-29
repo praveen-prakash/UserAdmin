@@ -3,73 +3,85 @@
 <link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
 
 <template>
-    <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
-    <h2>System User Group ({{ Name$ }})</h2>
-    <div class="form-horizontal">
-        <label class="control-label" for="Name$">Name</label>
-    </div>
-    <div>
-        <input id="Name$" type="text" value="{{ Name$ }}" upd update-on="input" placeholder="Name" class="form-control" />
-    </div>
-    <div class="form-horizontal">
-        <label class="control-label" for="BasedOn">Based On</label>
-    </div>
-    <div>
-        <select value="{{SelectedBasedOnGroupID$}}" id="BasedOn" class="form-control">
-            <option value="">None</option>
-            <template repeat="{{ item in UserGroups }}">
-                <option value="{{item.Key}}">{{item.Name}}</option>
-            </template>
-        </select>
-    </div>
-    <template if="{{Message}}">
-        <p>{{Message}}</p>
-    </template>
-    <h3>Members</h3>
-    <table class="table" >
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <template repeat="{{item in Members}}">
-                <tr>
-                    <td>
-                        <a href="/UserAdmin/admin/users/{{item.Key}}"> {{item.FullName}}</a>
-                    </td>
-                    <td>
-                        <button class="btn btn-default btn-xs" onclick="getModel(this).item.Remove$++">Remove</button>
-                    </td>
-                </tr>
-            </template>
-        </tbody>
-    </table>
-    <div>
-        <template if="{{AddUser_Feedback}}">
-            <span class="isa_Error}}">
-                {{AddUser_Feedback.Message}}
-            </span>
+    <template is="dom-bind">
+        <sgb-property-metadata items="{{model.PropertyMetadataItems.Items}}"></sgb-property-metadata>
+        <h2>System User Group (<span>{{model.Name$}}</span>)</h2>
+        <div class="form-horizontal">
+            <label class="control-label" for="Name$">Name</label>
+        </div>
+        <div>
+            <input id="Name$" type="text" value="{{model.Name$::change}}" upd update-on="input" placeholder="Name" class="form-control" />
+        </div>
+        <div class="form-horizontal">
+            <label class="control-label" for="BasedOn">Based On</label>
+        </div>
+        <div>
+            <select value="{{model.SelectedBasedOnGroupID$::change}}" id="BasedOn" class="form-control">
+                <option value="">None</option>
+                <template is="dom-repeat" items="{{model.UserGroups}}">
+                    <option value="{{item.Key}}">{{item.Name}}</option>
+                </template>
+            </select>
+        </div>
+        <template is="dom-if" if="{{model.Message}}">
+            <p>{{model.Message}}</p>
         </template>
-    </div>
-    <div>
-        <input id="AddUserName$" type="text" value="{{ AddUserName$ }}" placeholder="Username" class="form-control" />
-    </div>
-    <div>
-        <button class="btn btn-default btn-sm" onclick="getModel(this).AddUser$++">Add User</button>
-    </div>
-    <div>
-        <button class="btn btn-primary" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$++">Save</button>
-    </div>
-    <div>
-        <button class="btn btn-default" onclick="getModel(this).Delete$++">Delete</button>
-    </div>
-    <div>
-        <button class="btn btn-default" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$++">Undo</button>
-    </div>
-    <div>
-        <button class="btn btn-default" onclick="getModel(this).Close$++">Close</button>
-    </div>
-   <link is="puppet-redirect" history url="{{ RedirectUrl }}" />
+        <h3>Members</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Members}}">
+                    <tr>
+                        <td>
+                            <a href="{{item.Url}}">{{item.FullName}}</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-xs" onclick="++this.value;" value="{{item.Remove$::click}}">Remove</button>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <div>
+            <template is="dom-if" if="{{model.AddUser_Feedback}}">
+                <span class="isa_Error}}">{{model.AddUser_Feedback.Message}}</span>
+            </template>
+        </div>
+        <div>
+            <input id="AddUserName$" type="text" value="{{model.AddUserName$::change}}" placeholder="Username" class="form-control" />
+        </div>
+        <div>
+            <button class="btn btn-default btn-sm" onclick="++this.value;" value="{{model.AddUser$::click}}">Add User</button>
+        </div>
+        <div>
+            <button class="btn btn-primary" disabled$="{{isSaveDisabled(model.IsInvalid, model.IsPristine)}}" onclick="++this.value;" value="{{model.Save$::click}}">Save</button>
+        </div>
+        <div>
+            <button class="btn btn-default" onclick="++this.value;" value="{{model.Delete$::click}}">Delete</button>
+        </div>
+        <div>
+            <button class="btn btn-default" disabled$="{{model.IsPristine}}" onclick="++this.value;" value="{{model.Rollback$::click}}">Undo</button>
+        </div>
+        <div>
+            <button class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
+        </div>
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+        <dom-bind-notifier observed-object="{{model}}" path="model" deep></dom-bind-notifier>
+    </template>
+    <script>
+        (function (template) {
+            template.isSaveDisabled = function (IsInvalid, IsPristine) {
+                return IsInvalid || IsPristine;
+            };
+
+            template.isResetPassportDisabled = function (IsDirty, ResetPassword_Enabled) {
+                return IsDirty || !ResetPassword_Enabled;
+            };
+        })(document.currentScript.previousElementSibling);
+    </script>
 </template>

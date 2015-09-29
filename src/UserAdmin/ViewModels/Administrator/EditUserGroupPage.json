@@ -19,6 +19,7 @@
             "Username": "",
             "$FullName": { "Bind": "WhoIs.FullName" },
             "FullName": "",
+            "Url": "",
             "Remove$": 0
         }
     ],

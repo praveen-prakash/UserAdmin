@@ -3,18 +3,21 @@
 <link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
 
 <template>
-    <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
-    <h2>Create Group</h2>
-    <div class="form-horizontal">
-        <label class="control-label" for="Name$">Name</label>
-    </div>
-    <div>
-        <input id="Name$" type="text" value="{{ Name$ }}" upd update-on="input" placeholder="Name" class="form-control" />
-    </div>
-    <template if="{{Message}}">
-        <p>{{Message}}</p>
+    <template is="dom-bind">
+        <sgb-property-metadata items="{{model.PropertyMetadataItems.Items}}"></sgb-property-metadata>
+        <h2>Create Group</h2>
+        <div class="form-horizontal">
+            <label class="control-label" for="Name$">Name</label>
+        </div>
+        <div>
+            <input id="Name$" type="text" value="{{model.Name$::change}} placeholder="Name" class="form-control" />
+        </div>
+        <template is="dom-if" if="{{model.Message}}">
+            <p>{{model.Message}}</p>
+        </template>
+        <button class="btn btn-primary" onclick="++this.value;" value="{{model.Save$::click}}">Save</button>
+        <button class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+        <dom-bind-notifier observed-object="{{model}}" path="model" deep></dom-bind-notifier>
     </template>
-    <button class="btn btn-primary" onclick="getModel(this).Save$++">Save</button>
-    <button class="btn btn-default"  onclick="getModel(this).Close$++">Close</button>
-    <link is="puppet-redirect" history url="{{ RedirectUrl }}" />
 </template>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Starcounter;
-using PolyjuiceNamespace;
 using Simplified.Ring1;
 using Simplified.Ring3;
 using Simplified.Ring5;
@@ -22,7 +21,7 @@ namespace UserAdmin {
             CommitHooks.Register();
             LauncherHooks.Register();
 
-            Polyjuice.OntologyMap("/UserAdmin/admin/users/@w", "/so/person/@w",
+            UriMapping.OntologyMap("/UserAdmin/admin/users/@w", "/so/person/@w",
             
                 (String fromSo) => {
                     var user = Db.SQL<SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.ObjectID=?", fromSo).First;
@@ -50,7 +49,7 @@ namespace UserAdmin {
         /// </summary>
         static private void SetupPermissions() {
 
-            SystemUserGroup adminGroup = Db.SQL<SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name=?", Program.AdminGroupName).First;
+            SystemUserGroup adminGroup = Db.SQL<SystemUserGroup>("SELECT o FROM Simplified.Ring3.SystemUserGroup o WHERE o.Name = ?", Program.AdminGroupName).First;
             Helper.AssureUriPermission("/UserAdmin/admin/users", adminGroup);
             Helper.AssureUriPermission("/UserAdmin/admin/users/{?}", adminGroup);
             Helper.AssureUriPermission("/UserAdmin/admin/createuser", adminGroup);

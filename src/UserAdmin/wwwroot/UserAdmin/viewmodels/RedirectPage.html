@@ -1,5 +1,8 @@
 ﻿<link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html">
 
 <template>
-   <link is="puppet-redirect" history url="{{ RedirectUrl }}">
+    <template is="dom-bind">
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+        <dom-bind-notifier observed-object="{{model}}" path="model" deep></dom-bind-notifier>
+    </template>
 </template>

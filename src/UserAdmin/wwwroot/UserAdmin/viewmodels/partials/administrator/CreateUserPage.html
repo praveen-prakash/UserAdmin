@@ -1,45 +1,49 @@
 <link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html" />
 <link rel="import" href="/sys/sgb-property-metadata/sgb-property-metadata.html" />
 <link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
+
 <template>
-    <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
-    {{PropertyMetadataItems.Items}}
-    <H2>Create User</H2>
-    <div class="form-horizontal">
-        <label class="control-label" for="Username$">Username</label>
-    </div>
-    <div>
-        <input id="Username$" type="text" value="{{ Username$ }}" update-on="input" placeholder="Username" class="form-control" />
-    </div>
+    <template is="dom-bind">
+        <sgb-property-metadata items="{{model.PropertyMetadataItems.Items}}"></sgb-property-metadata>
+        <div>{{model.PropertyMetadataItems.Items}}</div>
+        <h2>Create User</h2>
+        <div class="form-horizontal">
+            <label class="control-label" for="Username$">Username</label>
+        </div>
+        <div>
+            <input id="Username$" type="text" value="{{model.Username$::change}} placeholder="Username" class="form-control" />
+        </div>
 
-    <div class="form-horizontal">
-        <label class="control-label" for="FirstName$">FirstName</label>
-    </div>
-    <div>
-        <input id="FirstName$" type="text" value="{{ FirstName$ }}" update-on="input" placeholder="FirstName" class="form-control" />
-    </div>
+        <div class="form-horizontal">
+            <label class="control-label" for="FirstName$">FirstName</label>
+        </div>
+        <div>
+            <input id="FirstName$" type="text" value="{{model.FirstName$::change}} placeholder="FirstName" class="form-control" />
+        </div>
 
-    <div class="form-horizontal">
-        <label class="control-label" for="LastName$">LastName</label>
-    </div>
-    <div>
-        <input id="LastName$" type="text" value="{{ LastName$ }}" update-on="input" placeholder="LastName" class="form-control" />
-    </div>
+        <div class="form-horizontal">
+            <label class="control-label" for="LastName$">LastName</label>
+        </div>
+        <div>
+            <input id="LastName$" type="text" value="{{model.LastName$::change}} placeholder="LastName" class="form-control" />
+        </div>
 
-    <div class="form-horizontal">
-        <label class="control-label" for="Password$">Password</label>
-    </div>
-    <div>
-        <input id="Password$" type="password" value="{{ Password$ }}" placeholder="Password" class="form-control" />
-    </div>
-    <template if="{{Message}}">
-        <p class="alert">{{Message}}</p>
+        <div class="form-horizontal">
+            <label class="control-label" for="Password$">Password</label>
+        </div>
+        <div>
+            <input id="Password$" type="password" value="{{model.Password$::change}}" placeholder="Password" class="form-control" />
+        </div>
+        <template is="dom-if" if="{{model.Message}}">
+            <p class="alert">{{model.Message}}</p>
+        </template>
+        <div>
+            <button class="btn btn-primary" disabled="{{model.IsInvalid}}" onclick="++this.value;" value="{{model.Save$::click}}">Save</button>
+        </div>
+        <div>
+            <button class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
+        </div>
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+        <dom-bind-notifier observed-object="{{model}}" path="model" deep></dom-bind-notifier>
     </template>
-    <div>
-        <button class="btn btn-primary" disabled?="{{ IsInvalid }}" onclick="getModel(this).Save$++">Save</button>
-    </div>
-    <div>
-        <button class="btn btn-default" onclick="getModel(this).Close$++">Close</button>
-    </div>
-   <link is="puppet-redirect" history url="{{ RedirectUrl }}" />
 </template>

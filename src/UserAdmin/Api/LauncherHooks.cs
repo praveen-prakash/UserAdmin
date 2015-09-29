@@ -2,30 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Starcounter;
-using PolyjuiceNamespace;
 
 namespace UserAdmin {
     public class LauncherHooks {
         public static void Register() {
 
             // Workspace root (Launchpad)
-            Starcounter.Handle.GET("/useradmin", () => {
+            Handle.GET("/useradmin", () => {
                 return Self.GET("/useradmin/admin/users");
             });
 
-            Starcounter.Handle.GET("/useradmin/app-name", () => {
+            Handle.GET("/useradmin/app-name", () => {
                 return new AppName();
             });
 
             // App name required for Launchpad
-            Starcounter.Handle.GET("/useradmin/app-icon", () => {
+            Handle.GET("/useradmin/app-icon", () => {
                 return new Page() { Html = "/UserAdmin/viewmodels/launcher/AppIconPage.html" };
             });
 
             // Menu
-            Starcounter.Handle.GET("/useradmin/menu", () => {
+            Handle.GET("/useradmin/menu", () => {
 
                 UserSessionPage userSessionPage = new UserSessionPage();
 
@@ -42,7 +40,7 @@ namespace UserAdmin {
 
             // TODO:
             // Not sure where to put this.
-            Starcounter.Handle.GET("/useradmin/search/{?}", (string query) => {
+            Handle.GET("/useradmin/search/{?}", (string query) => {
                 var result = new SearchResultPage();
                 result.Html = "/UserAdmin/viewmodels/launcher/AppSearchPage.html";
 
@@ -55,10 +53,10 @@ namespace UserAdmin {
                 return result;
             });
 
-            Polyjuice.Map("/useradmin/menu", "/polyjuice/menu");
-            Polyjuice.Map("/useradmin/app-name", "/polyjuice/app-name");
-            Polyjuice.Map("/useradmin/app-icon", "/polyjuice/app-icon");
-            Polyjuice.Map("/useradmin/search/@w", "/polyjuice/search?query=@w");
+            UriMapping.Map("/useradmin/menu", "/sc/mapping/menu");
+            UriMapping.Map("/useradmin/app-name", "/sc/mapping/app-name");
+            UriMapping.Map("/useradmin/app-icon", "/sc/mapping/app-icon");
+            UriMapping.Map("/useradmin/search/@w", "/sc/mapping/search?query=@w");
         }
     }
 }

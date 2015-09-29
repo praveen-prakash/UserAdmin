@@ -1,17 +1,10 @@
-﻿using Starcounter;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System;
+using Starcounter;
 
 namespace UserAdmin {
     public class SettingsHandlers {
         public static void Register() {
-            Starcounter.Handle.GET("/UserAdmin/admin/settings", (Request request) => {
+            Handle.GET("/UserAdmin/admin/settings", (Request request) => {
 
                 // TODO: At the moment we only show MailSettings, eventually MailSettings will only be one part of all settings
                 Json page;

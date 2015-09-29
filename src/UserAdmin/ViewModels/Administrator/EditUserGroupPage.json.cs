@@ -285,5 +285,10 @@ namespace UserAdmin {
             Simplified.Ring3.SystemUser systemUser = this.Data as Simplified.Ring3.SystemUser;
             SystemUserAdmin.RemoveSystemUserFromSystemUserGroup(systemUser, group);
         }
+
+        protected override void OnData() {
+            base.OnData();
+            this.Url = string.Format("/useradmin/admin/users/{0}", this.Key);
+        }
     }
 }

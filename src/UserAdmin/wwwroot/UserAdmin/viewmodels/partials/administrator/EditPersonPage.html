@@ -3,83 +3,98 @@
 <link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
 
 <template>
-    <sgb-property-metadata items="{{PropertyMetadataItems.Items}}"></sgb-property-metadata>
-    <img src="{{ImageURL}}" />
-    <H2>{{FullName}}</H2>
-    <div class="form-horizontal">
-        <label class="control-label" for="Username">Username</label>
-    </div>
-    <div>
-        <input id="Username" type="text" value="{{ Username }}" update-on="input" placeholder="Username" class="form-control" readonly />
-    </div>
+    <template is="dom-bind">
+        <sgb-property-metadata items="{{model.PropertyMetadataItems.Items}}"></sgb-property-metadata>
+        <img src="{{model.ImageURL}}" />
+        <h2>{{model.FullName}}</h2>
+        <div class="form-horizontal">
+            <label class="control-label" for="Username">Username</label>
+        </div>
+        <div>
+            <input id="Username" type="text" value="{{model.Username}}" update-on="input" placeholder="Username" class="form-control" readonly />
+        </div>
 
-    <div class="form-horizontal">
-        <label class="control-label" for="FirstName$">FirstName</label>
-    </div>
-    <div>
-        <input id="FirstName$" type="text" value="{{ FirstName$ }}" update-on="input" placeholder="FirstName" class="form-control" />
-    </div>
+        <div class="form-horizontal">
+            <label class="control-label" for="FirstName$">FirstName</label>
+        </div>
+        <div>
+            <input id="FirstName$" type="text" value="{{model.FirstName$::change}}" update-on="input" placeholder="FirstName" class="form-control" />
+        </div>
 
-    <div class="form-horizontal">
-        <label class="control-label" for="LastName$">LastName</label>
-    </div>
-    <div>
-        <input id="LastName$" type="text" value="{{ LastName$ }}" update-on="input" placeholder="LastName" class="form-control" />
-    </div>
+        <div class="form-horizontal">
+            <label class="control-label" for="LastName$">LastName</label>
+        </div>
+        <div>
+            <input id="LastName$" type="text" value="{{model.LastName$::change}}" update-on="input" placeholder="LastName" class="form-control" />
+        </div>
 
-    <!-- Member in user groups -->
-    <h3>Member in</h3>
-    <table class="table" >
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <template repeat="{{item in Groups}}">
+        <!-- Member in user groups -->
+        <h3>Member in</h3>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <a href="/UserAdmin/admin/usergroups/{{item.Key}}">{{item.Name}}</a>
-                    </td>
-                    <td>
-                        <button class="btn btn-default btn-xs" onclick="getModel(this).item.Remove$++">Remove</button>
-                    </td>
+                    <th>Name</th>
+                    <th>Action</th>
                 </tr>
-            </template>
-        </tbody>
-    </table>
-    <div class="form-horizontal">
-        <label class="control-label" for="AddToGroup">Add System Group</label>
-    </div>
-    <div>
-        <select class="form-control" value="{{SelectedSystemUserGroupsID$}}">
-            <option value="">None</option>
-            <template repeat="{{ item in SystemUserGroups }}">
-                <option value="{{item.Key}}">{{item.Name}}</option>
-            </template>
-        </select>
-    </div>
-    <div>
-        <button class="btn btn-default btn-sm" onclick="getModel(this).AddUserToGroup$++">Add</button>
-    </div>
-    <template if="{{Message}}">
-        <p>{{Message}}</p>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Groups}}">
+                    <tr>
+                        <td>
+                            <a href="{{item.Url}}">{{item.Name}}</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btn-xs" onclick="++this.value;" value="{{model.Remove$::click}}">Remove</button>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <div class="form-horizontal">
+            <label class="control-label" for="AddToGroup">Add System Group</label>
+        </div>
+        <div>
+            <select class="form-control" value="{{model.SelectedSystemUserGroupsID$::change}}">
+                <option value="">None</option>
+                <template is="dom-repeat" items="{{model.SystemUserGroups }}">
+                    <option value="{{item.Key}}">{{item.Name}}</option>
+                </template>
+            </select>
+        </div>
+        <div>
+            <button class="btn btn-default btn-sm" onclick="++this.value;" value="{{model.AddUserToGroup$::click}}">Add</button>
+        </div>
+        <template is="dom-if" if="{{model.Message}}">
+            <p>{{model.Message}}</p>
+        </template>
+        <div>
+            <button class="btn btn-primary" disabled$="{{isSaveDisabled(model.IsInvalid, IsPristine)}}" onclick="++this.value;" value="{{model.Save$::click}}">Save</button>
+        </div>
+        <div>
+            <button class="btn btn-default" onclick="++this.value;" value="{{model.Delete$::click}}">Delete</button>
+        </div>
+        <div>
+            <button class="btn btn-default" disabled$="{{isResetPassportDisabled(model.IsDirty, model.ResetPassword_Enabled)}}" onclick="++this.value;" value="{{model.ResetPassword$::click}}">Reset Password</button>
+        </div>
+        <div>
+            <button class="btn btn-default" disabled$="{{model.IsPristine}}" onclick="++this.value;" value="{{model.Rollback$::click}}">Undo</button>
+        </div>
+        <div>
+            <button class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
+        </div>
+
+        <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
+        <dom-bind-notifier observed-object="{{model}}" path="model" deep></dom-bind-notifier>
     </template>
-    <div>
-        <button class="btn btn-primary" disabled?="{{ IsInvalid || IsPristine }}" onclick="getModel(this).Save$++">Save</button>
-    </div>
-    <div>
-        <button class="btn btn-default" onclick="getModel(this).Delete$++">Delete</button>
-    </div>
-    <div>
-        <button class="btn btn-default" disabled?="{{ IsDirty || !ResetPassword_Enabled }}" onclick="getModel(this).ResetPassword$++">Reset Password</button>
-    </div>
-    <div>
-        <button class="btn btn-default" disabled?="{{ IsPristine }}" onclick="getModel(this).Rollback$++">Undo</button>
-    </div>
-    <div>
-        <button class="btn btn-default" onclick="getModel(this).Close$++">Close</button>
-    </div>
-    <link is="puppet-redirect" history url="{{ RedirectUrl }}" />
+    <script>
+        (function (template) {
+            template.isSaveDisabled = function (IsInvalid, IsPristine) {
+                return IsInvalid || IsPristine;
+            };
+
+            template.isResetPassportDisabled = function (IsDirty, ResetPassword_Enabled) {
+                return IsDirty || !ResetPassword_Enabled;
+            };
+        })(document.currentScript.previousElementSibling);
+    </script>
 </template>
