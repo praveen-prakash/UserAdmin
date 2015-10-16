@@ -17,6 +17,8 @@
         {
             "Key": "",
             "Username": "",
+			"$ImageURL": { "Bind": "WhoIs.ImageURL" },
+			"ImageURL": "",
             "$FullName": { "Bind": "WhoIs.FullName" },
             "FullName": "",
             "Url": "",
@@ -34,7 +36,9 @@
     "Close$": 0,
 
     // Inherited from PropertyMetadataItem
-    "PropertyMetadataItems": { "$": { "Reuse": "PropertyMetadataItems" } },
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
     "$IsDirty": { "Bind": "IsDirty_" },
     "IsDirty": false,
     "$IsPristine": { "Bind": "IsPristine_" },

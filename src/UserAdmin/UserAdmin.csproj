@@ -74,9 +74,6 @@
     <Reference Include="Starcounter.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d2df1e81d0ca3abf">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Starcounter.Node, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d2df1e81d0ca3abf">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Starcounter.XSON, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d2df1e81d0ca3abf">
       <Private>False</Private>
     </Reference>
@@ -92,6 +89,9 @@
     <Compile Include="Helpers\SystemUserAdmin.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Helpers\Utils.cs" />
+    <Compile Include="MasterPage.json.cs">
+      <DependentUpon>MasterPage.json</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccessDeniedPage.json.cs">
@@ -127,6 +127,9 @@
     <Compile Include="ViewModels\Administrator\SomebodyPage.json.cs">
       <DependentUpon>SomebodyPage.json</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\Administrator\SystemUserGroupItem.json.cs">
+      <DependentUpon>SystemUserGroupItem.json</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Launcher\AdminMenu.json.cs">
       <DependentUpon>AdminMenu.json</DependentUpon>
     </Compile>
@@ -138,14 +141,14 @@
       <DependentUpon>ResetPasswordPage.json</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\UserSessionPage.json.cs">
-      <DependentUpon>UserSessionPage.json</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\sys\sgb-property-metadata\sgb-property-metadata.html" />
     <Content Include="wwwroot\UserAdmin\css\useradmin.css" />
     <Content Include="wwwroot\UserAdmin\viewmodels\AccessDeniedPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\launcher\AppMenuPage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\launcher\StandalonePage.html" />
+    <Content Include="wwwroot\UserAdmin\viewmodels\launcher\LauncherWrapperPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\EditUserGroupPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\ListUserGroupsPage.html" />
     <Content Include="wwwroot\UserAdmin\viewmodels\partials\administrator\CreateUserGroupPage.html" />
@@ -177,17 +180,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\sys\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypedJSON Include="ViewModels\RedirectPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
     <TypedJSON Include="ViewModels\User\ResetPasswordPage.json">
-      <Generator>MsBuild:Compile</Generator>
-    </TypedJSON>
-    <TypedJSON Include="ViewModels\UserSessionPage.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>
@@ -252,13 +250,23 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\PropertyMetadata\Smorgasbord.PropertyMetadata.csproj">
+    <TypedJSON Include="ViewModels\AccessDeniedPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Smorgasbord-Development\PropertyMetadata\Smorgasbord.PropertyMetadata.csproj">
       <Project>{2fd5b1ef-a242-4d99-bb8b-8114a0277a07}</Project>
       <Name>Smorgasbord.PropertyMetadata</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <TypedJSON Include="ViewModels\AccessDeniedPage.json">
+    <TypedJSON Include="MasterPage.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
+  </ItemGroup>
+  <ItemGroup>
+    <TypedJSON Include="ViewModels\Administrator\SystemUserGroupItem.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
   </ItemGroup>

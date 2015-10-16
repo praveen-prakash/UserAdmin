@@ -44,7 +44,9 @@
     "Name$": "",
 
     // Inherited from PropertyMetadataItem
-    "PropertyMetadataItems": { "$": { "Reuse": "PropertyMetadataItems" } },
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
     "$IsDirty": { "Bind": "IsDirty_" },
     "IsDirty": false,
     "$IsPristine": { "Bind": "IsPristine_" },

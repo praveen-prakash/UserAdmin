@@ -70,11 +70,13 @@ namespace UserAdmin {
         }
     }
 
-    [EditPersonPage_json.Groups]
-    partial class PersonGroupItem : SombodyGroupItem {
-        protected override void OnData() {
-            base.OnData();
-            this.Url = string.Format("/useradmin/admin/usergroups/{0}", this.Key);
-        }
-    }
+    //[EditPersonPage_json.Groups]
+    //// TODO: AWA
+    //partial class PersonGroupItem : SombodyGroupItem {
+    ////partial class PersonGroupItem : Json {
+    //    protected override void OnData() {
+    //        base.OnData();
+    //        this.Url = string.Format("/useradmin/admin/usergroups/{0}", this.Key);
+    //    }
+    //}
 }

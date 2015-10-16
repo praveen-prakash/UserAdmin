@@ -8,14 +8,9 @@
     "ImageURL": "",
     "$FullName": { "Bind": "WhoIs.FullName" },
     "FullName": "",
-    "Groups": [
-        {
-            "Key": "",
-            "Name": "",
-            "Url": "",
-            "Remove$": 0
-        }
-    ],
+	"Groups": [{
+		"$" : { "Reuse" : "UserAdmin.ViewModels.Administrator.SystemUserGroupItem" }
+    }],
     "Message": "",
     "RedirectUrl": "",
 
@@ -43,7 +38,9 @@
     "LastName$": "",
 
     // Inherited from PropertyMetadataItem
-    "PropertyMetadataItems": { "$": { "Reuse": "PropertyMetadataItems" } },
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
     "$IsDirty": { "Bind": "IsDirty_" },
     "IsDirty": false,
     "$IsPristine": { "Bind": "IsPristine_" },

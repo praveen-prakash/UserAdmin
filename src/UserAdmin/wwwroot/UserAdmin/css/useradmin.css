@@ -1,7 +1,7 @@
 ﻿
-    table.gridtable {
-        border-collapse: collapse;
-    }
+table.gridtable {
+    border-collapse: collapse;
+}
 
     table.gridtable th {
         border-width: 1px 1px 1px 1px;
@@ -20,48 +20,44 @@
         background-color: #ffffff;
     }
 
-    .isa_Message, .isa_Warning, .isa_Error {
-        margin: 0px 0px;
-        padding: 3px 5px 3px 5px;
-        align-self: center;
-    }
+.isa_Message, .isa_Warning, .isa_Error {
+    margin: 0px 0px;
+    padding: 3px 5px 3px 5px;
+    align-self: center;
+}
 
-    .isa_Message {
-        color: #00529B;
-        background-color: #BDE5F8;
-    }
+.isa_Message {
+    color: #00529B;
+    background-color: #BDE5F8;
+}
 
-    .isa_Warning {
-        color: #9F6000;
-        background-color: #FEEFB3;
-    }
+.isa_Warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
 
-    .isa_Error {
-        color: #D8000C;
-        background-color: #FFBABA;
-    }
-
-
-    textarea:invalid { 
-        border: 1px solid red;
-        background: rgb(248, 214, 214);
-    }
-
-    input[type=text]:invalid {
-
-        border: 1px solid red;
-        background: rgb(248, 214, 214);
-    }
-
-    input[type=email]:invalid {
-
-        border: 1px solid red;
-        background: rgb(248, 214, 214);
-    }
+.isa_Error {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
 
 
-    input[type=number]:invalid {
+textarea:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}
 
-        border: 1px solid red;
-        background: rgb(248, 214, 214);
-    }
+input[type=text]:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}
+
+input[type=email]:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}
+
+input[type=number]:invalid {
+    background-color: rgb(243, 60, 60);
+    color: white;
+}

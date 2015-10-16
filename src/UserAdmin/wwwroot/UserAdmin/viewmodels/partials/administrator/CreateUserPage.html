@@ -1,44 +1,45 @@
 <link rel="import" href="/sys/puppet-redirect/src/puppet-redirect.html" />
 <link rel="import" href="/sys/sgb-property-metadata/sgb-property-metadata.html" />
 <link rel="stylesheet" href="/sys/bootswatch/paper/bootstrap.css" />
+<link rel="stylesheet" href="/useradmin/css/useradmin.css" />
 
 <template>
     <template is="dom-bind">
-        <sgb-property-metadata items="{{model.PropertyMetadataItems.Items}}"></sgb-property-metadata>
-        <div>{{model.PropertyMetadataItems.Items}}</div>
+        <sgb-property-metadata items="{{model.PropertyMetadataItems}}"></sgb-property-metadata>
         <h2>Create User</h2>
+
         <div class="form-horizontal">
             <label class="control-label" for="Username$">Username</label>
         </div>
         <div>
-            <input id="Username$" type="text" value="{{model.Username$::change}} placeholder="Username" class="form-control" />
+            <input id="Username$" type="text" value="{{model.Username$::input}}" placeholder="Username" class="form-control" />
         </div>
 
         <div class="form-horizontal">
             <label class="control-label" for="FirstName$">FirstName</label>
         </div>
         <div>
-            <input id="FirstName$" type="text" value="{{model.FirstName$::change}} placeholder="FirstName" class="form-control" />
+            <input id="FirstName$" type="text" value="{{model.FirstName$::input}}" placeholder="FirstName" class="form-control" />
         </div>
 
         <div class="form-horizontal">
             <label class="control-label" for="LastName$">LastName</label>
         </div>
         <div>
-            <input id="LastName$" type="text" value="{{model.LastName$::change}} placeholder="LastName" class="form-control" />
+            <input id="LastName$" type="text" value="{{model.LastName$::input}}" placeholder="LastName" class="form-control" />
         </div>
 
         <div class="form-horizontal">
             <label class="control-label" for="Password$">Password</label>
         </div>
         <div>
-            <input id="Password$" type="password" value="{{model.Password$::change}}" placeholder="Password" class="form-control" />
+            <input id="Password$" type="password" value="{{model.Password$::input}}" placeholder="Password" class="form-control" />
         </div>
         <template is="dom-if" if="{{model.Message}}">
             <p class="alert">{{model.Message}}</p>
         </template>
         <div>
-            <button class="btn btn-primary" disabled="{{model.IsInvalid}}" onclick="++this.value;" value="{{model.Save$::click}}">Save</button>
+            <button class="btn btn-primary" disabled="{{model.IsInvalid}}" onclick="++this.value" value="{{model.Save$::click}}">Save</button>
         </div>
         <div>
             <button class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>

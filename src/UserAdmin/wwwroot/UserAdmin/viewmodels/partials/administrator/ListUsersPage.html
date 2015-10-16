@@ -17,7 +17,9 @@
                 <template is="dom-repeat" items="{{model.Items}}">
                     <tr>
                         <td>
-                            <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
+                            <template is="dom-if" if="{{item.ImageURL}}">
+                                <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
+                            </template>
                             <a href="{{item.Url}}">{{item.Username}}</a>
                         </td>
                         <td>

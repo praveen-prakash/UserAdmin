@@ -21,24 +21,23 @@ namespace UserAdmin {
         }
 
         private static void RefreshSignInState() {
-            bool isAdmin = UserSessionPage.IsAdmin();
-            UserSessionPage page = Session.Current.Data as UserSessionPage;
+            bool isAdmin = MasterPage.IsAdmin();
 
+            MasterPage master = Session.Current.Data as MasterPage; ;
+            if (master == null) return;
+
+            AdminMenu page = master.Menu as AdminMenu;
             if (page == null) {
                 return;
             }
 
-            if (page.Menu != null) {
-                AdminMenu menu = page.Menu as AdminMenu;
+            page.IsAdministrator = isAdmin;
 
-                menu.IsAdministrator = isAdmin;
-
-                if (!isAdmin && oldIsAdmin) {
-                    menu.RedirectUrl = "/";
-                }
-
-                oldIsAdmin = isAdmin;
+            if (!isAdmin && oldIsAdmin) {
+                page.RedirectUrl = "/launcher";
             }
+
+            oldIsAdmin = isAdmin;
         }
     }
 }

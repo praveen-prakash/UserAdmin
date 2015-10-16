@@ -8,17 +8,19 @@
     "ImageURL": "",
     "$FullName": { "Bind": "WhoIs.FullName" },
     "FullName": "",
-    "Groups": [
-        {
-            "Key": "",
-            "Name": "",
-            "Remove$": 0
-        }
-    ],
+	"Groups": [{
+		"$" : { "Reuse" : "UserAdmin.ViewModels.Administrator.SystemUserGroupItem" }
+    }],
     "Message": "",
     "RedirectUrl": "",
 
     "AddUserToGroup$": 0,
+
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
+
+
 
     "ResetPassword$": 0,
     "Delete$": 0,

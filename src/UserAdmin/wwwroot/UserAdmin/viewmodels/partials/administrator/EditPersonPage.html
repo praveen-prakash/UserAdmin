@@ -4,7 +4,7 @@
 
 <template>
     <template is="dom-bind">
-        <sgb-property-metadata items="{{model.PropertyMetadataItems.Items}}"></sgb-property-metadata>
+        <sgb-property-metadata items="{{model.PropertyMetadataItems}}"></sgb-property-metadata>
         <img src="{{model.ImageURL}}" />
         <h2>{{model.FullName}}</h2>
         <div class="form-horizontal">
@@ -44,7 +44,7 @@
                             <a href="{{item.Url}}">{{item.Name}}</a>
                         </td>
                         <td>
-                            <button class="btn btn-default btn-xs" onclick="++this.value;" value="{{model.Remove$::click}}">Remove</button>
+                            <button class="btn btn-default btn-xs" onclick="++this.value;" value="{{item.Remove$::click}}">Remove</button>
                         </td>
                     </tr>
                 </template>
@@ -54,10 +54,20 @@
             <label class="control-label" for="AddToGroup">Add System Group</label>
         </div>
         <div>
-            <select class="form-control" value="{{model.SelectedSystemUserGroupsID$::change}}">
+            <select value="{{model.SelectedSystemUserGroupsID$::change}}" class="form-control">
                 <option value="">None</option>
-                <template is="dom-repeat" items="{{model.SystemUserGroups }}">
-                    <option value="{{item.Key}}">{{item.Name}}</option>
+                <template restamp="true" is="dom-repeat" items="{{model.SystemUserGroups }}">
+
+                    <template restamp="false" is="dom-if" if="{{ isEqual(item.Key,model.SelectedSystemUserGroupsID$) }}">
+                        <option selected="selected" value="{{item.Key}}">{{item.Name}}</option>
+                    </template>
+
+                    <template restamp="false" is="dom-if" if="{{ !isEqual(item.Key,model.SelectedSystemUserGroupsID$) }}">
+                        <option value="{{item.Key}}">{{item.Name}}</option>
+                    </template>
+
+
+                    <!--<option value="{{item.Key}}">{{item.Name}}</option>-->
                 </template>
             </select>
         </div>
@@ -95,6 +105,10 @@
             template.isResetPassportDisabled = function (IsDirty, ResetPassword_Enabled) {
                 return IsDirty || !ResetPassword_Enabled;
             };
+
+            template.isEqual = function (value1, value2) {
+                return value1 === value2;
+            }
         })(document.currentScript.previousElementSibling);
     </script>
 </template>

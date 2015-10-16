@@ -21,7 +21,9 @@
     "Close$": 0,
 
     // Inherited from PropertyFeedbackPage
-    "PropertyMetadataItems": { "$": { "Reuse": "PropertyMetadataItems" } },
+	"PropertyMetadataItems": [{
+		"$" : { "Reuse" : "PropertyMetadataItem" }
+    }],
     "$IsDirty": { "Bind": "IsDirty_" },
     "IsDirty": false,
     "$IsPristine": { "Bind": "IsPristine_" },

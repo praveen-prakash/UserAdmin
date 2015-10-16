@@ -218,17 +218,18 @@ namespace UserAdmin {
 
     }
 
-    [SomebodyPage_json.Groups]
-    partial class SombodyGroupItem : Json {
+    // TODO: AWA
+    //[SomebodyPage_json.Groups]
+    //partial class SombodyGroupItem : Json {
 
-        void Handle(Input.Remove action) {
+    //    void Handle(Input.Remove action) {
 
-            Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
-            Simplified.Ring3.SystemUser user = this.Parent.Parent.Data as Simplified.Ring3.SystemUser;
-            var removeGroup = Db.SQL<Simplified.Ring3.SystemUserGroupMember>("SELECT o FROM Simplified.Ring3.SystemUserGroupMember o WHERE o.WhatIs=? AND o.ToWhat=?", user, group).First;
-            if (removeGroup != null) {
-                removeGroup.Delete();
-            }
-        }
-    }
+    //        Simplified.Ring3.SystemUserGroup group = this.Data as Simplified.Ring3.SystemUserGroup;
+    //        Simplified.Ring3.SystemUser user = this.Parent.Parent.Data as Simplified.Ring3.SystemUser;
+    //        var removeGroup = Db.SQL<Simplified.Ring3.SystemUserGroupMember>("SELECT o FROM Simplified.Ring3.SystemUserGroupMember o WHERE o.WhatIs=? AND o.ToWhat=?", user, group).First;
+    //        if (removeGroup != null) {
+    //            removeGroup.Delete();
+    //        }
+    //    }
+    //}
 }

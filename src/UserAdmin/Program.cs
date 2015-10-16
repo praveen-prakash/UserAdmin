@@ -21,7 +21,10 @@ namespace UserAdmin {
             CommitHooks.Register();
             LauncherHooks.Register();
 
-            UriMapping.OntologyMap("/UserAdmin/admin/users/@w", "/so/person/@w",
+
+            // Mapping issue
+            // https://github.com/Starcounter/Starcounter/issues/2902
+            UriMapping.OntologyMap("/UserAdmin/admin/users/@w", "Simplified.Ring2.Person",
             
                 (String fromSo) => {
                     var user = Db.SQL<SystemUser>("SELECT o FROM Simplified.Ring3.SystemUser o WHERE o.ObjectID=?", fromSo).First;

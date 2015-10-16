@@ -4,25 +4,43 @@
 
 <template>
     <template is="dom-bind">
-        <sgb-property-metadata items="{{model.PropertyMetadataItems.Items}}"></sgb-property-metadata>
-        <h2>System User Group (<span>{{model.Name$}}</span>)</h2>
+        <sgb-property-metadata items="{{model.PropertyMetadataItems}}"></sgb-property-metadata>
+<!--        <h2>{{model.Name$}}</h2>
+        <h3>System User Group</h3>-->
+
+        <div class="page-header">
+            <h1>
+                <span>{{model.Name$}}</span>
+                <small>System Usergroup</small>
+            </h1>
+        </div>
+
         <div class="form-horizontal">
             <label class="control-label" for="Name$">Name</label>
         </div>
         <div>
             <input id="Name$" type="text" value="{{model.Name$::change}}" upd update-on="input" placeholder="Name" class="form-control" />
         </div>
+
         <div class="form-horizontal">
             <label class="control-label" for="BasedOn">Based On</label>
         </div>
+
         <div>
             <select value="{{model.SelectedBasedOnGroupID$::change}}" id="BasedOn" class="form-control">
-                <option value="">None</option>
-                <template is="dom-repeat" items="{{model.UserGroups}}">
-                    <option value="{{item.Key}}">{{item.Name}}</option>
+                <template restamp="true" is="dom-repeat" items="{{model.UserGroups}}">
+
+                    <template restamp="false" is="dom-if" if="{{ isEqual(item.Key,model.SelectedBasedOnGroupID$) }}">
+                        <option selected="selected" value="{{item.Key}}">{{item.Name}}</option>
+                    </template>
+
+                    <template restamp="false" is="dom-if" if="{{ !isEqual(item.Key,model.SelectedBasedOnGroupID$) }}">
+                        <option value="{{item.Key}}">{{item.Name}}</option>
+                    </template>
                 </template>
             </select>
         </div>
+
         <template is="dom-if" if="{{model.Message}}">
             <p>{{model.Message}}</p>
         </template>
@@ -37,7 +55,11 @@
             <tbody>
                 <template is="dom-repeat" items="{{model.Members}}">
                     <tr>
+
                         <td>
+                            <template is="dom-if" if="{{item.ImageURL}}">
+                                <img style="height:16px;vertical-align: text-top" src="{{item.ImageURL}}" />
+                             </template>
                             <a href="{{item.Url}}">{{item.FullName}}</a>
                         </td>
                         <td>
@@ -49,7 +71,7 @@
         </table>
         <div>
             <template is="dom-if" if="{{model.AddUser_Feedback}}">
-                <span class="isa_Error}}">{{model.AddUser_Feedback.Message}}</span>
+                <span class="isa_Error">{{model.AddUser_Feedback.Message}}</span>
             </template>
         </div>
         <div>
@@ -70,6 +92,7 @@
         <div>
             <button class="btn btn-default" onclick="++this.value;" value="{{model.Close$::click}}">Close</button>
         </div>
+
         <link is="puppet-redirect" history url$="{{model.RedirectUrl}}" />
         <dom-bind-notifier observed-object="{{model}}" path="model" deep></dom-bind-notifier>
     </template>
@@ -82,6 +105,12 @@
             template.isResetPassportDisabled = function (IsDirty, ResetPassword_Enabled) {
                 return IsDirty || !ResetPassword_Enabled;
             };
+
+  
+            template.isEqual = function (value1, value2) {
+                return value1 === value2;
+            }
+
         })(document.currentScript.previousElementSibling);
     </script>
 </template>
