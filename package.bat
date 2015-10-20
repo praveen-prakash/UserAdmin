@@ -10,7 +10,7 @@ IF EXIST "%~dp0temp\NUL" (
 
 REM Prepare Executables
 md "%~dp0temp\app"
-xcopy "%~dp0bin\Debug\*.*" "%~dp0temp\app"
+xcopy "%~dp0bin\Release\*.*" "%~dp0temp\app"
 
 REM Prepare wwwroot
 md "%~dp0temp\wwwroot"
